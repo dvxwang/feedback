@@ -30,7 +30,7 @@ router.get('/lecture/:lectureId', function(req, res) {
 			lectureId: req.params.lectureId
 		}
 	}).then(function(questions) {
-		res.json(req.question);	
+		res.json(questions);	
 	})
 });
 
