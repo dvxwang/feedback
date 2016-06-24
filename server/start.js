@@ -1,4 +1,5 @@
 'use strict';
+//require('babel-register')
 var chalk = require('chalk');
 var db = require('./database');
 
