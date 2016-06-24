@@ -24,7 +24,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/:questionId', function(req, res) {
-	res.json(req.kit);
+	res.json(req.question);
 });
 
 router.put('/:questionId', function(req, res, next) {
