@@ -11,6 +11,7 @@ router.param('questionId', function(req, res, next, id) {
 		next()
 	}).catch(next)
 })
+
 router.get('/', function(req, res, next) {
 	Question.findAll().then(function(questions){
 		res.json(questions);
@@ -21,6 +22,16 @@ router.post('/', function(req, res, next) {
 	Question.create(req.body).then(function(question){
 		res.status(201).json(question);
 	}).catch(next)
+});
+
+router.get('/lecture/:lectureId', function(req, res) {
+	Question.findAll({
+		where: {
+			lectureId: req.params.lectureId
+		}
+	}).then(function(questions) {
+		res.json(questions);	
+	})
 });
 
 router.get('/:questionId', function(req, res) {

@@ -12,6 +12,7 @@ module.exports = function (db) {
     var rootPath = path.join(__dirname, '../../');
     app.use(express.static(path.join(rootPath, 'public')));
     app.use(express.static(path.join(rootPath, 'node_modules')));
+    app.use(express.static(path.join(rootPath, 'browser')));
 
 
     app.use(bodyParser.json()); // support json encoded bodies
