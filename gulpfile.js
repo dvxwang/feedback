@@ -41,7 +41,7 @@ gulp.task('lintJS', function () {
 
 });
 
-gulp.task('buildJS', function () {
+gulp.task('buildJS', function () {  // removed ['lintJS'] because not compatible for ES6 for now...
     return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
