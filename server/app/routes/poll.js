@@ -16,8 +16,8 @@ router.param('pollId', (req, res, next, id) => {
   .catch(next)
 })
 
-router.get('/', (req, res, next) => {
-  Poll.findAll({where:{lectureId:req.body.lectureId}})
+router.get('/:lectureId', (req, res, next) => {
+  Poll.findAll({where:{lectureId:req.params.lectureId}})
   .then((polls) => {
     res.json(polls)
   })
