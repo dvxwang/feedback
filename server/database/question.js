@@ -12,6 +12,9 @@ module.exports = function (db) {
                 notEmpty: true
             }
         },
+        submitTime: {
+            type: Sequelize.DATE,
+        },
         upvotes: {
             type: Sequelize.INTEGER,
             defaultValue: 0,
