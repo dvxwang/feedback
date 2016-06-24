@@ -14,9 +14,15 @@
     <script src="/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
+    <!-- Add component files here -->
+    <script src="/js/app.js"></script>
+    <script src="/js/common/question/question.factory.js"></script>
+    <script src="/js/common/question/question.directive.js"></script>
+
 </head>
 <body ng-app="MyApp">
     <h3>Hello!</h3>
-    <div id="main" ui-view></div>
+    <!-- <div id="main" ui-view></div> -->
+    <question></question>
 </body>
 </html>
