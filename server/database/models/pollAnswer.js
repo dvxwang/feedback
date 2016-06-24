@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize')
 
 module.exports = function (db) {
-  return db.define('poll_answer', {
+  return db.define('pollAnswer', {
     option: {
       type: Sequelize.STRING,
       allowNull: false
