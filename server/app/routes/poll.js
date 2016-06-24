@@ -6,6 +6,8 @@ var PollAnswer = db.model('pollAnswer')
 var Lecture = db.model('lecture')
 module.exports = router
 
+
+// should we have all routes prefaced with lecture/:lectureId ?
 router.param('pollId', (req, res, next, id) => {
   Poll.findOne({where:{id:id}, include: [{model:PollAnswer}]})
   .then((poll) => {
@@ -16,7 +18,7 @@ router.param('pollId', (req, res, next, id) => {
   .catch(next)
 })
 
-router.get('/:lectureId', (req, res, next) => {
+router.get('/lecture/:lectureId', (req, res, next) => {
   Poll.findAll({where:{lectureId:req.params.lectureId}})
   .then((polls) => {
     res.json(polls)
