@@ -8,7 +8,7 @@ module.exports = function (db) {
 
     // Routes that will be accessed via AJAX should be prepended with
     // /api so they are isolated from our GET /* wildcard.
-    
+
 
     app.use(express.static(path.join(__dirname, 'node_modules')));
 
@@ -36,8 +36,11 @@ module.exports = function (db) {
 
     });
 
+    var rootPath = __dirname
+
     app.get('/*', function (req, res) {
-        res.sendFile(app.get('indexHTMLPath'));
+        // res.json(rootPath)
+        res.sendFile(indexPath);
     });
 
     // Error catching endware.

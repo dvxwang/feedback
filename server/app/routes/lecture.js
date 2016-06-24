@@ -30,6 +30,7 @@ router.put('/end/:lectureId', function (req, res, next) {
         return result.update({
             endTime: req.params.endTime
         })
+      })
     .then(function(result){
         res.send(result);
     });
