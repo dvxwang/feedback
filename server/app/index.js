@@ -9,16 +9,16 @@ module.exports = function (db) {
     // Routes that will be accessed via AJAX should be prepended with
     // /api so they are isolated from our GET /* wildcard.
 
+    var rootPath = path.join(__dirname, '../../');
+    app.use(express.static(path.join(rootPath, 'public')));
+    app.use(express.static(path.join(rootPath, 'node_modules')));
 
-    app.use(express.static(path.join(__dirname, 'node_modules')));
 
     app.use(bodyParser.json()); // support json encoded bodies
     app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
     app.use('/api', require('./routes'));
-
-    var indexPath = path.join(__dirname, 'views', 'index.html');
 
     /*
      This middleware will catch any URLs resembling a file extension
@@ -36,11 +36,8 @@ module.exports = function (db) {
 
     });
 
-    var rootPath = __dirname
-
     app.get('/*', function (req, res) {
-        // res.json(rootPath)
-        res.sendFile(indexPath);
+        res.sendFile(path.join(__dirname, 'views', 'index.html'));
     });
 
     // Error catching endware.
