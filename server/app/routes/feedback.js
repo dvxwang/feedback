@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/:feedbackId', function (req, res, next) {
-    Feedback.findById(req.params.id)
+    Feedback.findById(req.params.feedbackId)
     .then(function(result){
         res.json(result);
     });
