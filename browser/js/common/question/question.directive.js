@@ -1,4 +1,4 @@
-app.directive('question', function($state) {
+app.directive('question', function($state, QuestionFactory) {
 
     return {
         restrict: 'E',

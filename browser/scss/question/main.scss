@@ -1,7 +1,15 @@
 #queue {
-	border: solid black;
-	border-radius: 10px;
-	.round {
+	max-width: 500px;
+	input {
+		width: 80%;
+		float: left;
+	};
+	button {
+		width: 20%;
+		float: right;
+	};
+	.btn-xs {
+		float: right;
 		border-radius: 20px;
-	}
+	};
 }

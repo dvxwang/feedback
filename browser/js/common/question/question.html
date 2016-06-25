@@ -1,15 +1,16 @@
-<div class='container' id="queue">
-	<div class='form-group'>
-    	<span class='row'><input class="form-control" type="text" ng-model='newQuestion' placeholder='Enter question here...'>
-    	<button class="btn btn-success" ng-click='submitQuestion()'>Submit</button>
-    	</span>
-    </div>
-	<div ng-repeat='question in questions'>
-		<div class='form-group'>
-			<p contenteditable='true'>{{ question.text }}
-				<button class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='deleteQuestion(question)'></button>
-			</p>
-		</div>
-	</div>
+<div class="panel panel-default container" id="queue">
+  <!-- Default panel contents -->
+  <div class="panel-heading row">
+  	<input class="form-control" type="text" ng-model='newQuestion' placeholder='Enter question here...'>
+    <button class="btn btn-success" ng-click='submitQuestion()'>Submit</button>
   </div>
+  <!-- Table -->
+  <table class="table">
+    <tr ng-repeat='question in questions'>
+    	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
+    	<td><span contenteditable='true'>{{ question.text }}</span></td>
+    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='deleteQuestion(question)'></i></td>
+		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-thumbs-up" ng-click='deleteQuestion(question)'></i></td>
+    </tr>
+  </table>
 </div>
