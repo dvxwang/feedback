@@ -1,8 +1,15 @@
 <div class='container' id="queue">
-    <input placeholder='Enter question here...'>
-	<h3 ng-repeat='question in questions'>{{ question.text }}</h3>
+	<div class='form-group'>
+    	<span class='row'><input class="form-control" type="text" ng-model='newQuestion' placeholder='Enter question here...'>
+    	<button class="btn btn-success" ng-click='submitQuestion()'>Submit</button>
+    	</span>
+    </div>
+	<div ng-repeat='question in questions'>
+		<div class='form-group'>
+			<p contenteditable='true'>{{ question.text }}
+				<button class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='deleteQuestion(question)'></button>
+			</p>
+		</div>
+	</div>
   </div>
 </div>
-
-
-
