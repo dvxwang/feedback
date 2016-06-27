@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h1>Create a Poll</h1>
+</div>'
+<div class="modal-body">
+  <input class="form-control" type="text" ng-model='newPoll' placeholder='Enter Poll/Question Title'>
+  <select ng-model="option" ng-change="customOptions(option)">
+    <option value="default">Default</option>
+    <option value="custom">Custom</option>
+  </select>
+  <div ng-show="customShow">
+    <div>a</div><input class="form-control" type="text" ng-model="a" placeholder="option a">
+    <div>b</div><input class="form-control" type="text" ng-model="b" placeholder="option b">
+    <div>c</div><input class="form-control" type="text" ng-model="c" placeholder="option c">
+    <div>d</div><input class="form-control" type="text" ng-model="d" placeholder="option d">
+  </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click='submitPoll()'>Submit</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -6,14 +6,32 @@ var db = require('./database');
 var server = require('http').createServer();
 
 var createApplication = function () {
-	console.log("app created");
     var app = require('./app')(db);
     server.on('request', app); // Attach the Express application.
-    require('socket.io')(server);   // Attach socket.io.
+    var io = require('socket.io')(server);   // Attach socket.io.
+
+    io.on('connection', function(socket) {
+
+        socket.on('addingQuestion', function(question) {
+            io.emit('addQuestion', question)
+        })
+
+        socket.on('deletingQuestion', function(question) {
+            io.emit('deleteQuestion', question)
+        })
+
+        socket.on('upvoting', function(question) {
+            io.emit('receivedUpvote', question)
+        })
+
+        socket.on('downvoting', function(question) {
+            io.emit('receivedDownvote', question)
+        })
+    })
+
 };
 
 var startServer = function () {
-	console.log("server started");
     var PORT = process.env.PORT || 1337;
 
     server.listen(PORT, function () {

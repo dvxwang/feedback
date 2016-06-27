@@ -2,6 +2,7 @@
 var router = require('express').Router();
 var db = require('../../database')
 var Question = db.model('question')
+var Lecture = db.model('lecture')
 module.exports = router;
 
 router.param('questionId', function(req, res, next, id) {
@@ -19,7 +20,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	Question.create(req.body).then(function(question){
+	// this is hardcoding the lecture for now until we set up logins
+	Lecture.findOrCreate({
+		where: {
+			name: "First Lecture",
+			lecturer: "Omri"	
+		}
+	}).then(function(lectures) {
+		req.body.lectureId = lectures[0].id;
+		return Question.create(req.body)
+	}).then(function(question){
 		res.status(201).json(question);
 	}).catch(next)
 });

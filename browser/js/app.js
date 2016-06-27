@@ -15,3 +15,35 @@ app.config(function ($urlRouterProvider, $locationProvider, $kookiesProvider) {
     $kookiesProvider.config.json = true;
 
 });
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('student', {
+        url: '/student',
+        templateUrl: 'js/views/student/student.html',
+    });
+});
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('admin', {
+        url: '/admin',
+        templateUrl: 'js/views/instructor/instructor.html',
+    });
+});
+
+app.controller('LoginCtrl', function ($scope, $state) {
+
+	console.log("reached login ctrl");
+	$scope.loginStatus = function(){
+		console.log("reached login status");
+		var temp = $scope.login;
+		console.log("temp: ",temp);
+
+		if (temp==='admin'){
+			$state.go('admin');
+		}
+		else if (temp==='student'){
+			$state.go('student');
+		}
+	}
+
+});
