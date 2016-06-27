@@ -14,6 +14,9 @@ app.directive('poll', ($state, PollFactory) => {
         scope.polls = currentPolls
       })
 
+      scope.sendPoll = function(poll) {
+        socket.emit('pollOut', poll)
+      }
 
     }
   }

@@ -1,20 +1,19 @@
 
 <div class="panel panel-default container" id="poll">
-  <!-- Default panel contents -->
-  <div class="panel-heading row">
+
     <div ng-controller="CreatePoll">
       <h1>New Poll</h1>
       <button class="btn btn-success" ng-click="showModal()">Add a Poll</button>
     </div>
-  </div>
 
-  <!-- Table -->
-  <table class="table">
-    <tr ng-repeat='poll in polls'>
-    	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
-    	<td><span contenteditable='true'>{{ poll.question }}</span></td>
-    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll.id)"></i></td>
-		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click=''></i></td>
-    </tr>
-  </table>
+    <!-- Table -->
+    <table class="table">
+      <tr ng-repeat='poll in polls'>
+      	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
+      	<td><span contenteditable='true'>{{ poll.question }}</span></td>
+      	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll.id)"></i></td>
+  		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click='sendPoll(poll)'></i></td>
+      </tr>
+    </table>
+
 </div>

@@ -27,6 +27,10 @@ var createApplication = function () {
         socket.on('downvoting', function(question) {
             io.emit('receivedDownvote', question)
         })
+
+        socket.on('pollOut', function(poll) {
+          console.log("POLLL", poll)
+        })
     })
 
 };
