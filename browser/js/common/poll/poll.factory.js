@@ -2,13 +2,15 @@ app.factory('PollFactory', ($http) => {
   function dotData(dot) {
     return dot.data
   }
+  var cachedPolls = []
   return {
-    dotData: (dot) => {
-      return dot.data
-    },
     getAllByLectureId: (id) => {
       return $http.get('/api/poll/lecture/'+id)
       .then(dotData)
+      .then((polls) => {
+        angular.copy(polls, cachedPolls)
+        return cachedPolls
+      })
     },
     getOneByPollId: (id) => {
       return $http.get('/api/poll/'+id)
@@ -25,6 +27,10 @@ app.factory('PollFactory', ($http) => {
     deletePoll: (id) => {
       return $http.delete('/api/poll/'+id)
       .then(dotData)
+      .then((removedPoll) => {
+        cachedPolls.splice(cachedPolls.map(function(item) { return item.id }).indexOf(id),1)
+        return cachedPolls
+      })
     }
   }
 })

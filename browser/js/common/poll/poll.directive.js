@@ -2,14 +2,19 @@ app.directive('poll', ($state, PollFactory) => {
   return {
     restrict: 'E',
     scope: {
-
+      useCtrl: "@"
     },
     templateUrl: 'js/common/poll/poll.html',
-    link: (scope) => {
+    link: function(scope) {
+
+      scope.delete = PollFactory.deletePoll
+
       PollFactory.getAllByLectureId(1)
-      .then((polls) => {
-        scope.polls = polls
+      .then((currentPolls) => {
+        scope.polls = currentPolls
       })
+
+
     }
   }
 })
