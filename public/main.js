@@ -3,156 +3,254 @@
 window.app = angular.module('MyApp', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ngKookies']);
 
 app.config(function ($urlRouterProvider, $locationProvider, $kookiesProvider) {
-  // This turns off hashbang urls (/#about) and changes it to something normal (/about)
-  $locationProvider.html5Mode(true);
-  // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
-  $urlRouterProvider.otherwise('/');
-  // Trigger page refresh when accessing an OAuth route
-  $urlRouterProvider.when('/auth/:provider', function () {
-    window.location.reload();
-  });
+    // This turns off hashbang urls (/#about) and changes it to something normal (/about)
+    $locationProvider.html5Mode(true);
+    // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
+    $urlRouterProvider.otherwise('/');
+    // Trigger page refresh when accessing an OAuth route
+    $urlRouterProvider.when('/auth/:provider', function () {
+        window.location.reload();
+    });
 
-  $kookiesProvider.config.json = true;
+    $kookiesProvider.config.json = true;
 });
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('student', {
+        url: '/student',
+        templateUrl: 'js/views/student/student.html'
+    });
+});
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('admin', {
+        url: '/admin',
+        templateUrl: 'js/views/instructor/instructor.html'
+    });
+});
+
+app.controller('LoginCtrl', function ($scope, $state) {
+
+    console.log("reached login ctrl");
+    $scope.loginStatus = function () {
+        console.log("reached login status");
+        var temp = $scope.login;
+        console.log("temp: ", temp);
+
+        if (temp === 'admin') {
+            $state.go('admin');
+        } else if (temp === 'student') {
+            $state.go('student');
+        }
+    };
+});
+
+var socket = io(window.location.origin);
+
+socket.on('connect', function () {});
 app.controller('CreatePoll', function ($scope, $uibModal) {
 
-  $scope.name = 'theNameHasBeenPassed';
+    $scope.name = 'theNameHasBeenPassed';
 
-  $scope.showModal = function () {
+    $scope.showModal = function () {
 
-    $scope.opts = {
-      backdrop: true,
-      backdropClick: true,
-      transclude: true,
-      dialogFade: false,
-      keyboard: true,
-      templateUrl: 'js/common/createPollModal/createPollModal.html',
-      controller: ModalInstanceCtrl,
-      resolve: {} // empty storage
+        $scope.opts = {
+            backdrop: true,
+            backdropClick: true,
+            transclude: true,
+            dialogFade: false,
+            keyboard: true,
+            templateUrl: 'js/common/createPollModal/createPollModal.html',
+            controller: ModalInstanceCtrl,
+            resolve: {} // empty storage
+        };
+
+        $scope.opts.resolve.item = function () {
+            return angular.copy({ name: $scope.name, polls: $scope.polls }); // pass name to Dialog
+        };
+
+        var modalInstance = $uibModal.open($scope.opts);
+
+        modalInstance.result.then(function () {
+            //on ok button press
+        }, function () {
+            //on cancel button press
+            console.log("Modal Closed");
+        });
     };
-
-    $scope.opts.resolve.item = function () {
-      return angular.copy({ name: $scope.name, polls: $scope.polls }); // pass name to Dialog
-    };
-
-    var modalInstance = $uibModal.open($scope.opts);
-
-    modalInstance.result.then(function () {
-      //on ok button press
-    }, function () {
-      //on cancel button press
-      console.log("Modal Closed");
-    });
-  };
 });
 
 var ModalInstanceCtrl = function ModalInstanceCtrl($scope, $uibModalInstance, $uibModal, item, PollFactory) {
 
-  $scope.item = item;
+    $scope.item = item;
 
-  $scope.customOptions = function (option) {
-    $scope.customShow = option === 'custom';
-  };
+    $scope.customOptions = function (option) {
+        $scope.customShow = option === 'custom';
+    };
 
-  $scope.submitPoll = function () {
-    var poll = {};
-    poll.question = $scope.newPoll;
-    poll.lectureId = 1;
-    if ($scope.option == 'custom') poll.options = [$scope.a, $scope.b, $scope.c, $scope.d];
-    PollFactory.createPoll(poll).then(function () {
-      $uibModalInstance.close();
-    });
-  };
+    $scope.submitPoll = function () {
+        var poll = {};
+        poll.question = $scope.newPoll;
+        poll.lectureId = 1;
+        if ($scope.option == 'custom') poll.options = [$scope.a, $scope.b, $scope.c, $scope.d];
+        PollFactory.createPoll(poll).then(function () {
+            $uibModalInstance.close();
+        });
+    };
 
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 };
-
-app.directive('poll', function ($state, PollFactory) {
-  return {
-    restrict: 'E',
-    scope: {
-      useCtrl: "@"
-    },
-    templateUrl: 'js/common/poll/poll.html',
-    link: function link(scope) {
-
-      return PollFactory.getAllByLectureId(1).then(function (currentPolls) {
-        scope.polls = currentPolls;
-      });
-
-      scope.deletePoll = function (id) {
-        PollFactory.deletePoll(id);
-      };
-    }
-  };
-});
-
-app.factory('PollFactory', function ($http) {
-  function dotData(dot) {
-    return dot.data;
-  }
-  var cachedPolls = [];
-  return {
-    getAllByLectureId: function getAllByLectureId(id) {
-      return $http.get('/api/poll/lecture/' + id).then(dotData).then(function (polls) {
-        cachedPolls = polls;
-        return cachedPolls;
-      });
-    },
-    getOneByPollId: function getOneByPollId(id) {
-      return $http.get('/api/poll/' + id).then(dotData);
-    },
-    createPoll: function createPoll(pollObj) {
-      return $http.post('/api/poll/', pollObj).then(dotData);
-    },
-    updatePoll: function updatePoll(pollObj, id) {
-      return $http.put('/api/poll/' + id, pollObj).then(dotData);
-    },
-    deletePoll: function deletePoll(id) {
-      return $http.delete('/api/poll/' + id).then(dotData).then(function (removedPoll) {
-        cachedPolls.splice(cachedPolls.map(function (item) {
-          return item.id;
-        }).indexOf(id), 1);
-        return cachedPolls;
-      });
-    }
-  };
-});
 
 app.directive('question', function ($state, QuestionFactory) {
 
-  return {
-    restrict: 'E',
-    scope: {},
-    templateUrl: 'js/common/question/question.html',
-    link: function link(scope) {
-      scope.questions = [{ text: "What is life?" }, { text: "What is death?" }, { text: "What is code?" }];
+    return {
+        restrict: 'E',
+        scope: {},
+        templateUrl: 'js/common/question/question.html',
+        link: function link(scope) {
+            QuestionFactory.getAllByLectureId(1).then(function (questions) {
+                scope.questions = questions.filter(function (q) {
+                    return q.status === 'open';
+                }).map(function (q) {
+                    return q.hasUpvoted = false;
+                });
+            });
 
-      scope.submitQuestion = function () {
-        if (scope.newQuestion) scope.questions.unshift({ text: scope.newQuestion });
-        scope.newQuestion = null;
-      };
+            function findIndex(question) {
+                for (var i = 0; i < scope.questions.length; i++) {
+                    if (scope.questions[i].text === question.text) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
 
-      scope.deleteQuestion = function (question) {
-        var index = scope.questions.indexOf(question);
-        scope.questions.splice(index, 1);
-      };
-    }
-  };
+            scope.submit = function () {
+                if (scope.newQuestion) {
+                    var question = { text: scope.newQuestion, submitTime: Date.now(), upvotes: 0 };
+                    socket.emit('addingQuestion', question);
+                    scope.newQuestion = null;
+                }
+            };
+
+            scope.delete = function (question) {
+                socket.emit('deletingQuestion', question);
+            };
+
+            scope.store = function (question, status) {
+                question.status = status;
+                QuestionFactory.store(question).then(function () {
+                    scope.delete(question);
+                });
+            };
+
+            scope.upvote = function (question) {
+                socket.emit('upvoting', question);
+                question.hasUpvoted = !question.hasUpvoted;
+            };
+
+            scope.downvote = function (question) {
+                socket.emit('downvoting', question);
+                question.hasUpvoted = !question.hasUpvoted;
+            };
+
+            socket.on('addQuestion', function (question) {
+                scope.questions.unshift(question);
+                scope.$evalAsync();
+            });
+
+            socket.on('deleteQuestion', function (question) {
+                var index = findIndex(question);
+                scope.questions.splice(index, 1);
+                scope.$evalAsync();
+            });
+
+            socket.on('receivedUpvote', function (question) {
+                var index = findIndex(question);
+                var q = scope.questions[index];
+                q.upvotes ? q.upvotes++ : q.upvotes = 1;
+                scope.$evalAsync();
+            });
+
+            socket.on('receivedDownvote', function (question) {
+                var index = findIndex(question);
+                var q = scope.questions[index];
+                q.upvotes--;
+                scope.$evalAsync();
+            });
+        }
+    };
 });
 
 app.factory('QuestionFactory', function ($http) {
 
-  var obj = {};
+    var obj = {};
 
-  obj.getAllByLectureId = function (lectureId) {
-    return $http.get('/api/question/lecture/' + lectureId).then(function (res) {
-      return res.data;
-    });
-  };
+    obj.getAllByLectureId = function (lectureId) {
+        return $http.get('/api/question/lecture/' + lectureId).then(function (res) {
+            return res.data;
+        });
+    };
 
-  return obj;
+    obj.store = function (question) {
+        return $http.post('/api/question', question).then(function (res) {
+            return res.data;
+        });
+    };
+
+    return obj;
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyIsImNvbW1vbi9jcmVhdGVQb2xsTW9kYWwvY3JlYXRlUG9sbC5jb250cm9sbGVyLmpzIiwiY29tbW9uL3BvbGwvcG9sbC5kaXJlY3RpdmUuanMiLCJjb21tb24vcG9sbC9wb2xsLmZhY3RvcnkuanMiLCJjb21tb24vcXVlc3Rpb24vcXVlc3Rpb24uZGlyZWN0aXZlLmpzIiwiY29tbW9uL3F1ZXN0aW9uL3F1ZXN0aW9uLmZhY3RvcnkuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0FBRUEsT0FBQSxHQUFBLEdBQUEsUUFBQSxNQUFBLENBQUEsT0FBQSxFQUFBLENBQUEsV0FBQSxFQUFBLGNBQUEsRUFBQSxXQUFBLEVBQUEsV0FBQSxDQUFBLENBQUE7O0FBRUEsSUFBQSxNQUFBLENBQUEsVUFBQSxrQkFBQSxFQUFBLGlCQUFBLEVBQUEsZ0JBQUEsRUFBQTs7QUFFQSxvQkFBQSxTQUFBLENBQUEsSUFBQTs7QUFFQSxxQkFBQSxTQUFBLENBQUEsR0FBQTs7QUFFQSxxQkFBQSxJQUFBLENBQUEsaUJBQUEsRUFBQSxZQUFBO0FBQ0EsV0FBQSxRQUFBLENBQUEsTUFBQTtBQUNBLEdBRkE7O0FBSUEsbUJBQUEsTUFBQSxDQUFBLElBQUEsR0FBQSxJQUFBO0FBRUEsQ0FaQTtBQ0pBLElBQUEsVUFBQSxDQUFBLFlBQUEsRUFBQSxVQUFBLE1BQUEsRUFBQSxTQUFBLEVBQUE7O0FBRUEsU0FBQSxJQUFBLEdBQUEsc0JBQUE7O0FBRUEsU0FBQSxTQUFBLEdBQUEsWUFBQTs7QUFFQSxXQUFBLElBQUEsR0FBQTtBQUNBLGdCQUFBLElBREE7QUFFQSxxQkFBQSxJQUZBO0FBR0Esa0JBQUEsSUFIQTtBQUlBLGtCQUFBLEtBSkE7QUFLQSxnQkFBQSxJQUxBO0FBTUEsbUJBQUEsZ0RBTkE7QUFPQSxrQkFBQSxpQkFQQTtBQVFBLGVBQUEsRTtBQVJBLEtBQUE7O0FBV0EsV0FBQSxJQUFBLENBQUEsT0FBQSxDQUFBLElBQUEsR0FBQSxZQUFBO0FBQ0EsYUFB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QUFBO0FBQ0EsYUFBQSxNQUFBLE1BQUEsQ0FBQSxlQUFBLEVBQUEsRUFDQSxJQURBLENBQ0EsT0FEQSxFQUVBLElBRkEsQ0FFQSxVQUFBLFdBQUEsRUFBQTtBQUNBLG9CQUFBLE1BQUEsQ0FBQSxZQUFBLEdBQUEsQ0FBQSxVQUFBLElBQUEsRUFBQTtBQUFBLGlCQUFBLEtBQUEsRUFBQTtBQUFBLFNBQUEsRUFBQSxPQUFBLENBQUEsRUFBQSxDQUFBLEVBQUEsQ0FBQTtBQUNBLGVBQUEsV0FBQTtBQUNBLE9BTEEsQ0FBQTtBQU1BO0FBNUJBLEdBQUE7QUE4QkEsQ0FuQ0E7O0FDQUEsSUFBQSxTQUFBLENBQUEsVUFBQSxFQUFBLFVBQUEsTUFBQSxFQUFBLGVBQUEsRUFBQTs7QUFFQSxTQUFBO0FBQ0EsY0FBQSxHQURBO0FBRUEsV0FBQSxFQUZBO0FBS0EsaUJBQUEsa0NBTEE7QUFNQSxVQUFBLGNBQUEsS0FBQSxFQUFBO0FBQ0EsWUFBQSxTQUFBLEdBQUEsQ0FDQSxFQUFBLE1BQUEsZUFBQSxFQURBLEVBRUEsRUFBQSxNQUFBLGdCQUFBLEVBRkEsRUFHQSxFQUFBLE1BQUEsZUFBQSxFQUhBLENBQUE7O0FBTUEsWUFBQSxjQUFBLEdBQUEsWUFBQTtBQUNBLFlBQUEsTUFBQSxXQUFBLEVBQUEsTUFBQSxTQUFBLENBQUEsT0FBQSxDQUFBLEVBQUEsTUFBQSxNQUFBLFdBQUEsRUFBQTtBQUNBLGNBQUEsV0FBQSxHQUFBLElBQUE7QUFDQSxPQUhBOztBQUtBLFlBQUEsY0FBQSxHQUFBLFVBQUEsUUFBQSxFQUFBO0FBQ0EsWUFBQSxRQUFBLE1BQUEsU0FBQSxDQUFBLE9BQUEsQ0FBQSxRQUFBLENBQUE7QUFDQSxjQUFBLFNBQUEsQ0FBQSxNQUFBLENBQUEsS0FBQSxFQUFBLENBQUE7QUFDQSxPQUhBO0FBSUE7QUF0QkEsR0FBQTtBQXdCQSxDQTFCQTs7QUNBQSxJQUFBLE9BQUEsQ0FBQSxpQkFBQSxFQUFBLFVBQUEsS0FBQSxFQUFBOztBQUVBLE1BQUEsTUFBQSxFQUFBOztBQUVBLE1BQUEsaUJBQUEsR0FBQSxVQUFBLFNBQUEsRUFBQTtBQUNBLFdBQUEsTUFBQSxHQUFBLENBQUEsMkJBQUEsU0FBQSxFQUFBLElBQUEsQ0FBQSxVQUFBLEdBQUEsRUFBQTtBQUNBLGFBQUEsSUFBQSxJQUFBO0FBQ0EsS0FGQSxDQUFBO0FBR0EsR0FKQTs7QUFNQSxTQUFBLEdBQUE7QUFFQSxDQVpBIiwiZmlsZSI6Im1haW4uanMiLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5cbndpbmRvdy5hcHAgPSBhbmd1bGFyLm1vZHVsZSgnTXlBcHAnLCBbJ3VpLnJvdXRlcicsICd1aS5ib290c3RyYXAnLCAnbmdBbmltYXRlJywgJ25nS29va2llcyddKTtcblxuYXBwLmNvbmZpZyhmdW5jdGlvbiAoJHVybFJvdXRlclByb3ZpZGVyLCAkbG9jYXRpb25Qcm92aWRlciwgJGtvb2tpZXNQcm92aWRlcikge1xuICAgIC8vIFRoaXMgdHVybnMgb2ZmIGhhc2hiYW5nIHVybHMgKC8jYWJvdXQpIGFuZCBjaGFuZ2VzIGl0IHRvIHNvbWV0aGluZyBub3JtYWwgKC9hYm91dClcbiAgICAkbG9jYXRpb25Qcm92aWRlci5odG1sNU1vZGUodHJ1ZSk7XG4gICAgLy8gSWYgd2UgZ28gdG8gYSBVUkwgdGhhdCB1aS1yb3V0ZXIgZG9lc24ndCBoYXZlIHJlZ2lzdGVyZWQsIGdvIHRvIHRoZSBcIi9cIiB1cmwuXG4gICAgJHVybFJvdXRlclByb3ZpZGVyLm90aGVyd2lzZSgnLycpO1xuICAgIC8vIFRyaWdnZXIgcGFnZSByZWZyZXNoIHdoZW4gYWNjZXNzaW5nIGFuIE9BdXRoIHJvdXRlXG4gICAgJHVybFJvdXRlclByb3ZpZGVyLndoZW4oJy9hdXRoLzpwcm92aWRlcicsIGZ1bmN0aW9uICgpIHtcbiAgICAgICAgd2luZG93LmxvY2F0aW9uLnJlbG9hZCgpO1xuICAgIH0pO1xuXG4gICAgJGtvb2tpZXNQcm92aWRlci5jb25maWcuanNvbiA9IHRydWU7XG5cbn0pOyIsImFwcC5jb250cm9sbGVyKCdDcmVhdGVQb2xsJywgZnVuY3Rpb24oJHNjb3BlLCAkdWliTW9kYWwpIHtcblxuICAkc2NvcGUubmFtZSA9ICd0aGVOYW1lSGFzQmVlblBhc3NlZCc7XG5cbiAgJHNjb3BlLnNob3dNb2RhbCA9IGZ1bmN0aW9uKCkge1xuXG4gICAgJHNjb3BlLm9wdHMgPSB7XG4gICAgYmFja2Ryb3A6IHRydWUsXG4gICAgYmFja2Ryb3BDbGljazogdHJ1ZSxcbiAgICB0cmFuc2NsdWRlOiB0cnVlLFxuICAgIGRpYWxvZ0ZhZGU6IGZhbHNlLFxuICAgIGtleWJvYXJkOiB0cnVlLFxuICAgIHRlbXBsYXRlVXJsIDogJ2pzL2NvbW1vbi9jcmVhdGVQb2xsTW9kYWwvY3JlYXRlUG9sbE1vZGFsLmh0bWwnLFxuICAgIGNvbnRyb2xsZXIgOiBNb2RhbEluc3RhbmNlQ3RybCxcbiAgICByZXNvbHZlOiB7fSAvLyBlbXB0eSBzdG9yYWdlXG4gICAgICB9O1xuXG4gICAgJHNjb3BlLm9wdHMucmVzb2x2ZS5pdGVtID0gZnVuY3Rpb24oKSB7XG4gICAgICAgIHJldHVybiBhbmd1bGFyLmNvcHkoe25hbWU6JHNjb3BlLm5hbWUsIHBvbGxzOiRzY29wZS5wb2xsc30pOyAvLyBwYXNzIG5hbWUgdG8gRGlhbG9nXG4gICAgfVxuXG4gICAgICB2YXIgbW9kYWxJbnN0YW5jZSA9ICR1aWJNb2RhbC5vcGVuKCRzY29wZS5vcHRzKTtcblxuICAgICAgbW9kYWxJbnN0YW5jZS5yZXN1bHQudGhlbihmdW5jdGlvbigpe1xuICAgICAgICAvL29uIG9rIGJ1dHRvbiBwcmVzc1xuICAgICAgfSxmdW5jdGlvbigpe1xuICAgICAgICAvL29uIGNhbmNlbCBidXR0b24gcHJlc3NcbiAgICAgICAgY29uc29sZS5sb2coXCJNb2RhbCBDbG9zZWRcIik7XG4gICAgICB9KVxuICB9XG5cbn0pXG5cbnZhciBNb2RhbEluc3RhbmNlQ3RybCA9IGZ1bmN0aW9uKCRzY29wZSwgJHVpYk1vZGFsSW5zdGFuY2UsICR1aWJNb2RhbCwgaXRlbSwgUG9sbEZhY3RvcnkpIHtcblxuICAkc2NvcGUuaXRlbSA9IGl0ZW07XG5cbiAgJHNjb3BlLmN1c3RvbU9wdGlvbnMgPSBmdW5jdGlvbihvcHRpb24pIHtcbiAgICAkc2NvcGUuY3VzdG9tU2hvdyA9IChvcHRpb24gPT09ICdjdXN0b20nKVxuICB9XG5cbiAgJHNjb3BlLnN1Ym1pdFBvbGwgPSBmdW5jdGlvbiAoKSB7XG4gICAgdmFyIHBvbGwgPSB7fVxuICAgIHBvbGwucXVlc3Rpb24gPSAkc2NvcGUubmV3UG9sbFxuICAgIHBvbGwubGVjdHVyZUlkID0gMVxuICAgIGlmICgkc2NvcGUub3B0aW9uPT0nY3VzdG9tJykgcG9sbC5vcHRpb25zID0gWyRzY29wZS5hLCAkc2NvcGUuYiwgJHNjb3BlLmMsICRzY29wZS5kXVxuICAgIFBvbGxGYWN0b3J5LmNyZWF0ZVBvbGwocG9sbClcbiAgICAudGhlbihmdW5jdGlvbigpIHtcbiAgICAgICR1aWJNb2RhbEluc3RhbmNlLmNsb3NlKCk7XG4gICAgfSlcbiAgfVxuXG4gICRzY29wZS5jYW5jZWwgPSBmdW5jdGlvbiAoKSB7XG4gICAgJHVpYk1vZGFsSW5zdGFuY2UuZGlzbWlzcygnY2FuY2VsJyk7XG4gIH1cbn1cbiIsImFwcC5kaXJlY3RpdmUoJ3BvbGwnLCAoJHN0YXRlLCBQb2xsRmFjdG9yeSkgPT4ge1xuICByZXR1cm4ge1xuICAgIHJlc3RyaWN0OiAnRScsXG4gICAgc2NvcGU6IHtcbiAgICAgIHVzZUN0cmw6IFwiQFwiXG4gICAgfSxcbiAgICB0ZW1wbGF0ZVVybDogJ2pzL2NvbW1vbi9wb2xsL3BvbGwuaHRtbCcsXG4gICAgbGluazogZnVuY3Rpb24oc2NvcGUpIHtcblxuICAgICAgcmV0dXJuIFBvbGxGYWN0b3J5LmdldEFsbEJ5TGVjdHVyZUlkKDEpXG4gICAgICAudGhlbigoY3VycmVudFBvbGxzKSA9PiB7XG4gICAgICAgIHNjb3BlLnBvbGxzID0gY3VycmVudFBvbGxzXG4gICAgICB9KVxuXG4gICAgICBzY29wZS5kZWxldGVQb2xsID0gZnVuY3Rpb24oaWQpIHtcbiAgICAgICAgUG9sbEZhY3RvcnkuZGVsZXRlUG9sbChpZClcbiAgICAgIH1cblxuICAgIH1cbiAgfVxufSlcbiIsImFwcC5mYWN0b3J5KCdQb2xsRmFjdG9yeScsICgkaHR0cCkgPT4ge1xuICBmdW5jdGlvbiBkb3REYXRhKGRvdCkge1xuICAgIHJldHVybiBkb3QuZGF0YVxuICB9XG4gIHZhciBjYWNoZWRQb2xscyA9IFtdXG4gIHJldHVybiB7XG4gICAgZ2V0QWxsQnlMZWN0dXJlSWQ6IChpZCkgPT4ge1xuICAgICAgcmV0dXJuICRodHRwLmdldCgnL2FwaS9wb2xsL2xlY3R1cmUvJytpZClcbiAgICAgIC50aGVuKGRvdERhdGEpXG4gICAgICAudGhlbigocG9sbHMpID0+IHtcbiAgICAgICAgY2FjaGVkUG9sbHMgPSBwb2xsc1xuICAgICAgICByZXR1cm4gY2FjaGVkUG9sbHNcbiAgICAgIH0pXG4gICAgfSxcbiAgICBnZXRPbmVCeVBvbGxJZDogKGlkKSA9PiB7XG4gICAgICByZXR1cm4gJGh0dHAuZ2V0KCcvYXBpL3BvbGwvJytpZClcbiAgICAgIC50aGVuKGRvdERhdGEpXG4gICAgfSxcbiAgICBjcmVhdGVQb2xsOiAocG9sbE9iaikgPT4ge1xuICAgICAgcmV0dXJuICRodHRwLnBvc3QoJy9hcGkvcG9sbC8nLCBwb2xsT2JqKVxuICAgICAgLnRoZW4oZG90RGF0YSlcbiAgICB9LFxuICAgIHVwZGF0ZVBvbGw6IChwb2xsT2JqLCBpZCkgPT4ge1xuICAgICAgcmV0dXJuICRodHRwLnB1dCgnL2FwaS9wb2xsLycraWQsIHBvbGxPYmopXG4gICAgICAudGhlbihkb3REYXRhKVxuICAgIH0sXG4gICAgZGVsZXRlUG9sbDogKGlkKSA9PiB7XG4gICAgICByZXR1cm4gJGh0dHAuZGVsZXRlKCcvYXBpL3BvbGwvJytpZClcbiAgICAgIC50aGVuKGRvdERhdGEpXG4gICAgICAudGhlbigocmVtb3ZlZFBvbGwpID0+IHtcbiAgICAgICAgY2FjaGVkUG9sbHMuc3BsaWNlKGNhY2hlZFBvbGxzLm1hcChmdW5jdGlvbihpdGVtKSB7IHJldHVybiBpdGVtLmlkIH0pLmluZGV4T2YoaWQpLDEpXG4gICAgICAgIHJldHVybiBjYWNoZWRQb2xsc1xuICAgICAgfSlcbiAgICB9XG4gIH1cbn0pXG4iLCJhcHAuZGlyZWN0aXZlKCdxdWVzdGlvbicsIGZ1bmN0aW9uKCRzdGF0ZSwgUXVlc3Rpb25GYWN0b3J5KSB7XG5cbiAgICByZXR1cm4ge1xuICAgICAgICByZXN0cmljdDogJ0UnLFxuICAgICAgICBzY29wZToge1xuICAgICAgICAgICAgXG4gICAgICAgIH0sXG4gICAgICAgIHRlbXBsYXRlVXJsOiAnanMvY29tbW9uL3F1ZXN0aW9uL3F1ZXN0aW9uLmh0bWwnLFxuICAgICAgICBsaW5rOiBmdW5jdGlvbihzY29wZSkge1xuICAgICAgICAgICAgc2NvcGUucXVlc3Rpb25zID0gW1xuICAgICAgICAgICAgICAgIHsgdGV4dDogXCJXaGF0IGlzIGxpZmU/XCJ9LFxuICAgICAgICAgICAgICAgIHsgdGV4dDogXCJXaGF0IGlzIGRlYXRoP1wifSxcbiAgICAgICAgICAgICAgICB7IHRleHQ6IFwiV2hhdCBpcyBjb2RlP1wifSxcbiAgICAgICAgICAgIF1cblxuICAgICAgICAgICAgc2NvcGUuc3VibWl0UXVlc3Rpb24gPSBmdW5jdGlvbigpIHtcbiAgICAgICAgICAgICAgICBpZiAoc2NvcGUubmV3UXVlc3Rpb24pIHNjb3BlLnF1ZXN0aW9ucy51bnNoaWZ0KHt0ZXh0OiBzY29wZS5uZXdRdWVzdGlvbn0pXG4gICAgICAgICAgICAgICAgc2NvcGUubmV3UXVlc3Rpb24gPSBudWxsXG4gICAgICAgICAgICB9XG5cbiAgICAgICAgICAgIHNjb3BlLmRlbGV0ZVF1ZXN0aW9uID0gZnVuY3Rpb24ocXVlc3Rpb24pIHtcbiAgICAgICAgICAgICAgICB2YXIgaW5kZXggPSBzY29wZS5xdWVzdGlvbnMuaW5kZXhPZihxdWVzdGlvbilcbiAgICAgICAgICAgICAgICBzY29wZS5xdWVzdGlvbnMuc3BsaWNlKGluZGV4LCAxKVxuICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgfVxufSk7XG4iLCJhcHAuZmFjdG9yeSgnUXVlc3Rpb25GYWN0b3J5JywgZnVuY3Rpb24gKCRodHRwKSB7XG5cblx0dmFyIG9iaiA9IHt9O1xuXG5cdG9iai5nZXRBbGxCeUxlY3R1cmVJZCA9IGZ1bmN0aW9uKGxlY3R1cmVJZCkge1xuXHRcdHJldHVybiAkaHR0cC5nZXQoJy9hcGkvcXVlc3Rpb24vbGVjdHVyZS8nICsgbGVjdHVyZUlkKS50aGVuKGZ1bmN0aW9uKHJlcykge1xuXHRcdFx0cmV0dXJuIHJlcy5kYXRhO1xuXHRcdH0pXG5cdH1cblxuXHRyZXR1cm4gb2JqO1xuXG59KTtcbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==
+
+app.directive('poll', function ($state, PollFactory) {
+    return {
+        restrict: 'E',
+        scope: {
+            useCtrl: "@"
+        },
+        templateUrl: 'js/common/poll/poll.html',
+        link: function link(scope) {
+
+            return PollFactory.getAllByLectureId(1).then(function (currentPolls) {
+                scope.polls = currentPolls;
+            });
+
+            scope.deletePoll = function (id) {
+                PollFactory.deletePoll(id);
+            };
+        }
+    };
+});
+
+app.factory('PollFactory', function ($http) {
+    function dotData(dot) {
+        return dot.data;
+    }
+    var cachedPolls = [];
+    return {
+        getAllByLectureId: function getAllByLectureId(id) {
+            return $http.get('/api/poll/lecture/' + id).then(dotData).then(function (polls) {
+                cachedPolls = polls;
+                return cachedPolls;
+            });
+        },
+        getOneByPollId: function getOneByPollId(id) {
+            return $http.get('/api/poll/' + id).then(dotData);
+        },
+        createPoll: function createPoll(pollObj) {
+            return $http.post('/api/poll/', pollObj).then(dotData);
+        },
+        updatePoll: function updatePoll(pollObj, id) {
+            return $http.put('/api/poll/' + id, pollObj).then(dotData);
+        },
+        deletePoll: function deletePoll(id) {
+            return $http.delete('/api/poll/' + id).then(dotData).then(function (removedPoll) {
+                cachedPolls.splice(cachedPolls.map(function (item) {
+                    return item.id;
+                }).indexOf(id), 1);
+                return cachedPolls;
+            });
+        }
+    };
+});
