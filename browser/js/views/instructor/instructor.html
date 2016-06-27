@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-    <head> 
+    <head>
     </head>
     <body>
         <div class="content">
@@ -8,8 +8,20 @@
             <div class="classHeader">Promises and Arrays</div>
             <div class="classInstructor">Omri Bernstein</div>
 
-            <feedback></feedback>
+            
+            <div id="placeholder-div3"></div>
+            <script>
+              gapi.hangout.render('placeholder-div3', {
+                'render': 'createhangout',
+                'hangout_type': 'onair',
+                'initial_apps': [
+                    { app_id : 'effortless-city-135523', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }
+                ],
+                'widget_size': 72
+              });
+            </script>
 
+            <feedback></feedback>
             <div class="secondaryButtonRow">
                 <div class="secondaryButton">
                     <img src='./images/like.png'>
@@ -23,9 +35,8 @@
             </div>
 
             <div class="chart"></div>
-            <div class="questionQueue">
-                <question></question>
-            </div>
+            <question></question>
+
             <div class="activePoll"></div>
             <div class="pollQueue"></div>
 
@@ -54,6 +65,11 @@
                 padding: 1% 0 1% 0;
                 height: 5%;
                 color: white;
+            }
+            .david {
+                height: 100px;
+                width: 100px;
+                background-color: orange;
             }
             .primaryButtonRow {
                 width: 30%;
