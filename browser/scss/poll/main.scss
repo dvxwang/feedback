@@ -1,0 +1,18 @@
+#poll {
+	max-width: 500px;
+	input {
+		width: 80%;
+		float: left;
+	};
+  h1 {
+    float: left;
+  }
+	button {
+    width: 20%;
+    margin-top: 20px;
+    float: right;
+	};
+	.btn-xs {
+		border-radius: 20px;
+	};
+}
