@@ -8,6 +8,12 @@ app.factory('QuestionFactory', function ($http) {
 		})
 	}
 
+	obj.store = function(question) {
+		return $http.post('/api/question', question).then(function(res) {
+			return res.data;
+		})
+	}
+
 	return obj;
 
 });
