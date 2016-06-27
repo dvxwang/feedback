@@ -50,6 +50,7 @@ router.put('/:pollId', (req, res, next) => {
 })
 
 router.delete('/:pollId', (req, res, next) => {
+  console.log(req.poll)
   req.poll.destroy()
   .then(() => {
     res.sendStatus(204)

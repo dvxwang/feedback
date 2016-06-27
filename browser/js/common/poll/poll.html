@@ -2,22 +2,19 @@
 <div class="panel panel-default container" id="poll">
   <!-- Default panel contents -->
   <div class="panel-heading row">
-    <div ng-controller="CreatePoll" class="container">
+    <div ng-controller="CreatePoll">
       <h1>New Poll</h1>
-      <button style="float:center" class="btn btn-success" ng-click="showModal()">Click Me</button>
+      <button class="btn btn-success" ng-click="showModal()">Add a Poll</button>
     </div>
   </div>
 
-  <div class="panel-heading row">
-    <button class="btn btn-success">New Poll</button>
-  </div>
   <!-- Table -->
   <table class="table">
     <tr ng-repeat='poll in polls'>
     	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
     	<td><span contenteditable='true'>{{ poll.question }}</span></td>
-    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='deletePoll(poll.id)'></i></td>
-		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-thumbs-up" ng-click=''></i></td>
+    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll.id)"></i></td>
+		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click=''></i></td>
     </tr>
   </table>
 </div>
