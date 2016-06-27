@@ -8,7 +8,7 @@ app.factory('PollFactory', ($http) => {
       return $http.get('/api/poll/lecture/'+id)
       .then(dotData)
       .then((polls) => {
-        cachedPolls = polls
+        angular.copy(polls, cachedPolls)
         return cachedPolls
       })
     },

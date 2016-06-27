@@ -1,7 +1,5 @@
 app.controller('CreatePoll', function($scope, $uibModal) {
 
-  $scope.name = 'theNameHasBeenPassed';
-
   $scope.showModal = function() {
 
     $scope.opts = {
@@ -16,7 +14,7 @@ app.controller('CreatePoll', function($scope, $uibModal) {
       };
 
     $scope.opts.resolve.item = function() {
-        return angular.copy({name:$scope.name, polls:$scope.polls}); // pass name to Dialog
+        return angular.copy({polls:$scope.polls}); // pass name to Dialog
     }
 
       var modalInstance = $uibModal.open($scope.opts);
@@ -44,10 +42,11 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
     poll.question = $scope.newPoll
     poll.lectureId = 1
     if ($scope.option=='custom') poll.options = [$scope.a, $scope.b, $scope.c, $scope.d]
+
     PollFactory.createPoll(poll)
-    .then(function() {
-      $uibModalInstance.close();
-    })
+    .then(() => { return PollFactory.getAllByLectureId(1) })
+    .then((polls) => { $scope.polls = polls })
+    .then(() => { $uibModalInstance.close() })
   }
 
   $scope.cancel = function () {
