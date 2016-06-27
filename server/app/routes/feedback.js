@@ -16,7 +16,26 @@ router.get('/:feedbackId', function (req, res, next) {
     });
 });
 
+router.get('/count/:category', function (req, res, next) {
+    var now = new Date()
+    Feedback.findAndCountAll({
+        where: {
+            category: req.params.category,
+            createdAt: {
+                $lt: now,
+                $gt: new Date(now - 5 * 1000)
+            }
+        }
+    }
+    )
+    .then(function(result){
+        console.log(result.count)
+        res.json(result.count);
+    });
+});
+
 router.post('/', function (req, res, next) {
+    console.log('Got HERE', req.body)
     Feedback.create(req.body)
     .then(function(result){
         res.json(result);
