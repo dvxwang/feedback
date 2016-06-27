@@ -2,15 +2,17 @@
   <!-- Default panel contents -->
   <div class="panel-heading row">
   	<input class="form-control" type="text" ng-model='newQuestion' placeholder='Enter question here...'>
-    <button class="btn btn-success" ng-click='submitQuestion()'>Submit</button>
+    <button class="btn btn-success" ng-click='submit()'>Submit</button>
   </div>
   <!-- Table -->
   <table class="table">
     <tr ng-repeat='question in questions'>
     	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
     	<td><span contenteditable='true'>{{ question.text }}</span></td>
-    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='deleteQuestion(question)'></i></td>
-		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-thumbs-up" ng-click='deleteQuestion(question)'></i></td>
+    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='delete(question)'></i></td>
+		  <td><i ng-if='true' class="btn btn-xs round btn-info glyphicon glyphicon-thumbs-up" ng-click='upvote(question)'></i></td>
+      <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-ok" ng-click="store(question, 'closed')"></i></td>
+      <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-plus" ng-click="store(question, 'open')"></i></td>
     </tr>
   </table>
 </div>
