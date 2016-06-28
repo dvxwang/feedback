@@ -33,11 +33,14 @@
 </div>
 
 <div>
-	<p ng-show="!addMessage">
+	<p ng-show="!addMessage && !rejectMessage">
 		<br>
 	</p>
-	<p class='text-center' ng-show="addMessage"> 
+	<p class='flashMessage text-center' ng-show="addMessage"> 
 		Your feedback has been noted
+	</p>
+	<p class='flashMessage text-center' ng-show="rejectMessage"> 
+		You must wait 30 seconds before giving back the same feedback
 	</p>
 </div>
 
@@ -62,7 +65,7 @@
 			</div>
 			<div class="col-xs-3">
 				<center>
-				<button type="button" ng-click="countFeedback('Example')" class="btn btn-default btn-circle-sm">
+				<button type="button" ng-click="countFeedback('Request Break')" class="btn btn-default btn-circle-sm">
 					<span class="glyphicon glyphicon-pause"></span>
 					<span class="tooltiptext">Want a break?</span>
 				</button>
