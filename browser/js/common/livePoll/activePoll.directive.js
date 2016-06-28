@@ -9,10 +9,7 @@ app.directive('activePoll', ($state, PollFactory, PollAnswerFactory) => {
         scope.poll = pollQuestion
         scope.$digest()
       })
-      // PollAnswerFactory.getAllByPollId(scope.poll.id)
-      // .then((answers)=> {
-      //   scope.answers = answers
-      // })
+
       socket.on('updateActivePoll', function() {
         PollAnswerFactory.getAllByPollId(scope.poll.id)
         .then((answers)=> {
