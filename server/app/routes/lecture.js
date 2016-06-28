@@ -18,19 +18,15 @@ router.get('/:lectureId', function (req, res, next) {
 });
 
 router.post('/start', function (req, res, next) {
-    console.log("Start reached");
     Lecture.create(req.body)
     .then(function(result){
-        // console.log("Result: ",result);
         res.send(result);
     });
 });
 
 router.post('/end', function (req, res, next) {
-    console.log("End reached: ",req.body);
     Lecture.findById(req.body.id)
     .then(function(result){
-        console.log("result: ",result);
         return result.update({
             endTime: req.body.endTime
         })
