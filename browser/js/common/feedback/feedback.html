@@ -1,0 +1,73 @@
+<div class="container">
+	<div>
+		<div class="btn-container">
+			<div class="col-sm-4">
+			<center>
+				<button type="button" ng-click="countFeedback('Great')" id="like-feedback" class="btn btn-success btn-circle btn-xl"> 
+					<span class="glyphicon glyphicon-thumbs-up"></span>
+					<span class="tooltiptext">Feeling good?</span>
+				</button>
+				<span class="badge badge-notify">{{greatCount}}</span>
+			</center>
+			</div>
+			<div class="col-sm-4">
+			<center>
+				<button type="button" ng-click="countFeedback('Confused')" id="confused-feedback" class="btn btn-warning btn-circle btn-xl">
+					<span class="glyphicon glyphicon-question-sign"></span>
+					<span class="tooltiptext">Feeling confused?</span>
+				</button>
+				<span class="badge badge-notify">{{confusedCount}}</span>
+			</center>
+			</div>
+			<div class="col-sm-4">
+				<center>
+				<button type="button" ng-click="countFeedback('Example')" id="code-feedback" class="btn btn-info btn-circle btn-xl">
+					<span class="glyphicon glyphicon-edit"></span>
+					<span class="tooltiptext">Want an example?</span>
+				</button>
+				<span class="badge badge-notify">{{exampleCount}}</span>
+				</center>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div>
+	<p ng-show="!addMessage">
+		<br>
+	</p>
+	<p class='text-center' ng-show="addMessage"> 
+		Your feedback has been noted
+	</p>
+</div>
+
+<div class="container">
+	<div>
+		<div class="btn-container">
+			<div class="col-xs-3">
+			<center>
+				<button type="button" ng-click="countFeedback('Cannot See')" class="btn btn-default btn-circle-sm"> 
+					<span class="glyphicon glyphicon-eye-close"></span>
+					<span class="tooltiptext">Can't See?</span>
+				</button>
+			</center>
+			</div>
+			<div class="col-xs-3">
+			<center>
+				<button type="button" ng-click="countFeedback('Cannot Hear')" class="btn btn-default btn-circle-sm">
+					<span class="glyphicon glyphicon-bullhorn"></span>
+					<span class="tooltiptext">Can't Hear?</span>
+				</button>
+			</center>
+			</div>
+			<div class="col-xs-3">
+				<center>
+				<button type="button" ng-click="countFeedback('Example')" class="btn btn-default btn-circle-sm">
+					<span class="glyphicon glyphicon-pause"></span>
+					<span class="tooltiptext">Want a break?</span>
+				</button>
+				</center>
+			</div>
+		</div>
+	</div>
+</div>

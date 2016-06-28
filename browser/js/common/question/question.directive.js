@@ -7,11 +7,10 @@ app.directive('question', function($state, QuestionFactory) {
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope) {
+
             QuestionFactory.getAllByLectureId(1).then(function(questions) {
                 scope.questions = questions.filter(function(q) {
                     return q.status === 'open'
-                }).map(function(q) {
-                    return q.hasUpvoted = false;
                 })
             })
 
@@ -24,33 +23,52 @@ app.directive('question', function($state, QuestionFactory) {
                 return -1;
             }
 
+            function move(question, n) {
+                var index = findIndex(question)
+                if (index+n > -1 && index+n < scope.questions.length) {
+                    scope.questions.splice(index, 1)
+                    scope.questions.splice(index+n, 0, question)
+                }
+            }
+
             scope.submit = function() {
                 if (scope.newQuestion) {
                     var question = {text: scope.newQuestion, submitTime: Date.now(), upvotes: 0}
-                    socket.emit('addingQuestion', question)
-                    scope.newQuestion = null;
+                    return QuestionFactory.store(question).then(function(q) {
+                        socket.emit('addingQuestion', q)
+                        scope.newQuestion = null;
+                    })
                 }
             }
 
             scope.delete = function(question) {
                 socket.emit('deletingQuestion', question)
+                return QuestionFactory.delete(question)
             }
 
-            scope.store = function(question, status) {
-                question.status = status
-                QuestionFactory.store(question).then(function(){
-                    scope.delete(question)
+            scope.close = function(question) {
+                question.status = 'closed'
+                return QuestionFactory.update(question).then(function(){
+                    socket.emit('deletingQuestion', question)
                 })
             }
 
+            scope.move = function(question, n) {
+                socket.emit('move', question, n)
+            }
+
             scope.upvote = function(question) {
-                socket.emit('upvoting', question)
                 question.hasUpvoted = !question.hasUpvoted;
+                question.upvotes++;
+                socket.emit('upvoting', question)
+                return QuestionFactory.update(question)
             }
 
             scope.downvote = function(question) {
-                socket.emit('downvoting', question)
                 question.hasUpvoted = !question.hasUpvoted;
+                question.upvotes--;
+                socket.emit('downvoting', question)
+                return QuestionFactory.update(question)
             }
 
             socket.on('addQuestion', function(question) {
@@ -66,15 +84,20 @@ app.directive('question', function($state, QuestionFactory) {
 
             socket.on('receivedUpvote', function(question) {
                 var index = findIndex(question)
-                var q = scope.questions[index]
-                q.upvotes ? q.upvotes++ : q.upvotes = 1;
+                var question = scope.questions[index]
+                question.upvotes++
                 scope.$evalAsync()
             })
 
             socket.on('receivedDownvote', function(question) {
                 var index = findIndex(question)
-                var q = scope.questions[index]
-                q.upvotes--;
+                var question = scope.questions[index]
+                question.upvotes--;
+                scope.$evalAsync()
+            })
+
+            socket.on('moving', function(question, n) {
+                move(question, n)
                 scope.$evalAsync()
             })
         }
