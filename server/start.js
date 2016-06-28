@@ -36,9 +36,17 @@ var createApplication = function () {
             socket.broadcast.emit('receivedDownvote', question)
         })
 
+<<<<<<< HEAD
         socket.on('pollOut', function(poll) {
           socket.broadcast.emit('toStudent', poll)
         })
+=======
+        socket.on('submittedFeedback', function (category) {
+            console.log('heard -->', category);
+            io.emit('updateFeedback', category)
+        })
+
+>>>>>>> master
     })
 
 };
