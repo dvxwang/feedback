@@ -7,7 +7,6 @@ app.directive('question', function($state, QuestionFactory) {
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope) {
-            console.log(scope)
             QuestionFactory.getAllByLectureId(1).then(function(questions) {
                 scope.questions = questions.filter(function(q) {
                     return q.status === 'open'
