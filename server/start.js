@@ -41,8 +41,16 @@ var createApplication = function () {
             io.emit('updateFeedback', category)
         })
 
+        // socket.on('pollOut', function(poll) {
+        //   socket.broadcast.emit('toStudent', poll)
+        // })
+        
         socket.on('pollOut', function(poll) {
-          socket.broadcast.emit('toStudent', poll)
+          io.emit('toStudent', poll)
+        })
+
+        socket.on('studentAnswer', function() {
+          socket.broadcast.emit('updateActivePoll')
         })
 
     })

@@ -1,6 +1,6 @@
 #instructor {
     height:100%;
-    
+
     #startButton {
         width: 20%;
         margin: 0 40% 2% 40%;
@@ -29,7 +29,7 @@
     }
     .chart {
         width: 90%;
-        height: 20%;   
+        height: 20%;
         background-color: white;
         margin: 0% 5% 2% 5%;
     }
@@ -47,7 +47,7 @@
     }
     .activePoll {
         width: 43%;
-        height: 13%;   
+        height: 13%;
         background-color: white;
         margin: 0 0 0 52%;
     }
@@ -56,5 +56,6 @@
         height: 25%;   
         background-color: white;
         margin: 2% 0 0 52%;
+        overflow-y: auto;
     }
 }

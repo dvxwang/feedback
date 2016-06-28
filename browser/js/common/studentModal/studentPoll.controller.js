@@ -32,16 +32,21 @@ app.controller('StudentPoll', function($scope, $uibModal) {
 
 })
 
-function StudentModalInstance($scope, $uibModalInstance, $uibModal, item, PollFactory) {
+function StudentModalInstance($scope, $uibModalInstance, $uibModal, item, PollFactory, PollAnswerFactory) {
 
   $scope.item = item;
 
-  socket.on('toStudent', function(pollQuestion) {
-    $scope.poll = pollQuestion
-  })
-
   $scope.submitAnswer = function () {
-    $uibModalInstance.close()
+    var answer = {
+      pollId: $scope.item.poll.id,
+      option: $scope.answer
+    }
+
+    PollAnswerFactory.answerPoll(answer)
+    .then(()=> {
+      socket.emit('studentAnswer')
+      $uibModalInstance.close()
+    })
   }
 
 }
