@@ -1,0 +1,44 @@
+#summary {
+    height: 100%;
+    .content {
+        background-color: #015249;
+        height: 130%;
+    }
+    .classHeader {
+        font-size: 42px;
+        text-align: center;
+        padding: 2% 0 0 0;
+        color: white;
+    }
+    .classInstructor {
+        font-size: 24px;
+        text-align: center;
+        padding: 1% 0 1% 0;
+        color: white;
+    }
+    .video {
+        width: 90%;
+        height: 35%;   
+        background-color: white;
+        margin: 0% 5% 2% 5%;
+    }
+    .chart {
+        width: 90%;
+        height: 15%;   
+        background-color: white;
+        margin: 0% 5% 2% 5%;
+    }
+    .questionQueue {
+        height: 33%;
+        width: 43%;
+        background-color: white;
+        float: left;
+        margin: 0 0 0 5%;
+    }
+    .pollQueue {
+        width: 43%;
+        height: 33%;   
+        background-color: white;
+        margin: 2% 0 0 52%;
+    }
+}

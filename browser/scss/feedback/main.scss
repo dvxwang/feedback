@@ -10,6 +10,10 @@
     font-size: 30px;
 }
 
+.container {
+  width: 100%;
+}
+
 .btn-circle.btn-xl {
   width: 70px;
   height: 70px;
@@ -28,7 +32,6 @@
 }
 
 .center {
-    display: flex;
     justify-content: center;
 }
 

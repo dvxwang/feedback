@@ -30,6 +30,13 @@ app.config(function ($stateProvider) {
     });
 });
 
+app.config(function ($stateProvider) {
+    $stateProvider.state('summary', {
+        url: '/summary',
+        templateUrl: 'js/views/summary/summary.html',
+    });
+});
+
 app.controller('LoginCtrl', function ($scope, $state) {
 
 	console.log("reached login ctrl");
@@ -44,6 +51,9 @@ app.controller('LoginCtrl', function ($scope, $state) {
 		else if (temp==='student'){
 			$state.go('student');
 		}
+        else if (temp==='summary'){
+            $state.go('summary');
+        }
 	}
 
 });
