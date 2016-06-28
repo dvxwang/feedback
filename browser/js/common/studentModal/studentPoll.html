@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h1>{{item.poll.question}}</h1>
+</div>
+<div class="modal-body">
+  <form ng-model="answers" ng-submit="submitAnswer(answer)">
+  <div ng-repeat="option in item.poll.options">
+    <input type="radio" name="answer" ng-model="$parent.answer" ng-value="true" value="{{option}}"> {{option}}<br>
+  </div>
+  <div>currently selected: {{answers}}</div>
+    <button class="btn btn-success" type="submit">Submit</button>
+</form>
+<div class="modal-footer">
+</div>

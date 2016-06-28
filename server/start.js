@@ -14,7 +14,7 @@ var createApplication = function () {
 
     io.on('connection', function(socket) {
         var id = socket.id;
-        
+
         socket.on('addingQuestion', function(question) {
             questionQueue.push(question)
             io.emit('addQuestion', question)
@@ -39,6 +39,10 @@ var createApplication = function () {
         socket.on('submittedFeedback', function (category) {
             console.log('heard -->', category);
             io.emit('updateFeedback', category)
+        })
+
+        socket.on('pollOut', function(poll) {
+          socket.broadcast.emit('toStudent', poll)
         })
 
     })
