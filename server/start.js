@@ -29,7 +29,7 @@ var createApplication = function () {
         })
 
         socket.on('pollOut', function(poll) {
-          console.log("POLLL", poll)
+          socket.broadcast.emit('toStudent', poll)
         })
     })
 
