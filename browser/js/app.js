@@ -39,11 +39,8 @@ app.config(function ($stateProvider) {
 
 app.controller('LoginCtrl', function ($scope, $state) {
 
-	console.log("reached login ctrl");
 	$scope.loginStatus = function(){
-		console.log("reached login status");
 		var temp = $scope.login;
-		console.log("temp: ",temp);
 
 		if (temp==='admin'){
 			$state.go('admin');
