@@ -3,123 +3,46 @@
     <head>
     </head>
     <body>
-        <div class="content">
-            
-            <div class="classHeader">Promises and Arrays</div>
-            <div class="classInstructor">Omri Bernstein</div>
+        <div id='instructor'>
+            <div class="content">
+                
+                <div class="classHeader">Promises and Arrays</div>
+                <div class="classInstructor">Omri Bernstein</div>
+                
+                <div id="startButton">
+                    <div id="startButton2"></div>
+                </div>
+                <script>
+                  gapi.hangout.render('startButton2', {
+                    'render': 'createhangout',
+                    'hangout_type': 'onair',
+                    'initial_apps': [
+                        { app_id : 'effortless-city-135523', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }
+                    ],
+                    'widget_size': 72
+                  });
+                </script>
 
-            
-            <div id="placeholder-div3"></div>
-            <script>
-              gapi.hangout.render('placeholder-div3', {
-                'render': 'createhangout',
-                'hangout_type': 'onair',
-                'initial_apps': [
-                    { app_id : 'effortless-city-135523', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }
-                ],
-                'widget_size': 72
-              });
-            </script>
+                <div class="primaryButtonRow">
+                    <feedback></feedback>
+                </div>
 
-            <feedback></feedback>
-            <div class="secondaryButtonRow">
-                <div class="secondaryButton">
-                    <img src='./images/like.png'>
-                </div>        
-                <div class="secondaryButton">
-                    <img src='./images/like.png'>
-                </div>        
-                <div class="secondaryButton">
-                    <img src='./images/like.png'>
-                </div>        
+                <div class="chart"></div>
+                
+                <div class="questionQueue">
+                    <question></question>
+                </div>
+
+                <div class="activePoll">
+                    
+                </div>
+
+                <div class="pollQueue">
+                    <poll></poll>
+                </div>
+
             </div>
-
-            <div class="chart"></div>
-            <question></question>
-
-            <div class="activePoll"></div>
-            <div class="pollQueue"></div>
-
         </div>
-        
-        <style>
-            html, body {
-                height: 100%;
-                margin: 0;
-            }
-            .content {
-                background-color: #015249;
-                height: 900px;
-                overflow: hidden;
-            }
-            .classHeader {
-                font-size: 42px;
-                text-align: center;
-                padding: 2% 0 0 0;
-                height: 10%;
-                color: white;
-            }
-            .classInstructor {
-                font-size: 24px;
-                text-align: center;
-                padding: 1% 0 1% 0;
-                height: 5%;
-                color: white;
-            }
-            .david {
-                height: 100px;
-                width: 100px;
-                background-color: orange;
-            }
-            .primaryButtonRow {
-                width: 30%;
-                margin: 0 35% 6% 35%;
-                height: 5%;
-            }
-            .primaryButton {
-                float: left;
-                padding: 0 1.5% 0 1.5%;
-                width: 30%;
-            }
-            .secondaryButtonRow {
-                width: 20%;
-                margin: 2% 40% 1% 40%;
-                height: 8%;
-            }
-            .secondaryButton {
-                float: left;
-                padding: 0 1.5% 0 1.5%;
-                width: 30%;
-            }
-            .chart {
-                width: 90%;
-                height: 20%;   
-                background-color: white;
-                margin: 0% 5% 2% 5%;
-            }
-            .questionQueue {
-                height: 40%;
-                width: 43%;
-                background-color: white;
-                float: left;
-                margin: 0 0 0 5%;
-            }
-            .activePoll {
-                width: 43%;
-                height: 13%;   
-                background-color: white;
-                margin: 0 0 0 52%;
-            }
-            .pollQueue {
-                width: 43%;
-                height: 25%;   
-                background-color: white;
-                margin: 2% 0 0 52%;
-            }
-            img {
-                max-width:100%;
-                max-height:100%;
-            }
-        </style>
+
     </body>
 </html>

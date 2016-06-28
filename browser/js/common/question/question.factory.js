@@ -14,6 +14,18 @@ app.factory('QuestionFactory', function ($http) {
 		})
 	}
 
+	obj.update = function(question) {
+		return $http.put('/api/question/' + question.id, question).then(function(res) {
+			return res.data;
+		})
+	}
+
+	obj.delete = function(question) {
+		return $http.delete('/api/question/' + question.id).then(function(res) {
+			return res.data;
+		})
+	}
+
 	return obj;
 
 });

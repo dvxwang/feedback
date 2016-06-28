@@ -10,9 +10,13 @@ var createApplication = function () {
     server.on('request', app); // Attach the Express application.
     var io = require('socket.io')(server);   // Attach socket.io.
 
-    io.on('connection', function(socket) {
+    var questionQueue = [];
 
+    io.on('connection', function(socket) {
+        var id = socket.id;
+        
         socket.on('addingQuestion', function(question) {
+            questionQueue.push(question)
             io.emit('addQuestion', question)
         })
 
@@ -20,18 +24,23 @@ var createApplication = function () {
             io.emit('deleteQuestion', question)
         })
 
+        socket.on('move', function(question, n) {
+            io.emit('moving', question, n)
+        })
+
         socket.on('upvoting', function(question) {
-            io.emit('receivedUpvote', question)
+            socket.broadcast.emit('receivedUpvote', question)
         })
 
         socket.on('downvoting', function(question) {
-            io.emit('receivedDownvote', question)
+            socket.broadcast.emit('receivedDownvote', question)
         })
 
         socket.on('submittedFeedback', function (category) {
             console.log('heard -->', category);
             io.emit('updateFeedback', category)
         })
+
     })
 
 };
@@ -45,7 +54,7 @@ var startServer = function () {
 
 };
 
-db.sync({force:true}).then(createApplication).then(startServer).catch(function (err) {
+db.sync().then(createApplication).then(startServer).catch(function (err) {
     console.error(chalk.red(err.stack));
     process.kill(1);
 });

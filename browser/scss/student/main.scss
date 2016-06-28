@@ -1,0 +1,32 @@
+#student {
+    height: 100%;
+    .content {
+        background-color: white;
+        margin-right: 20%;
+        margin-left: 20%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .classHeader {
+        font-size: 42px;
+        text-align: center;
+        padding: 5% 0 0 0;
+        color: #015249;
+    }
+    .classInstructor {
+        font-size: 24px;
+        text-align: center;
+        padding: 1% 0 5% 0;
+        color: #015249;
+    }
+    .primaryButtonRow {
+        width: 50%;
+        margin: 0 25% 5% 25%;
+    }
+    .questionQueue {
+        height: 55%;
+        background-color: #015249;
+        margin: 0 20% 5% 20%;
+        border-radius: 10px;
+    }
+}

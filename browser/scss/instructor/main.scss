@@ -1,0 +1,55 @@
+#instructor {
+    height:100%;
+    
+    #startButton {
+        width: 20%;
+        margin: 0 40% 2% 40%;
+        text-align: center;
+    }
+    .content {
+        background-color: #015249;
+        height: 900px;
+        overflow: hidden;
+    }
+    .classHeader {
+        font-size: 42px;
+        text-align: center;
+        padding: 2% 0 0 0;
+        color: white;
+    }
+    .classInstructor {
+        font-size: 24px;
+        text-align: center;
+        padding: 1% 0 1% 0;
+        color: white;
+    }
+    .primaryButtonRow {
+        width: 30%;
+        margin: 0 35% 2% 35%;
+    }
+    .chart {
+        width: 90%;
+        height: 20%;   
+        background-color: white;
+        margin: 0% 5% 2% 5%;
+    }
+    .questionQueue {
+        height: 40%;
+        width: 43%;
+        background-color: white;
+        float: left;
+        margin: 0 0 0 5%;
+    }
+    .activePoll {
+        width: 43%;
+        height: 13%;   
+        background-color: white;
+        margin: 0 0 0 52%;
+    }
+    .pollQueue {
+        width: 43%;
+        height: 25%;   
+        background-color: white;
+        margin: 2% 0 0 52%;
+    }
+}
