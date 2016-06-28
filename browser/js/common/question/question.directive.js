@@ -3,11 +3,11 @@ app.directive('question', function($state, QuestionFactory) {
     return {
         restrict: 'E',
         scope: {
-            isAdmin: "@"
+            admin: "@"
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope) {
-
+            console.log(scope)
             QuestionFactory.getAllByLectureId(1).then(function(questions) {
                 scope.questions = questions.filter(function(q) {
                     return q.status === 'open'

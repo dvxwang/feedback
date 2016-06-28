@@ -5,15 +5,15 @@
     <button class="btn btn-success" ng-click='submit()'>Submit</button>
   </div>
   <!-- Table -->
-  <table class="table" isAdmin="true">
+  <table class="table">
     <tr ng-repeat='question in questions'>
     	<td>
-        <i ng-if='true' class="glyphicon glyphicon-arrow-up" ng-click='move(question, -1)'></i>
-        <i ng-if='true' class="glyphicon glyphicon-arrow-down" ng-click='move(question, 1)'></i>
+        <i ng-if='admin' class="glyphicon glyphicon-arrow-up" ng-click='move(question, -1)'></i>
+        <i ng-if='admin' class="glyphicon glyphicon-arrow-down" ng-click='move(question, 1)'></i>
       </td>
     	<td><span contenteditable='true'>{{ question.text }}</span></td>
-    	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='delete(question)'></i></td>
-		  <td ng-if='!isAdmin'>
+    	<td><i ng-if='admin' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='delete(question)'></i></td>
+		  <td>
         <i ng-if='!question.hasUpvoted' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up" ng-click='upvote(question)'>
           <strong>{{question.upvotes}}<strong>
         </i>
@@ -21,7 +21,7 @@
           <strong>{{question.upvotes}}<strong>
         </i>
       </td>
-      <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-ok" ng-click="close(question)"></i></td>
+      <td><i ng-if='admin' class="btn btn-xs round btn-success glyphicon glyphicon-ok" ng-click="close(question)"></i></td>
     </tr>
   </table>
 </div>
