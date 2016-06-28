@@ -3,7 +3,7 @@ app.directive('question', function($state, QuestionFactory) {
     return {
         restrict: 'E',
         scope: {
-            
+            isAdmin: "@"
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope) {
@@ -58,6 +58,7 @@ app.directive('question', function($state, QuestionFactory) {
             }
 
             scope.upvote = function(question) {
+                console.log("scope: ",scope);
                 question.hasUpvoted = !question.hasUpvoted;
                 question.upvotes++;
                 socket.emit('upvoting', question)

@@ -130,20 +130,19 @@ socket.on('updateFeedback', function (data) {
 
 $(document).ready(function() {
 
-
-    // $('.start').click(function(){
-    //     if ($(this).html()=='Start') {
-    //         console.log("trigger start");
-    //         $.post('/addFeedback',{message:"start", time: Math.floor(Date.now()/1000)});
-    //         $(this).html('Stop');
-    //         $(this).css('background-color', 'red');
-    //     }
-    //     else {
-    //         console.log("trigger stop");
-    //         $.post('/addFeedback',{message:"stop", time: Math.floor(Date.now()/1000)});
-    //         $(this).html('Start');
-    //         $(this).css('background-color', 'green');
-    //     }
-    // })
+    $('.start').click(function(){
+        if ($(this).html()=='Start') {
+            console.log("trigger start");
+            $.post('api/lecture/start',{name: "Demo Lecture", lecturer: "Omri", startTime: Math.floor(Date.now()/1000)});
+            $(this).html('Stop');
+            $(this).css('background-color', 'red');
+        }
+        else {
+            console.log("trigger stop");
+            $.post('api/lecture/end',{id: 1, endTime: Math.floor(Date.now()/1000)});
+            $(this).html('Start');
+            $(this).css('background-color', 'green');
+        }
+    })
 
 });

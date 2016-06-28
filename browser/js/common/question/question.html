@@ -5,7 +5,7 @@
     <button class="btn btn-success" ng-click='submit()'>Submit</button>
   </div>
   <!-- Table -->
-  <table class="table">
+  <table class="table" isAdmin="true">
     <tr ng-repeat='question in questions'>
     	<td>
         <i ng-if='true' class="glyphicon glyphicon-arrow-up" ng-click='move(question, -1)'></i>

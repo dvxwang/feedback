@@ -24,11 +24,11 @@ router.post('/start', function (req, res, next) {
     });
 });
 
-router.put('/end/:lectureId', function (req, res, next) {
-    Lecture.findById(req.params.id)
+router.post('/end', function (req, res, next) {
+    Lecture.findById(req.body.id)
     .then(function(result){
         return result.update({
-            endTime: req.params.endTime
+            endTime: req.body.endTime
         })
       })
     .then(function(result){

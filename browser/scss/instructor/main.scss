@@ -1,10 +1,23 @@
 #instructor {
     height:100%;
-
-    #startButton {
+    #googleButton {
         width: 20%;
         margin: 0 40% 2% 40%;
         text-align: center;
+    }
+    .start{
+        background-color: green;
+        color: white;
+        border-radius: 30px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        margin-left: 63%;
+        top: 2%;
+        border: medium solid white;
+        cursor: pointer;
     }
     .content {
         background-color: #015249;
