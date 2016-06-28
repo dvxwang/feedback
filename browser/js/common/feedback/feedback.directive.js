@@ -41,33 +41,6 @@ app.directive('feedback', ($state, FeedbackFactory) => {
           }, 30*1000)
         })
       }
-
-      // scope.countConfusedFeedback = function () {
-      //   return FeedbackFactory.countFeedback('Confused')
-      //   .then(function (result) {
-      //     scope.confusedCount = result
-      //   })
-      //   .then(function () {
-      //     setTimeout(function() {
-      //       scope.greatCount = null
-      //       scope.$digest();
-      //     }, 30*1000)
-      //   })
-      // }
-
-      // scope.countExampleFeedback = function () {
-      //   return FeedbackFactory.countFeedback('Example')
-      //   .then(function (result) {
-      //     scope.exampleCount = result
-      //   })
-      //   .then(function () {
-      //     setTimeout(function() {
-      //       scope.greatCount = null
-      //       scope.$digest();
-      //     }, 30*1000)
-      //   })
-      // }
-
   }
 }
 })

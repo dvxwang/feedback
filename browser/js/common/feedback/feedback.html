@@ -31,6 +31,7 @@
 		</div>
 	</div>
 </div>
+
 <div>
 	<p ng-show="!addMessage">
 		<br>
@@ -38,4 +39,35 @@
 	<p class='text-center' ng-show="addMessage"> 
 		Your feedback has been noted
 	</p>
+</div>
+
+<div class="container">
+	<div class='row center'>
+		<div class="btn-container col-xs-3">
+			<div class="col-xs-3">
+			<center>
+				<button type="button" ng-click="countFeedback('Cannot See')" class="btn btn-default btn-circle-sm"> 
+					<span class="glyphicon glyphicon-eye-close"></span>
+					<span class="tooltiptext">Can't See?</span>
+				</button>
+			</center>
+			</div>
+			<div class="col-xs-3">
+			<center>
+				<button type="button" ng-click="countFeedback('Cannot Hear')" class="btn btn-default btn-circle-sm">
+					<span class="glyphicon glyphicon-bullhorn"></span>
+					<span class="tooltiptext">Can't Hear?</span>
+				</button>
+			</center>
+			</div>
+			<div class="col-xs-3">
+				<center>
+				<button type="button" ng-click="countFeedback('Example')" class="btn btn-default btn-circle-sm">
+					<span class="glyphicon glyphicon-pause"></span>
+					<span class="tooltiptext">Want a break?</span>
+				</button>
+				</center>
+			</div>
+		</div>
+	</div>
 </div>
