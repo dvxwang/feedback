@@ -10,7 +10,7 @@ app.directive('feedback', ($state, FeedbackFactory) => {
       scope.rejectMessage = false;
 
       scope.countFeedback = function (category) {
-        if ((category === 'Great' && !scope.greatCount) || (category === 'Confused' && !scope.confusedCount) || (category === 'Example' && !scope.exampleCount) || (category === 'Cannot See' && !scope.seeCount) || (category === 'Cannot Hear' && !scope.hearCount) || (category === 'Request Break' && !scope.breakCount)) {
+        if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {
         return FeedbackFactory.addFeedback(category)
         .then(function () {
           return FeedbackFactory.countFeedback(category)
@@ -20,22 +20,28 @@ app.directive('feedback', ($state, FeedbackFactory) => {
           
           console.log('IT IS HERE', result)
           if (category === 'Great') {
-            scope.greatCount = result
+            scope.greatCount = result;
+            scope.greatClicked = true
           }
           if (category === 'Confused') {
-            scope.confusedCount = result
+            scope.confusedCount = result;
+            scope.confusedClicked = true
           }
           if (category === 'Example') {
-            scope.exampleCount = result
+            scope.exampleCount = result;
+            scope.exampleClicked = true
           }
           if (category === 'Cannot See') {
             scope.seeCount = result
+            scope.seeClicked = true
           }
           if (category === 'Cannot Hear') {
-            scope.hearCount = result
+            scope.hearCount = result;
+            scope.hearClicked = true;
           }
           if (category === 'Request Break') {
             scope.breakCount = result
+            scope.breakClicked = true;
           }
         })
         .then(function () {
@@ -44,17 +50,6 @@ app.directive('feedback', ($state, FeedbackFactory) => {
             scope.addMessage = false;
             scope.$digest();
           }, 1500);
-        })
-        .then(function () {
-          setTimeout(function() {
-            scope.greatCount = null;
-            scope.confusedCount = null;
-            scope.exampleCount = null;
-            scope.seeCount = null;
-            scope.hearCount = null;
-            scope.breakCount = null;
-            scope.$digest();
-          }, 30*1000)
         })
       }
 
@@ -66,6 +61,22 @@ app.directive('feedback', ($state, FeedbackFactory) => {
         }, 1500);        
       }
     }
+
+    setInterval(function() {
+      scope.greatCount = null;
+      scope.greatClicked = null;
+      scope.confusedCount = null;
+      scope.confusedClicked = null;
+      scope.exampleCount = null;
+      scope.exampleClicked = null;
+      scope.seeCount = null;
+      scope.seeClicked = null;
+      scope.hearCount = null;
+      scope.hearClicked = null;
+      scope.breakCount = null;
+      scope.breakClicked = null;
+      scope.$digest();
+    }, 30*1000)
 
     socket.on('updateFeedback', function(category) {
         console.log('received -->', category)
@@ -90,17 +101,6 @@ app.directive('feedback', ($state, FeedbackFactory) => {
           if (category === 'Request Break') {
             scope.breakCount = result
           }
-        })
-        .then(function () {
-          setTimeout(function() {
-            scope.greatCount = null;
-            scope.confusedCount = null;
-            scope.exampleCount = null;
-            scope.seeCount = null;
-            scope.hearCount = null;
-            scope.breakCount = null;
-            scope.$digest();
-          }, 30*1000)
         })
         // scope.$digest()
     })

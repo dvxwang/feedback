@@ -12,23 +12,15 @@
                 <div id="startButton">
                     <div id="startButton2"></div>
                 </div>
-                <script>
-                  gapi.hangout.render('startButton2', {
-                    'render': 'createhangout',
-                    'hangout_type': 'onair',
-                    'initial_apps': [
-                        { app_id : 'effortless-city-135523', start_data : 'dQw4w9WgXcQ', 'app_type' : 'ROOM_APP' }
-                    ],
-                    'widget_size': 72
-                  });
-                </script>
 
                 <div class="primaryButtonRow">
                     <feedback></feedback>
                 </div>
 
-                <div class="chart"></div>
-
+                <div class="chart">
+                    <div id='chartCode'></div>
+                </div>
+                
                 <div class="questionQueue">
                     <question></question>
                 </div>
@@ -43,6 +35,6 @@
 
             </div>
         </div>
-
+        <script src='/js/views/instructor/instructor.js'></script>
     </body>
 </html>
