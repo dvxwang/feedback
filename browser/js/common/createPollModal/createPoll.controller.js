@@ -32,20 +32,26 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
 
   $scope.item = item;
 
-  $scope.customOptions = function(option) {
-    $scope.customShow = (option === 'custom')
-  }
+  // $scope.customOptions = function(option) {
+  //   $scope.customShow = (option === 'custom')
+  // }
 
   $scope.submitPoll = function () {
     var poll = {}
     poll.question = $scope.newPoll
     poll.lectureId = 1
-    if ($scope.option=='custom') poll.options = [$scope.a, $scope.b, $scope.c, $scope.d]
+    // poll.options = [{'a': $scope.a}, {'b': $scope.b}, {'c': $scope.c}]
+    poll.options = [$scope.a, $scope.b, $scope.c]
+    var check = poll.options.reduce(function(prev, next) { return prev && (next != undefined || next != null)}, true)
+    if (check) {
+      PollFactory.createPoll(poll)
+      .then(() => { return PollFactory.getAllByLectureId(1) })
+      .then((polls) => { $scope.polls = polls })
+      .then(() => { $uibModalInstance.close() })
+    } else {
+      alert("You must add at least one question to the poll!")
+    }
 
-    PollFactory.createPoll(poll)
-    .then(() => { return PollFactory.getAllByLectureId(1) })
-    .then((polls) => { $scope.polls = polls })
-    .then(() => { $uibModalInstance.close() })
   }
 
   $scope.cancel = function () {
