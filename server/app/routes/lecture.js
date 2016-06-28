@@ -18,17 +18,21 @@ router.get('/:lectureId', function (req, res, next) {
 });
 
 router.post('/start', function (req, res, next) {
+    console.log("Start reached");
     Lecture.create(req.body)
     .then(function(result){
+        // console.log("Result: ",result);
         res.send(result);
     });
 });
 
-router.put('/end/:lectureId', function (req, res, next) {
-    Lecture.findById(req.params.id)
+router.post('/end', function (req, res, next) {
+    console.log("End reached: ",req.body);
+    Lecture.findById(req.body.id)
     .then(function(result){
+        console.log("result: ",result);
         return result.update({
-            endTime: req.params.endTime
+            endTime: req.body.endTime
         })
       })
     .then(function(result){
