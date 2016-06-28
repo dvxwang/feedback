@@ -23,7 +23,6 @@ app.controller('CreatePoll', function($scope, $uibModal) {
         //on ok button press
       },function(){
         //on cancel button press
-        console.log("Modal Closed");
       })
   }
 
