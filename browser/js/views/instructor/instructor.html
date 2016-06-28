@@ -27,7 +27,9 @@
                     <feedback></feedback>
                 </div>
 
-                <div class="chart"></div>
+                <div class="chart">
+                    <div id='chartCode'></div>
+                </div>
                 
                 <div class="questionQueue">
                     <question></question>
@@ -43,6 +45,128 @@
 
             </div>
         </div>
+
+        <style>
+            #chartCode {
+                height: 100%;
+                background-color: #015249;
+            }
+        </style>
+
+        <script>
+
+var queue = {
+    Confused: [],
+    great: [],
+    code: []
+};
+
+var dataQueue = {
+    Confused: [],
+    great: [],
+    code: []
+};
+
+var dataLength=30;
+var xVal= dataLength;
+
+function seedData(obj){
+    for (var category in obj){
+        var tempIndex=0;
+        while (obj[category].length<dataLength){
+            obj[category].push({x:tempIndex, y:0});
+            tempIndex++;
+        }
+    }
+}
+seedData(queue);
+
+var chartCode = new CanvasJS.Chart("chartCode",{
+    creditText: "",
+    title :{
+        text: "Live Feedback",
+        fontColor: "white"
+    },  
+    backgroundColor: null,        
+    axisX: {
+        tickLength: 0,
+        valueFormatString: " ",
+        lineThickness: 0
+    },
+    axisY: {
+        minimum: -5,
+        maximum: 10,
+        tickLength: 0,
+        gridThickness: 0,
+        labelFontColor: 'white',
+        lineColor: 'white'
+    },
+    data: [{
+        markerType: 'none',
+        color: 'white',
+        type: "line",
+        dataPoints: queue['Confused']
+    },
+    {
+        markerType: 'none',
+        color: 'red',
+        type: "line",
+        dataPoints: queue['code']
+    }]
+});
+
+var updateChart = function () {    
+    xVal++;
+    
+    queue['Confused'].push({x: xVal, y:0+dataQueue['Confused'].length});
+    queue['code'].push({x: xVal, y:0+dataQueue['code'].length});
+
+    if (queue['Confused'].length > dataLength) queue['Confused'].shift();                
+    if (queue['code'].length > dataLength) queue['code'].shift();                
+
+    chartCode.render();  
+
+    dataQueue['Confused']=[];
+    dataQueue['code']=[];
+
+};
+
+function updateInstructorView(){
+    setInterval(function(){
+        updateChart();
+    }, 1000); 
+};
+
+updateInstructorView();
+
+socket.on('updateFeedback', function (data) {
+  console.log("App received back: ",data);
+  dataQueue[data].push("instance");
+});
+
+$(document).ready(function() {
+
+
+    // $('.start').click(function(){
+    //     if ($(this).html()=='Start') {
+    //         console.log("trigger start");
+    //         $.post('/addFeedback',{message:"start", time: Math.floor(Date.now()/1000)});
+    //         $(this).html('Stop');
+    //         $(this).css('background-color', 'red');
+    //     }
+    //     else {
+    //         console.log("trigger stop");
+    //         $.post('/addFeedback',{message:"stop", time: Math.floor(Date.now()/1000)});
+    //         $(this).html('Start');
+    //         $(this).css('background-color', 'green');
+    //     }
+    // })
+
+});
+
+
+
+        </script>
 
     </body>
 </html>
