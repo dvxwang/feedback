@@ -1,19 +1,28 @@
 app.factory('LectureFactory', function ($http) {
 	var LectureFactory = {};
-	
-	LectureFactory.curLecture=0;
+	var curLecture = null;
 
 	LectureFactory.setStart = function () {
-		return $.post('api/lecture/start',{name: "Demo Lecture", lecturer: "Omri", startTime: Math.floor(Date.now()/1000)},function(result){
-            console.log("Result: ",result);
-            LectureFactory.curLecture = result.id;
+		return $http.post('api/lecture/start',{name: "Demo Lecture", lecturer: "Omri", startTime: Math.floor(Date.now()/1000)})
+		.then(function(res){
+			curLecture = res.data;
+			return curLecture
         });
 	}
 
 	LectureFactory.setEnd = function () {
-		return $.post('api/lecture/end',{id: curLecture, endTime: Math.floor(Date.now()/1000)},function(result){
-			LectureFactory.curLecture=0;
-		});
+		return $http.post('api/lecture/end',{id: curLecture.id, endTime: Math.floor(Date.now()/1000)})
+		.then(function(res) {
+			curLecture = null;
+			return curLecture
+		})
+	}
+
+	LectureFactory.getCurLecture = function () {
+		return $http.get('api/lecture/current').then(function(res) {
+			curLecture = res.data;
+			return curLecture
+		})
 	}
 
 	return LectureFactory

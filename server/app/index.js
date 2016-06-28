@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var express = require('express');
+var session = require('express-session')
 var app = express();
 var bodyParser = require('body-parser');
 
@@ -18,6 +19,7 @@ module.exports = function (db) {
     app.use(bodyParser.json()); // support json encoded bodies
     app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+    app.use(session({secret: 'feedme'}))
 
     app.use('/api', require('./routes'));
 

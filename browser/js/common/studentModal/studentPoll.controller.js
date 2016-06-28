@@ -1,4 +1,9 @@
-app.controller('StudentPoll', function($scope, $uibModal) {
+app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
+  LectureFactory.getCurLecture().then(function(lecture) {
+    $scope.curLecture = lecture;
+    console.log($scope.curLecture)
+  })
+
   $scope.showModal = function() {
 
     $scope.opts = {

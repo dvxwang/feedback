@@ -184,21 +184,22 @@ app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
         updateInstructorView();
 
         socket.on('updateFeedback', function (data) {
-          console.log("App received back: ",data);
           data = data.toLowerCase();
           dataQueue[data].push("instance");
         });
 
         $('.start').click(function(){
             if ($(this).html()=='Start') {
-                console.log("trigger start");
-                LectureFactory.setStart();
+                LectureFactory.setStart().then(function(lecture) {
+                    $scope.curLecture = lecture;
+                })
                 $(this).html('Stop');
                 $(this).css('background-color', 'red');
             }
             else {
-                console.log("trigger stop");
-                LectureFactory.setEnd();
+                LectureFactory.setEnd().then(function(lecture) {
+                    $scope.curLecture = undefined;
+                })
                 $(this).html('Start');
                 $(this).css('background-color', 'green');
             }

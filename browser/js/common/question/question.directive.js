@@ -1,13 +1,14 @@
-app.directive('question', function($state, QuestionFactory) {
+app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
     return {
         restrict: 'E',
         scope: {
-            admin: "@"
+            admin: '@',
+            lecture: '='
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope) {
-            QuestionFactory.getAllByLectureId(1).then(function(questions) {
+            QuestionFactory.getAllByLectureId(scope.lecture.id).then(function(questions) {
                 scope.questions = questions.filter(function(q) {
                     return q.status === 'open'
                 })
@@ -32,7 +33,7 @@ app.directive('question', function($state, QuestionFactory) {
 
             scope.submit = function() {
                 if (scope.newQuestion) {
-                    var question = {text: scope.newQuestion, submitTime: Date.now(), upvotes: 0}
+                    var question = {text: scope.newQuestion, submitTime: Date.now(), upvotes: 0, lectureId: scope.lecture.id}
                     return QuestionFactory.store(question).then(function(q) {
                         socket.emit('addingQuestion', q)
                         scope.newQuestion = null;

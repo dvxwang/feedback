@@ -10,6 +10,10 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/current', function (req, res, next) {
+    res.send(req.session.lecture)
+});
+
 router.get('/:lectureId', function (req, res, next) {
     Lecture.findById(req.params.id)
     .then(function(result){
@@ -20,6 +24,7 @@ router.get('/:lectureId', function (req, res, next) {
 router.post('/start', function (req, res, next) {
     Lecture.create(req.body)
     .then(function(result){
+        req.session.lecture = result
         res.send(result);
     });
 });
@@ -32,6 +37,7 @@ router.post('/end', function (req, res, next) {
         })
       })
     .then(function(result){
+        req.session.destroy()
         res.send(result);
     });
 });
