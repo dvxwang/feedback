@@ -1,8 +1,6 @@
 app.controller('StudentPoll', function($scope, $uibModal) {
   $scope.showModal = function() {
 
-
-
     $scope.opts = {
       backdrop: true,
       backdropClick: true,
@@ -13,7 +11,6 @@ app.controller('StudentPoll', function($scope, $uibModal) {
       controller : StudentModalInstance,
       resolve: {} // empty storage
     };
-    console.log(socket)
 
     $scope.opts.resolve.item = function() {
       return angular.copy({poll:$scope.poll}); // pass name to Dialog
@@ -25,12 +22,10 @@ app.controller('StudentPoll', function($scope, $uibModal) {
       //on ok button press
     },function(){
       //on cancel button press
-      console.log("Modal Closed");
     })
   }
 
   socket.on('toStudent', function(pollQuestion) {
-    console.log("Hello")
     $scope.poll = pollQuestion
     $scope.showModal()
   })
@@ -46,7 +41,6 @@ function StudentModalInstance($scope, $uibModalInstance, $uibModal, item, PollFa
   })
 
   $scope.submitAnswer = function () {
-    console.log($scope.answer)
     $uibModalInstance.close()
   }
 
