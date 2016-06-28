@@ -57,7 +57,6 @@ app.directive('question', function($state, QuestionFactory) {
             }
 
             scope.upvote = function(question) {
-                console.log("scope: ",scope);
                 question.hasUpvoted = !question.hasUpvoted;
                 question.upvotes++;
                 socket.emit('upvoting', question)
