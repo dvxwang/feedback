@@ -45,6 +45,9 @@
         height: 20%;
         background-color: white;
         margin: 0% 5% 2% 5%;
+        .canvasjs-chart-credit {
+           display: none;
+        }
     }
     #chartCode {
         height: 100%;
