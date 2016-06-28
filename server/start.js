@@ -27,6 +27,11 @@ var createApplication = function () {
         socket.on('downvoting', function(question) {
             io.emit('receivedDownvote', question)
         })
+
+        socket.on('submittedFeedback', function (category) {
+            console.log('heard -->', category);
+            io.emit('updateFeedback', category)
+        })
     })
 
 };
