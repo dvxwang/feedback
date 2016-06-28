@@ -18,7 +18,6 @@ app.directive('feedback', ($state, FeedbackFactory) => {
         .then(function (result) {
           socket.emit('submittedFeedback', category)
           
-          console.log('IT IS HERE', result)
           if (category === 'Great') {
             scope.greatCount = result;
             scope.greatClicked = true

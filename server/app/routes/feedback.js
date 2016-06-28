@@ -29,13 +29,11 @@ router.get('/count/:category', function (req, res, next) {
     }
     )
     .then(function(result){
-        console.log(result.count)
         res.json(result.count);
     });
 });
 
 router.post('/', function (req, res, next) {
-    console.log('Got HERE', req.body)
     Feedback.create(req.body)
     .then(function(result){
         res.json(result);

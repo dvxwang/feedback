@@ -4,7 +4,6 @@ app.factory('FeedbackFactory', function ($http) {
 	FeedbackFactory.addFeedback = function (category) {
 		return $http.post('/api/feedback/', {category: category})
 		.then(function(result) {
-			console.log('gotHERE', result)
 		})
 	}
 
