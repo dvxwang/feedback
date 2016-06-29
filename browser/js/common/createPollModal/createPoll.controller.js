@@ -39,15 +39,15 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
   $scope.submitPoll = function () {
     var poll = {}
     poll.question = $scope.newPoll
-    poll.lectureId = 1
+    poll.lectureId = $scope.lecture.id
     // poll.options = [{'a': $scope.a}, {'b': $scope.b}, {'c': $scope.c}]
     poll.options = [$scope.a, $scope.b, $scope.c]
     var check = poll.options.reduce(function(prev, next) { return prev && (next != undefined || next != null)}, true)
     if (check) {
       PollFactory.createPoll(poll)
-      .then(() => { return PollFactory.getAllByLectureId(1) })
+      .then(function() { return PollFactory.getAllByLectureId(1) })
       .then((polls) => { $scope.polls = polls })
-      .then(() => { $uibModalInstance.close() })
+      .then(function() { $uibModalInstance.close() })
     } else {
       alert("You must add at least one question to the poll!")
     }

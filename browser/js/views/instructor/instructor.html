@@ -22,17 +22,17 @@
                 <div class="chart">
                     <div id='chartCode'></div>
                 </div>
-                
+
                 <div ng-if='curLecture' class="questionQueue">
                     <question admin="true" lecture='curLecture'></question>
                 </div>
 
-                <div class="activePoll">
-                  <active-poll></active-poll>
+                <div ng-if='curLecture' class="activePoll">
+                  <active-poll admin="true" lecture="curLecture"></active-poll>
                 </div>
 
-                <div class="pollQueue">
-                    <poll></poll>
+                <div ng-if='curLecture' class="pollQueue">
+                    <poll admin="true" lecture="curLecture"></poll>
                 </div>
 
             </div>

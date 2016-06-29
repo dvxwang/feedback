@@ -39,7 +39,7 @@ var createApplication = function () {
         socket.on('submittedFeedback', function (category) {
             io.emit('updateFeedback', category)
         })
-        
+
         socket.on('pollOut', function(poll) {
           io.emit('toStudent', poll)
         })
