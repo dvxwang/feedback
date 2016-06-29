@@ -93,3 +93,16 @@
 .btn-circle-sm:hover .tooltiptext {
     visibility: visible;
 }
+
+.badge {
+  padding: 0;
+  height: 30px;
+  width: 30px; 
+  border-radius: 15px;
+  line-height: 30px;
+}
+
+.badge:empty {
+  visibility: hidden;
+  display: inline-block;
+}
