@@ -37,13 +37,8 @@ var createApplication = function () {
         })
 
         socket.on('submittedFeedback', function (category) {
-            console.log('heard -->', category);
             io.emit('updateFeedback', category)
         })
-
-        // socket.on('pollOut', function(poll) {
-        //   socket.broadcast.emit('toStudent', poll)
-        // })
         
         socket.on('pollOut', function(poll) {
           io.emit('toStudent', poll)
@@ -51,6 +46,14 @@ var createApplication = function () {
 
         socket.on('studentAnswer', function() {
           socket.broadcast.emit('updateActivePoll')
+        })
+
+        socket.on('startingLecture', function(lecture) {
+          socket.broadcast.emit('startLecture', lecture)
+        })
+
+        socket.on('endingLecture', function() {
+          socket.broadcast.emit('endLecture')
         })
 
     })

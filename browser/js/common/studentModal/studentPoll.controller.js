@@ -1,4 +1,4 @@
-app.controller('StudentPoll', function($scope, $uibModal) {
+app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
 
   $scope.showModal = function() {
 
@@ -25,6 +25,22 @@ app.controller('StudentPoll', function($scope, $uibModal) {
       //on cancel button press
     })
   }
+
+  LectureFactory.getCurLecture().then(function(lecture) {
+    if (lecture) {
+      $scope.curLecture = lecture;
+    }
+  })
+
+  socket.on('startLecture', function(lecture) {
+    $scope.curLecture = lecture;
+    $scope.$evalAsync()
+  })
+
+  socket.on('endLecture', function() {
+    $scope.curLecture = undefined;
+    $scope.$evalAsync()
+  })
 
   socket.on('toStudent', function(pollQuestion) {
     $scope.poll = pollQuestion

@@ -7,14 +7,11 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope, element, attrs) {
+
             LectureFactory.getCurLecture().then(function(lecture) {
                 scope.curLecture = lecture;
-                console.log(scope.curLecture)
-            
-                return QuestionFactory.getAllByLectureId(scope.curLecture.id)
-            }).then(function(questions) {
-                scope.questions = questions.filter(function(q) {
-                    return q.status === 'open'
+                return QuestionFactory.getAllByLectureId(scope.curLecture.id).then(function(questions) {
+                    scope.questions = questions.filter(function(q) { return q.status === 'open' })
                 })
             })
 
