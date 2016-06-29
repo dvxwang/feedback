@@ -1,32 +1,26 @@
 <div class="container">
 	<div>
 		<div class="btn-container">
-			<div class="col-sm-4">
-			<center>
+			<div class="col-lg-4">
 				<button type="button" ng-click="submitFeedback('Great')" id="like-feedback" class="btn btn-success btn-circle btn-xl"> 
-					<span class="glyphicon glyphicon-thumbs-up"></span>
+					<span class="glyphicon glyph-bg glyphicon-thumbs-up"></span>
 					<span class="tooltiptext">Feeling good?</span>
 				</button>
 				<span class="badge badge-notify">{{greatCount}}</span>
-			</center>
 			</div>
-			<div class="col-sm-4">
-			<center>
+			<div class="col-lg-4">
 				<button type="button" ng-click="submitFeedback('Confused')" id="confused-feedback" class="btn btn-warning btn-circle btn-xl">
-					<span class="glyphicon glyphicon-question-sign"></span>
+					<span class="glyphicon glyph-bg glyphicon-question-sign"></span>
 					<span class="tooltiptext">Feeling confused?</span>
 				</button>
 				<span class="badge badge-notify">{{confusedCount}}</span>
-			</center>
 			</div>
-			<div class="col-sm-4">
-				<center>
+			<div class="col-lg-4">
 				<button type="button" ng-click="submitFeedback('Example')" id="code-feedback" class="btn btn-info btn-circle btn-xl">
-					<span class="glyphicon glyphicon-edit"></span>
+					<span class="glyphicon glyph-bg glyphicon-edit"></span>
 					<span class="tooltiptext">Want an example?</span>
 				</button>
 				<span class="badge badge-notify">{{exampleCount}}</span>
-				</center>
 			</div>
 		</div>
 	</div>
@@ -49,8 +43,8 @@
 		<div class="btn-container">
 			<div class="col-xs-3">
 			<center>
-				<button type="button" ng-click="countFeedback('Cannot See')" class="btn btn-default btn-circle-sm"> 
-					<span class="glyphicon glyphicon-eye-close"></span>
+				<button type="button" ng-click="submitFeedback('Cannot See')" class="btn btn-default btn-circle-sm"> 
+					<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
 					<span class="tooltiptext">Can't See?</span>
 				</button>
 				<span class="badge badge-notify-sm">{{seeCount}}</span>
@@ -58,8 +52,8 @@
 			</div>
 			<div class="col-xs-3">
 			<center>
-				<button type="button" ng-click="countFeedback('Cannot Hear')" class="btn btn-default btn-circle-sm">
-					<span class="glyphicon glyphicon-bullhorn"></span>
+				<button type="button" ng-click="submitFeedback('Cannot Hear')" class="btn btn-default btn-circle-sm">
+					<span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
 					<span class="tooltiptext">Can't Hear?</span>
 				</button>
 				<span class="badge badge-notify-sm">{{hearCount}}</span>
@@ -67,8 +61,8 @@
 			</div>
 			<div class="col-xs-3">
 				<center>
-				<button type="button" ng-click="countFeedback('Request Break')" class="btn btn-default btn-circle-sm">
-					<span class="glyphicon glyphicon-pause"></span>
+				<button type="button" ng-click="submitFeedback('Request Break')" class="btn btn-default btn-circle-sm">
+					<span class="glyphicon glyph-sm glyphicon-pause"></span>
 					<span class="tooltiptext">Want a break?</span>
 				</button>
 				<span class="badge badge-notify-sm">{{breakCount}}</span>
