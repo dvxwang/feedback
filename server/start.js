@@ -55,7 +55,10 @@ var createApplication = function () {
         socket.on('endingLecture', function() {
           socket.broadcast.emit('endLecture')
         })
-
+        
+        socket.on('signalFeedbackRefresh', function() {
+          io.emit('feedbackRefresh')
+        })
     })
 
 };
