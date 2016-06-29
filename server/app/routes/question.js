@@ -20,16 +20,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	// this is hardcoding the lecture for now until we set up logins
-	Lecture.findOrCreate({
-		where: {
-			name: "First Lecture",
-			lecturer: "Omri"	
-		}
-	}).then(function(lectures) {
-		req.body.lectureId = lectures[0].id;
-		return Question.create(req.body)
-	}).then(function(question){
+	Question.create(req.body).then(function(question){
 		res.status(201).json(question);
 	}).catch(next)
 });

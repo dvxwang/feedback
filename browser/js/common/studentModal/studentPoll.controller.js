@@ -1,4 +1,5 @@
 app.controller('StudentPoll', function($scope, $uibModal) {
+
   $scope.showModal = function() {
 
     $scope.opts = {
