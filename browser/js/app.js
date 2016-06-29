@@ -40,7 +40,7 @@ app.config(function ($stateProvider) {
 app.controller('LoginCtrl', function ($scope, $state) {
 
 	$scope.loginStatus = function(){
-		var temp = $scope.login;
+		var temp = $scope.login.toLowerCase();
 
 		if (temp==='admin'){
 			$state.go('admin');
@@ -50,6 +50,10 @@ app.controller('LoginCtrl', function ($scope, $state) {
 		}
         else if (temp==='summary'){
             $state.go('summary');
+        }
+        else {
+            $scope.login = "";
+            $("input").attr("placeholder", "Please input valid credential");            
         }
 	}
 
@@ -114,42 +118,24 @@ app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
                 labelFontColor: 'white',
                 lineColor: 'white'
             },
-            legend:{
-                verticalAlign: "bottom",
-                horizontalAlign: "center",
-                fontSize: 12,
-                cursor:"pointer",
-                itemclick : function(e) {
-                  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                  e.dataSeries.visible = false;
-                  }
-                  else {
-                    e.dataSeries.visible = true;
-                  }
-                  chartQuestion.render();
-                }
-            },
             data: [{
                 markerType: 'none',
-                color: 'white',
+                color: 'orange',
                 type: "line",
-                showInLegend: true,
                 name: "Confused",
                 dataPoints: queue['confused']
             },
             {
                 markerType: 'none',
-                color: 'red',
+                color: 'blue',
                 type: "line",
-                showInLegend: true,
                 name: "Example",
                 dataPoints: queue['example']
             },
             {
                 markerType: 'none',
-                color: 'blue',
+                color: 'green',
                 type: "line",
-                showInLegend: true,
                 name: "Great",
                 dataPoints: queue['great']
             }
