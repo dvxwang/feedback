@@ -3,17 +3,22 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
     return {
         restrict: 'E',
         scope: {
-            admin: '@'
+            admin: '@',
+            lecture: '='
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope, element, attrs) {
 
-            LectureFactory.getCurLecture().then(function(lecture) {
-                scope.curLecture = lecture;
-                return QuestionFactory.getAllByLectureId(scope.curLecture.id).then(function(questions) {
-                    scope.questions = questions.filter(function(q) { return q.status === 'open' })
-                })
+            QuestionFactory.getAllByLectureId(scope.lecture.id).then(function(questions) {
+                scope.questions = questions.filter(function(q) { return q.status === 'open' })
             })
+
+            // LectureFactory.getCurLecture().then(function(lecture) {
+            //     scope.curLecture = lecture;
+            //     return QuestionFactory.getAllByLectureId(scope.curLecture.id).then(function(questions) {
+            //         scope.questions = questions.filter(function(q) { return q.status === 'open' })
+            //     })
+            // })
 
             function findIndex(question) {
                 for (var i = 0; i < scope.questions.length; i++) {
@@ -34,7 +39,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
             scope.submit = function() {
                 if (scope.newQuestion) {
-                    var question = {text: scope.newQuestion, submitTime: Date.now(), upvotes: 0, lectureId: scope.curLecture.id}
+                    var question = {text: scope.newQuestion, submitTime: Date.now(), upvotes: 0, lectureId: scope.lecture.id}
                     return QuestionFactory.store(question).then(function(q) {
                         socket.emit('addingQuestion', q)
                         scope.newQuestion = null;
