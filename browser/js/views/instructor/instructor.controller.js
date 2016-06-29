@@ -118,8 +118,8 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
             if ($(this).html()=='Begin') {
                 LectureFactory.setStart().then(function(lecture) {
                     $scope.curLecture = lecture;
-                    console.log('HERE', $scope.curLecture)
                     socket.emit('startingLecture', lecture)
+                    $scope.$evalAsync()
                 })
                 .then(function() {
                     setInterval(function () {
@@ -133,6 +133,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
                 LectureFactory.setEnd().then(function() {
                     $scope.curLecture = undefined;
                     socket.emit('endingLecture')
+                    $scope.$evalAsync()
                 })
                 $(this).html('Begin');
                 $(this).css('background-color', 'green');

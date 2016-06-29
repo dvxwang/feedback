@@ -2,12 +2,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('student', {
         url: '/student',
         templateUrl: 'js/views/student/student.html',
-        controller: 'StudentCtrl',
-        resolve: {
-            curLecture: function(LectureFactory) {
-                return LectureFactory.getCurLecture()
-            }
-        }
+        controller: 'StudentCtrl'
     });
 });
 
