@@ -14,7 +14,7 @@ app.controller('CreatePoll', function($scope, $uibModal) {
       };
 
     $scope.opts.resolve.item = function() {
-        return angular.copy({polls:$scope.polls}); // pass name to Dialog
+        return angular.copy({polls:$scope.polls, lecture: $scope.lecture}); // pass name to Dialog
     }
 
       var modalInstance = $uibModal.open($scope.opts);
@@ -32,27 +32,15 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
 
   $scope.item = item;
 
-  // $scope.customOptions = function(option) {
-  //   $scope.customShow = (option === 'custom')
-  // }
-
-  // socket.on('startLecture', function(lecture) {
-  //   $scope.lecture = lecture
-  // })
-
-  console.log('curLecture', $scope.curLecture)
-  console.log(lecture, $scope.lecture)
-
   $scope.submitPoll = function () {
     var poll = {}
     poll.question = $scope.newPoll
-    poll.lectureId = $scope.curLecture
-    // poll.options = [{'a': $scope.a}, {'b': $scope.b}, {'c': $scope.c}]
+    poll.lectureId = $scope.item.lecture.id
     poll.options = [$scope.a, $scope.b, $scope.c]
     var check = poll.options.reduce(function(prev, next) { return prev && (next != undefined || next != null)}, true)
     if (check) {
       PollFactory.createPoll(poll)
-      .then(function() { return PollFactory.getAllByLectureId(1) })
+      .then(function() { return PollFactory.getAllByLectureId($scope.item.lecture.id) })
       .then((polls) => { $scope.polls = polls })
       .then(function() { $uibModalInstance.close() })
     } else {
