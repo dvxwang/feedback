@@ -44,7 +44,7 @@ function StudentModalInstance($scope, $uibModalInstance, $uibModal, item, PollFa
     }
 
     PollAnswerFactory.answerPoll(answer)
-    .then(()=> {
+    .then(function() {
       socket.emit('studentAnswer')
       $uibModalInstance.close()
     })

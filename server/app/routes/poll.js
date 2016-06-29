@@ -19,7 +19,7 @@ router.param('pollId', (req, res, next, id) => {
 })
 
 router.get('/lecture/:lectureId', (req, res, next) => {
-  Poll.findAll({where:{lectureId:req.params.lectureId}})
+  Poll.findAll({where:{lectureId:req.params.lectureId, sent: "pending"}})
   .then((polls) => {
     res.json(polls)
   })
@@ -38,13 +38,24 @@ router.get('/:pollId', (req, res, next) => {
   .catch(next)
 })
 
-router.put('/:pollId', (req, res, next) => {
-  req.poll.update(req.body)
-  .then((poll) => {
-    res.status(200).json(question)
+router.put('/mark/:pollId', (req, res, next) => {
+  console.log("HEYYYYY")
+  Poll.mark(req.params.pollId)
+  .then((poll)=> {
+    console.log("POLLL", poll)
+    res.status(200).json(poll)
   })
   .catch(next)
 })
+
+router.put('/:pollId', (req, res, next) => {
+  req.poll.update(req.body)
+  .then((poll) => {
+    res.status(200).json(poll)
+  })
+  .catch(next)
+})
+
 
 router.delete('/:pollId', (req, res, next) => {
   req.poll.destroy()

@@ -1,21 +1,26 @@
-app.directive('poll', ($state, PollFactory) => {
+app.directive('poll', ($state, PollFactory, LectureFactory) => {
   return {
     restrict: 'E',
     scope: {
-      useCtrl: "@"
+      lecture: '='
     },
     templateUrl: 'js/common/poll/poll.html',
     link: function(scope) {
 
-      scope.delete = PollFactory.deletePoll
-
-      PollFactory.getAllByLectureId(1)
+      console.log("DIRECTIVE LECTURE ID", scope.lecture.id)
+      PollFactory.getAllByLectureId(scope.lecture.id)
       .then((currentPolls) => {
         scope.polls = currentPolls
       })
 
+      scope.delete = PollFactory.deletePoll
+
       scope.sendPoll = function(poll) {
-        socket.emit('pollOut', poll)
+        poll.sent = "sent"
+        PollFactory.markSent(poll)
+        .then(()=> {
+          socket.emit('pollOut', poll)
+        })
       }
 
     }
