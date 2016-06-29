@@ -83,15 +83,13 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
             socket.on('receivedUpvote', function(question) {
                 var index = findIndex(question)
-                var question = scope.questions[index]
-                question.upvotes++
+                scope.questions[index].upvotes++
                 scope.$evalAsync()
             })
 
             socket.on('receivedDownvote', function(question) {
                 var index = findIndex(question)
-                var question = scope.questions[index]
-                question.upvotes--;
+                scope.questions[index].upvotes--
                 scope.$evalAsync()
             })
 
