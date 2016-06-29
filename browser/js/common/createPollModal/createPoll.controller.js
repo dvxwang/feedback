@@ -36,10 +36,17 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
   //   $scope.customShow = (option === 'custom')
   // }
 
+  // socket.on('startLecture', function(lecture) {
+  //   $scope.lecture = lecture
+  // })
+
+  console.log('curLecture', $scope.curLecture)
+  console.log(lecture, $scope.lecture)
+
   $scope.submitPoll = function () {
     var poll = {}
     poll.question = $scope.newPoll
-    poll.lectureId = lecture.id
+    poll.lectureId = $scope.curLecture
     // poll.options = [{'a': $scope.a}, {'b': $scope.b}, {'c': $scope.c}]
     poll.options = [$scope.a, $scope.b, $scope.c]
     var check = poll.options.reduce(function(prev, next) { return prev && (next != undefined || next != null)}, true)
