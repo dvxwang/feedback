@@ -13,13 +13,6 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
                 scope.questions = questions.filter(function(q) { return q.status === 'open' })
             })
 
-            // LectureFactory.getCurLecture().then(function(lecture) {
-            //     scope.curLecture = lecture;
-            //     return QuestionFactory.getAllByLectureId(scope.curLecture.id).then(function(questions) {
-            //         scope.questions = questions.filter(function(q) { return q.status === 'open' })
-            //     })
-            // })
-
             function findIndex(question) {
                 for (var i = 0; i < scope.questions.length; i++) {
                     if (scope.questions[i].text === question.text) {
