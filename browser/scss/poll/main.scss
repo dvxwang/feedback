@@ -41,12 +41,36 @@
 }
 
 #student-modal {
+	height: 200px;
+	.modal-header {
+		text-align: center;
+	}
 	.modal-body {
-		#answers {
-			float: left;
-			// input {
-			// 	display: inline;
-			// };
+		button {
+			color: white;
+			font-size: 20px;
+			width: 31%;
+			float:left;
+			margin: 0 1% 0 1%;
+			background-color: #015249;
+			padding: 15px 0 15px 0;
+			border: none;
 		};
+	}
+}
+
+#createPoll {
+	height: 500px;
+	.modal-header {
+		text-align: center;
+	}
+	.mainQuestion {
+		font-size: 24px;
+		padding: 5%;
+	}
+	.option {
+		margin: 5% 0;
+		font-size: 16px;
+		padding: 2% 5%;
 	}
 }
