@@ -33,10 +33,10 @@ module.exports = function (db) {
     {
       classMethods: {
         mark: function(id) {
-          this.findOne({where:{id:id}})
+          return this.findOne({where:{id:id}})
           .then(function(poll) {
             console.log(poll)
-            poll.updateAttributes({sent: "sent"})
+            return poll.updateAttributes({sent: "sent"})
           })
         }
       },

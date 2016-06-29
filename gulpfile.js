@@ -40,17 +40,26 @@ gulp.task('lintJS', function () {
         .pipe(eslint.failOnError());
 
 });
-
 gulp.task('buildJS', function () {  // removed ['lintJS'] because not compatible for ES6 for now...
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
-        .pipe(plumber())
-        .pipe(sourcemaps.init())
-        .pipe(concat('main.js'))
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public'));
+    var pipefirst = gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+          .pipe(plumber())
+          .pipe(sourcemaps.init())
+          .pipe(concat('main.js'))
+          .pipe(babel({
+              presets: ['es2015']
+          }))
+          .pipe(sourcemaps.write())
+          .pipe(gulp.dest('./public'));
+        // var filetext = ''
+        // pipefirst.on('data', function(chunk) {
+        //   filetext += chunk.contents
+        //   // console.log(chunk.inspect())
+        //   // console.log(chunk.contents.toString())
+        // })
+        // pipefirst.on('end', function() {
+        //   console.log(filetext.split('\n').slice(370,380).join('\n'))
+        // })
+        return pipefirst
 });
 
 gulp.task('testServerJS', function () {

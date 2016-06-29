@@ -25,15 +25,15 @@ app.factory('PollFactory', ($http) => {
       .then(dotData)
     },
     markSent: (pollObj) => {
-      console.log("cached1", cachedPolls)
       return $http.put('/api/poll/mark/'+pollObj.id)
       .then(dotData)
       .then((sentPoll) => {
-        cachedPolls.splice(cachedPolls.map(function(item) { return item.id }).indexOf(pollObj.id),1)
+        console.log("cached1", cachedPolls)
+        cachedPolls.splice(cachedPolls.map(function(item) { return item.id }).indexOf(sentPoll.id),1)
         console.log("cached2", cachedPolls)
         return cachedPolls
       })
-    }
+    },
     deletePoll: (id) => {
       return $http.delete('/api/poll/'+id)
       .then(dotData)

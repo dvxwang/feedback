@@ -27,10 +27,7 @@ router.get('/lecture/:lectureId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  Lecture.findOrCreate({where:{id:req.body.lectureId}})
-  .then(() => {
-    return Poll.create(req.body)
-  })
+  Poll.create(req.body)
   .then((poll) => {
     res.status(201).json(poll)
   })
@@ -42,8 +39,10 @@ router.get('/:pollId', (req, res, next) => {
 })
 
 router.put('/mark/:pollId', (req, res, next) => {
+  console.log("HEYYYYY")
   Poll.mark(req.params.pollId)
   .then((poll)=> {
+    console.log("POLLL", poll)
     res.status(200).json(poll)
   })
   .catch(next)

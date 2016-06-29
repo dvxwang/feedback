@@ -39,7 +39,7 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
   $scope.submitPoll = function () {
     var poll = {}
     poll.question = $scope.newPoll
-    poll.lectureId = $scope.lecture.id
+    poll.lectureId = lecture.id
     // poll.options = [{'a': $scope.a}, {'b': $scope.b}, {'c': $scope.c}]
     poll.options = [$scope.a, $scope.b, $scope.c]
     var check = poll.options.reduce(function(prev, next) { return prev && (next != undefined || next != null)}, true)
