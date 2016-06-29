@@ -10,7 +10,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
         link: function(scope, element, attrs) {
 
             QuestionFactory.getAllByLectureId(scope.lecture.id).then(function(questions) {
-                scope.questions = questions.filter(function(q) { return q.status === 'open' })
+                scope.questions = questions.filter(function(q) { return q.status === 'open' }).reverse()
             })
 
             function findIndex(question) {
