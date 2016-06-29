@@ -10,12 +10,17 @@
                     <div class="classHeader">Promises and Arrays</div>
                     <div class="classInstructor">Omri Bernstein</div>
 
-                    <div class="primaryButtonRow">
-                        <feedback></feedback>
+                    <div ng-if='!curLecture' class='noClass'>
+                        The lecture has not begun
                     </div>
+                    <div ng-if='curLecture'>
+                        <div class="primaryButtonRow">
+                            <feedback></feedback>
+                        </div>
 
-                    <div ng-if='curLecture' class="questionQueue">
-                        <question lecture='curLecture'></question>
+                        <div class="questionQueue">
+                            <question lecture='curLecture'></question>
+                        </div>
                     </div>
                 </div>
             </div>
