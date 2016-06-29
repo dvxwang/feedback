@@ -8,7 +8,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope, element, attrs) {
-
+            
             QuestionFactory.getAllByLectureId(scope.lecture.id).then(function(questions) {
                 scope.questions = questions.filter(function(q) { return q.status === 'open' }).reverse()
             })

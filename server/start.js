@@ -11,6 +11,7 @@ var createApplication = function () {
     var io = require('socket.io')(server);   // Attach socket.io.
 
     var questionQueue = [];
+    var curLecture;
 
     io.on('connection', function(socket) {
         var id = socket.id;
@@ -49,11 +50,21 @@ var createApplication = function () {
         })
 
         socket.on('startingLecture', function(lecture) {
+          curLecture = lecture;
           socket.broadcast.emit('startLecture', lecture)
         })
 
         socket.on('endingLecture', function() {
+          curLecture = undefined;
           socket.broadcast.emit('endLecture')
+        })
+        
+        socket.on('signalFeedbackRefresh', function() {
+          io.emit('feedbackRefresh')
+        })
+
+        socket.on('gettingLecture', function() {
+          socket.emit('getLecture', curLecture)
         })
 
     })

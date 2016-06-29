@@ -1,4 +1,4 @@
-app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
+app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
 
     $(document).ready(function() {
         
@@ -114,10 +114,17 @@ app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
         });
 
         $('.start').click(function(){
+            
             if ($(this).html()=='Begin') {
                 LectureFactory.setStart().then(function(lecture) {
                     $scope.curLecture = lecture;
                     socket.emit('startingLecture', lecture)
+                    $scope.$evalAsync()
+                })
+                .then(function() {
+                    setInterval(function () {
+                        socket.emit('signalFeedbackRefresh')
+                    }, 3*1000)
                 })
                 $(this).html('Stop');
                 $(this).css('background-color', 'red');
@@ -126,6 +133,7 @@ app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
                 LectureFactory.setEnd().then(function() {
                     $scope.curLecture = undefined;
                     socket.emit('endingLecture')
+                    $scope.$evalAsync()
                 })
                 $(this).html('Begin');
                 $(this).css('background-color', 'green');

@@ -1,14 +1,13 @@
 app.factory('FeedbackFactory', function ($http) {
 	var FeedbackFactory = {};
 
-	FeedbackFactory.addFeedback = function (category) {
-		return $http.post('/api/feedback/', {category: category})
-		.then(function(result) {
+	FeedbackFactory.addFeedback = function (category, lectureId) {
+		return $http.post('/api/feedback/' + lectureId, {category: category
 		})
 	}
 
-	FeedbackFactory.countFeedback = function (category) {
-		return $http.get('/api/feedback/count/'+ category)
+	FeedbackFactory.countFeedback = function (category, lectureId) {
+		return $http.get('/api/feedback/count/'+lectureId+'/'+category)
 		.then(function(result ) {
 			return result.data
 		})

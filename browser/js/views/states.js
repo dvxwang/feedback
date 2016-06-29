@@ -2,6 +2,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('student', {
         url: '/student',
         templateUrl: 'js/views/student/student.html',
+        controller: 'StudentCtrl'
     });
 });
 
@@ -9,6 +10,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('admin', {
         url: '/admin',
         templateUrl: 'js/views/instructor/instructor.html',
+        controller: 'InstructorCtrl'
     });
 });
 
