@@ -15,26 +15,31 @@
                     <div class="start googleButton">Begin</div>
                 </div>
 
-                <div class="primaryButtonRow">
-                    <feedback></feedback>
-                </div>
-
-                <div class="chart">
-                    <div id='chartCode'></div>
-                </div>
+                <div ng-if='!curLecture' class='noClass'>
+                        The lecture has not begun
+                    </div>
                 
-                <div ng-if='curLecture' class="questionQueue">
-                    <question admin="true" lecture='curLecture'></question>
-                </div>
+                <div ng-if='curLecture' class='activeClass'>
+                    <div class="primaryButtonRow">
+                        <feedback></feedback>
+                    </div>
 
-                <div class="activePoll">
-                  <active-poll></active-poll>
-                </div>
+                    <div class="chart">
+                        <div id='chartCode'></div>
+                    </div>
+                    
+                    <div class="questionQueue">
+                        <question admin="true" lecture='curLecture'></question>
+                    </div>
 
-                <div class="pollQueue">
-                    <poll></poll>
-                </div>
+                    <div class="activePoll">
+                      <active-poll></active-poll>
+                    </div>
 
+                    <div class="pollQueue">
+                        <poll></poll>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
