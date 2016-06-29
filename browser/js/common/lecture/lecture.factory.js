@@ -12,11 +12,5 @@ app.factory('LectureFactory', function ($http) {
 		return $http.post('api/lecture/end')
 	}
 
-	LectureFactory.getCurLecture = function () {
-		return $http.get('api/lecture/current').then(function(res) {
-			return res.data;
-		})
-	}
-
 	return LectureFactory
 })
