@@ -15,6 +15,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('admin', {
         url: '/admin',
         templateUrl: 'js/views/instructor/instructor.html',
+        controller: 'InstructorCtrl'
     });
 });
 
