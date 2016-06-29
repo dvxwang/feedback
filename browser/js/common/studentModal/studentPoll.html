@@ -1,12 +1,14 @@
-<div class="modal-header">
-  <h1>{{item.poll.question}}</h1>
-</div>
-<div class="modal-body">
-  <form ng-model="answers" ng-submit="submitAnswer()">
-  <div ng-repeat="option in item.poll.options">
-    <input type="radio" name="answer" ng-model="$parent.answer" ng-value="true" value="{{option}}"> {{option}}<br>
+<div id="student-modal">
+  <div class="modal-header">
+    <h1>{{item.poll.question}}</h1>
   </div>
-    <button class="btn btn-success" type="submit">Submit</button>
-</form>
-<div class="modal-footer">
+  <div class="modal-body">
+    <form ng-model="answers" ng-submit="submitAnswer()">
+    <div ng-repeat="option in item.poll.options" id="answers">
+        <input type="radio" name="answer" ng-model="$parent.answer" ng-value="true" value="{{option}}"> {{option}}<br>
+    </div>
+      <button class="btn btn-success" type="submit">Submit</button>
+  </form>
+  <div class="modal-footer">
+  </div>
 </div>
