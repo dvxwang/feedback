@@ -78,7 +78,6 @@ app.directive('feedback', ($state, FeedbackFactory) => {
     }, 30*1000)
 
     socket.on('updateFeedback', function(category) {
-        console.log('received -->', category)
 
         return FeedbackFactory.countFeedback(category) 
         .then(function (result) {          

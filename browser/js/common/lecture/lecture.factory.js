@@ -3,6 +3,9 @@ app.factory('LectureFactory', function ($http) {
 
 	LectureFactory.setStart = function () {
 		return $http.post('api/lecture/start',{name: "Demo Lecture", lecturer: "Omri", startTime: Math.floor(Date.now()/1000)})
+		.then(function(res) {
+			return res.data
+		})
 	}
 
 	LectureFactory.setEnd = function () {

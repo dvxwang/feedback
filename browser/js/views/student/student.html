@@ -4,20 +4,20 @@
     </head>
     <body>
         <div id="student">
-          <div ng-controller="StudentPoll"></div>
-            <div class="content">
+            <div ng-controller="StudentPoll">
+                <div class="content">
 
-                <div class="classHeader">Promises and Arrays</div>
-                <div class="classInstructor">Omri Bernstein</div>
+                    <div class="classHeader">Promises and Arrays</div>
+                    <div class="classInstructor">Omri Bernstein</div>
 
-                <div class="primaryButtonRow">
-                    <feedback></feedback>
+                    <div class="primaryButtonRow">
+                        <feedback></feedback>
+                    </div>
+
+                    <div ng-if='curLecture' class="questionQueue">
+                        <question lecture='curLecture'></question>
+                    </div>
                 </div>
-
-                <div class="questionQueue">
-                    <question></question>
-                </div>
-
             </div>
         </div>
     </body>
