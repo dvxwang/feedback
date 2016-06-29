@@ -114,7 +114,7 @@ app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
         });
 
         $('.start').click(function(){
-            if ($(this).html()=='Start') {
+            if ($(this).html()=='Begin') {
                 LectureFactory.setStart().then(function(lecture) {
                     $scope.curLecture = lecture;
                     socket.emit('startingLecture', lecture)
@@ -127,7 +127,7 @@ app.controller('InstructorCtrl', function ($scope, $state, LectureFactory) {
                     $scope.curLecture = undefined;
                     socket.emit('endingLecture')
                 })
-                $(this).html('Start');
+                $(this).html('Begin');
                 $(this).css('background-color', 'green');
             }
         })
