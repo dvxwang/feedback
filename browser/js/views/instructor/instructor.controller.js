@@ -1,8 +1,26 @@
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
 
-    socket.emit('gettingLecture')
+    socket.emit('gettingLecture');
     socket.on('getLecture', function(lecture) {
-        $scope.curLecture = lecture
+        $scope.curLecture = lecture;
+        if (lecture) {
+            $(".start").html("Stop");
+            $(".start").css('background-color', 'red');
+        }
+        $scope.$evalAsync();
+    })
+
+    socket.on('startLecture', function(lecture) {
+        $scope.curLecture = lecture;
+        $(".start").html("Stop");
+        $(".start").css('background-color', 'red');
+        $scope.$evalAsync()
+    })
+
+    socket.on('endLecture', function() {
+        $scope.curLecture = undefined;
+        $(".start").html("Begin");
+        $(".start").css('background-color', 'green');
         $scope.$evalAsync()
     })
 
