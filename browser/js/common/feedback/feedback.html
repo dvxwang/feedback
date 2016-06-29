@@ -26,18 +26,6 @@
 	</div>
 </div>
 
-<div>
-	<p ng-show="!addMessage && !rejectMessage">
-		<br>
-	</p>
-	<p class='flashMessage text-center' ng-show="addMessage"> 
-		Your feedback has been noted
-	</p>
-	<p class='flashMessage text-center' ng-show="rejectMessage"> 
-		You must wait 30 seconds before giving back the same feedback
-	</p>
-</div>
-
 <div class="container">
 	<div>
 		<div class="btn-container">
@@ -64,4 +52,16 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div>
+	<p ng-show="!addMessage && !rejectMessage">
+		<br>
+	</p>
+	<p class='flashMessage text-center' ng-show="addMessage"> 
+		Your feedback has been noted
+	</p>
+	<p class='flashMessage text-center' ng-show="rejectMessage"> 
+		You must wait 30 seconds before giving back the same feedback
+	</p>
 </div>

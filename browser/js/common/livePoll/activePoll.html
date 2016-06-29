@@ -4,17 +4,10 @@
   </div>
   <div ng-hide="nopoll" id="active-poll">
     <div id="active-poll-title">{{poll.question}}</div>
-    <!-- <div>{{counted}}</div> -->
     <div class="row">
       <div class="col-xs-4" ng-repeat="option in poll.options">
-        <li>
-          <div class='optionAnswer'>{{counted[option]}}</div>
-        </li>
-      </div>
-      <div class="col-xs-4" ng-repeat="option in poll.options">
-        <li>
+          <div class='optionAnswer'>{{counted[option] || 0}}</div>
           <div>{{option}}</div>
-        </li>
       </div>
     </div>
   </div>

@@ -30,6 +30,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             }
 
             scope.submit = function() {
+                console.log("David");
                 if (scope.newQuestion) {
                     var question = {text: scope.newQuestion, submitTime: Date.now(), upvotes: 0, lectureId: scope.lecture.id}
                     return QuestionFactory.store(question).then(function(q) {
