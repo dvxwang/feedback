@@ -10,28 +10,38 @@
     font-size: 30px;
 }
 
+.glyphicon.glyph-bg {
+    font-size: 60px;
+}
+
+.glyphicon.glyph-sm {
+    font-size: 20px;
+}
+
 .container {
   width: 100%;
 }
 
 .btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   padding: 10px 10px;
-  font-size: 24px;
+  font-size: 40px;
   line-height: 1.33;
-  border-radius: 35px;
+  border-radius: 50px;
 }
 
-.badge-notify{
+.badge.badge-notify{
    background:red;
    position:relative;
-   bottom: 70px;
-   right: -25px;
+   bottom: 100px;
+   right: -70px;
    font-size: 15px;
 }
 
-.badge-notify-sm{
+.badge.badge-notify-sm{
+   width: 20px;
+   height: 20px;
    background:red;
    position:relative;
    bottom: 45px;
