@@ -8,12 +8,12 @@
     <div class="row">
       <div class="col-xs-4" ng-repeat="option in poll.options">
         <li>
-          <div>{{option}}</div>
+          <div class='optionAnswer'>{{counted[option]}}</div>
         </li>
       </div>
       <div class="col-xs-4" ng-repeat="option in poll.options">
         <li>
-          <div>{{counted[option]}}</div>
+          <div>{{option}}</div>
         </li>
       </div>
     </div>

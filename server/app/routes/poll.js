@@ -27,10 +27,7 @@ router.get('/lecture/:lectureId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  Lecture.findOrCreate({where:{id:req.body.lectureId, name: "omri", lecturer: "omri"}})
-  .then(() => {
-    return Poll.create(req.body)
-  })
+  Poll.create(req.body)
   .then((poll) => {
     res.status(201).json(poll)
   })
@@ -50,7 +47,6 @@ router.put('/:pollId', (req, res, next) => {
 })
 
 router.delete('/:pollId', (req, res, next) => {
-  console.log(req.poll)
   req.poll.destroy()
   .then(() => {
     res.sendStatus(204)
