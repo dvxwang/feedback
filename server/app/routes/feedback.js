@@ -16,14 +16,15 @@ router.get('/:feedbackId', function (req, res, next) {
     });
 });
 
-router.get('/count/:category', function (req, res, next) {
+router.get('/count/:lectureId/:category', function (req, res, next) {
     var now = new Date()
     Feedback.findAndCountAll({
         where: {
+            lectureId: req.params.lectureId,
             category: req.params.category,
             createdAt: {
                 $lt: now,
-                $gt: new Date(now - 5 * 1000)
+                $gt: new Date(now - 30 * 1000)
             }
         }
     }
@@ -33,7 +34,8 @@ router.get('/count/:category', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/:lectureId', function (req, res, next) {
+    req.body.lectureId = req.params.lectureId
     Feedback.create(req.body)
     .then(function(result){
         res.json(result);

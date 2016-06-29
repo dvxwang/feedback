@@ -1,46 +1,55 @@
-app.directive('feedback', ($state, FeedbackFactory) => {
+app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
   return {
     restrict: 'E',
-    scope: {
-
-    },
+    scope: true,
     templateUrl: 'js/common/feedback/feedback.html',
     link: (scope) => {
       scope.addMessage = false;
       scope.rejectMessage = false;
 
-      scope.countFeedback = function (category) {
+
+      scope.submitFeedback = function (category) {
+
         if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {
-        return FeedbackFactory.addFeedback(category)
+        return FeedbackFactory.addFeedback(category, scope.curLecture.id)
         .then(function () {
-          return FeedbackFactory.countFeedback(category)
-        }) 
-        .then(function (result) {
           socket.emit('submittedFeedback', category)
           
           if (category === 'Great') {
-            scope.greatCount = result;
-            scope.greatClicked = true
+            scope.greatClicked = true;
+            setTimeout(function () {
+              scope.greatClicked = false
+            }, 30*1000)
           }
           if (category === 'Confused') {
-            scope.confusedCount = result;
             scope.confusedClicked = true
+            setTimeout(function () {
+              scope.confusedClicked = false
+            }, 30*1000)
           }
           if (category === 'Example') {
-            scope.exampleCount = result;
             scope.exampleClicked = true
+            setTimeout(function () {
+              scope.exampleClicked = false
+            }, 30*1000)
           }
           if (category === 'Cannot See') {
-            scope.seeCount = result
             scope.seeClicked = true
+            setTimeout(function () {
+              scope.seeClicked = false
+            }, 30*1000)
           }
           if (category === 'Cannot Hear') {
-            scope.hearCount = result;
             scope.hearClicked = true;
+            setTimeout(function () {
+              scope.hearClicked = false
+            }, 30*1000)
           }
           if (category === 'Request Break') {
-            scope.breakCount = result
             scope.breakClicked = true;
+            setTimeout(function () {
+              scope.breakClicked = false
+            }, 30*1000)
           }
         })
         .then(function () {
@@ -61,25 +70,44 @@ app.directive('feedback', ($state, FeedbackFactory) => {
       }
     }
 
-    setInterval(function() {
-      scope.greatCount = null;
-      scope.greatClicked = null;
-      scope.confusedCount = null;
-      scope.confusedClicked = null;
-      scope.exampleCount = null;
-      scope.exampleClicked = null;
-      scope.seeCount = null;
-      scope.seeClicked = null;
-      scope.hearCount = null;
-      scope.hearClicked = null;
-      scope.breakCount = null;
-      scope.breakClicked = null;
-      scope.$digest();
-    }, 30*1000)
+    socket.on('feedbackRefresh', function() {
+      
+        FeedbackFactory.countFeedback('Great', scope.curLecture.id)
+        .then(function (result) {          
+            if (result === 0) scope.greatCount = null
+              else scope.greatCount = result
+        })
+        FeedbackFactory.countFeedback('Confused', scope.curLecture.id)
+        .then(function (result) {          
+            if (result === 0) scope.confusedCount = null
+              else scope.confusedCount = result
+        })
+        FeedbackFactory.countFeedback('Example', scope.curLecture.id)
+        .then(function (result) {          
+            if (result === 0) scope.exampleCount = null
+              else scope.exampleCount = result
+        })
+        FeedbackFactory.countFeedback('Cannot See', scope.curLecture.id)
+        .then(function (result) {          
+            if (result === 0) scope.seeCount = null
+              else scope.seeCount = result
+        })
+        FeedbackFactory.countFeedback('Cannot Hear', scope.curLecture.id)
+        .then(function (result) {          
+            if (result === 0) scope.hearCount = null
+              else scope.hearCount = result
+        })
+        FeedbackFactory.countFeedback('Request Break', scope.curLecture.id)
+        .then(function (result) {          
+            if (result === 0) scope.breakCount = null
+              else scope.breakCount = result
+        })
+        scope.$digest();
+    })
 
     socket.on('updateFeedback', function(category) {
 
-        return FeedbackFactory.countFeedback(category) 
+        return FeedbackFactory.countFeedback(category, scope.curLecture.id) 
         .then(function (result) {          
           if (category === 'Great') {
             scope.greatCount = result
@@ -100,7 +128,7 @@ app.directive('feedback', ($state, FeedbackFactory) => {
             scope.breakCount = result
           }
         })
-        // scope.$digest()
+        scope.$digest()
     })
 
   }
