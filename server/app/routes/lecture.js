@@ -30,10 +30,10 @@ router.post('/start', function (req, res, next) {
 });
 
 router.post('/end', function (req, res, next) {
-    Lecture.findById(req.body.id)
+    Lecture.findById(req.session.lecture.id)
     .then(function(result){
         return result.update({
-            endTime: req.body.endTime
+            endTime: Math.floor(Date.now()/1000)
         })
       })
     .then(function(result){

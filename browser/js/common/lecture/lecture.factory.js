@@ -6,7 +6,7 @@ app.factory('LectureFactory', function ($http) {
 	}
 
 	LectureFactory.setEnd = function () {
-		return $http.post('api/lecture/end',{id: curLecture.id, endTime: Math.floor(Date.now()/1000)})
+		return $http.post('api/lecture/end')
 	}
 
 	LectureFactory.getCurLecture = function () {
