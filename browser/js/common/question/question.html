@@ -14,7 +14,10 @@
     	<td><span class='wordWrap' contenteditable='true'>{{ question.text }}</span></td>
     	<td><i ng-if='admin' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='delete(question)'></i></td>
 		  <td>
-        <i ng-if='!question.hasUpvoted' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up" ng-click='upvote(question)'>
+        <i ng-if='!question.hasUpvoted && !admin' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up" ng-click='upvote(question)'>
+          <strong>{{question.upvotes}}<strong>
+        </i>
+        <i ng-if='admin' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up">
           <strong>{{question.upvotes}}<strong>
         </i>
         <i ng-if='question.hasUpvoted' class="btn btn-xs round btn-info glyphicon glyphicon-thumbs-up" ng-click='downvote(question)'>
