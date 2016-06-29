@@ -32,14 +32,21 @@
 	li {
 		display: inline;
     list-style-type: none;
-    // padding-right: 15px;
-		border-right-width: 1px;
-		border-right-color: #000;
-		border-left: 1px black;
 	};
 	#active-poll-title {
 		font-size: 24px;
 		margin-top: 10px;
 		margin-bottom: 10px;
+	}
+}
+
+#student-modal {
+	.modal-body {
+		#answers {
+			float: left;
+			// input {
+			// 	display: inline;
+			// };
+		};
 	}
 }
