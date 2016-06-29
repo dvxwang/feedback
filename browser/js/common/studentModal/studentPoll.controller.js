@@ -53,10 +53,10 @@ function StudentModalInstance($scope, $uibModalInstance, $uibModal, item, PollFa
 
   $scope.item = item;
 
-  $scope.submitAnswer = function () {
+  $scope.submitAnswer = function ($event) {
     var answer = {
       pollId: $scope.item.poll.id,
-      option: $scope.answer
+      option: $event.currentTarget.value
     }
 
     PollAnswerFactory.answerPoll(answer)

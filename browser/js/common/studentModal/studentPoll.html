@@ -3,12 +3,8 @@
     <h1>{{item.poll.question}}</h1>
   </div>
   <div class="modal-body">
-    <form ng-model="answers" ng-submit="submitAnswer()">
-    <div ng-repeat="option in item.poll.options" id="answers">
-        <input type="radio" name="answer" ng-model="$parent.answer" ng-value="true" value="{{option}}"> {{option}}<br>
+    <div ng-repeat="option in item.poll.options" class="pollOption">
+        <button value="{{option}}" ng-click="submitAnswer($event)"> {{option}}</button>
     </div>
-      <button class="btn btn-success" type="submit">Submit</button>
-  </form>
-  <div class="modal-footer">
-  </div>
+  </div>  
 </div>
