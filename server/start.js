@@ -51,12 +51,12 @@ var createApplication = function () {
 
         socket.on('startingLecture', function(lecture) {
           curLecture = lecture;
-          socket.broadcast.emit('startLecture', lecture)
+          io.emit('startLecture', lecture);
         })
 
         socket.on('endingLecture', function() {
           curLecture = undefined;
-          socket.broadcast.emit('endLecture')
+          io.emit('endLecture')
         })
         
         socket.on('signalFeedbackRefresh', function() {
