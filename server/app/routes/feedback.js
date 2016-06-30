@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var db = require('../../database');
 var Feedback = db.model('feedback');
+var Lecture = db.model('lecture');
 
 router.get('/', function (req, res, next) {
     Feedback.findAll()
@@ -18,17 +19,44 @@ router.get('/:feedbackId', function (req, res, next) {
 
 router.get('/count/:lectureId/:category', function (req, res, next) {
     var now = new Date()
-    Feedback.findAndCountAll({
+
+    return Feedback.findOne({
         where: {
-            lectureId: req.params.lectureId,
             category: req.params.category,
-            createdAt: {
-                $lt: now,
-                $gt: new Date(now - 30 * 1000)
+            lectureId: req.params.lectureId,
+            comment: "adminReset"
+        },
+        order: [['updatedAt', 'DESC']]
+    })
+    .then(function (result) {
+        if (result) {
+            return result
+        }
+        else {
+            return Lecture.findOne({
+                where: {
+                    id: req.params.lectureId,
+                },
+                // order: [['createdAt', 'ASC']]
+            })
+        }
+    })
+    .then(function (result) {
+        return result.createdAt
+    })
+    .then(function (lastClearTime) {
+        return Feedback.findAndCountAll({
+            where: {
+                lectureId: req.params.lectureId,
+                category: req.params.category,
+                createdAt: {
+                    $lt: now,
+                    $gt: new Date(lastClearTime)
+                }
             }
         }
-    }
-    )
+        )  
+    })
     .then(function(result){
         res.json(result.count);
     });
