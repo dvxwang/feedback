@@ -10,10 +10,12 @@
                 <div ng-if="!curLecture"class="classHeader">Welcome</div>
 
                 <div class="launchRow">
+                  <div class="launch-panel">
                     <div class="googleButton">
                         <div id="startButton2"></div>
                     </div>
                     <div ng-controller="CreateLecture" class="start googleButton" ng-click="showLectureModal()">Begin</div>
+                </div>
                 </div>
 
                 <div ng-show='curLecture' class="chart">

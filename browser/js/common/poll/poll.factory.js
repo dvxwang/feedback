@@ -2,6 +2,9 @@ app.factory('PollFactory', ($http) => {
   function dotData(dot) {
     return dot.data
   }
+  function cleanCache(arr, id) {
+    arr.splice(arr.map(function(item) { return item.id }).indexOf(id),1)
+  }
   var cachedPolls = []
   return {
     getAllByLectureId: (id) => {
@@ -28,9 +31,7 @@ app.factory('PollFactory', ($http) => {
       return $http.put('/api/poll/mark/'+pollObj.id)
       .then(dotData)
       .then((sentPoll) => {
-        console.log("cached1", cachedPolls)
-        cachedPolls.splice(cachedPolls.map(function(item) { return item.id }).indexOf(sentPoll.id),1)
-        console.log("cached2", cachedPolls)
+        cleanCache(cachedPolls, sentPoll.id)
         return cachedPolls
       })
     },
@@ -38,7 +39,7 @@ app.factory('PollFactory', ($http) => {
       return $http.delete('/api/poll/'+id)
       .then(dotData)
       .then((removedPoll) => {
-        cachedPolls.splice(cachedPolls.map(function(item) { return item.id }).indexOf(id),1)
+        cleanCache(cachedPolls, id)
         return cachedPolls
       })
     }
