@@ -141,7 +141,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         function updateInstructorView(){
             setInterval(function(){
                 updateChart();
-                socket.emit('signalFeedbackRefresh')
+                // socket.emit('signalFeedbackRefresh')
             }, 1000);
         };
 

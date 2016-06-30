@@ -37,7 +37,6 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
                 where: {
                     id: req.params.lectureId,
                 },
-                // order: [['createdAt', 'ASC']]
             })
         }
     })
@@ -66,6 +65,8 @@ router.post('/:lectureId', function (req, res, next) {
     req.body.lectureId = req.params.lectureId
     Feedback.create(req.body)
     .then(function(result){
+        var io = req.app.get('socketio');
+        io.emit('updateFeedback', result.category)
         res.json(result);
     });
 });

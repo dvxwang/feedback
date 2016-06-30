@@ -9,6 +9,7 @@ var createApplication = function () {
     var app = require('./app')(db);
     server.on('request', app); // Attach the Express application.
     var io = require('socket.io')(server);   // Attach socket.io.
+    app.set('socketio', io);
 
     var curLecture;
 
@@ -35,10 +36,6 @@ var createApplication = function () {
             io.emit('receivedDownvote', question)
         })
 
-        socket.on('submittedFeedback', function (category) {
-            io.emit('updateFeedback', category)
-        })
-
         socket.on('pollOut', function(poll) {
           io.emit('toStudent', poll)
         })
@@ -55,10 +52,6 @@ var createApplication = function () {
         socket.on('endingLecture', function() {
           curLecture = undefined;
           io.emit('endLecture')
-        })
-        
-        socket.on('signalFeedbackRefresh', function() {
-          io.emit('feedbackRefresh')
         })
 
         socket.on('gettingLecture', function() {
