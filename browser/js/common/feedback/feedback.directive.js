@@ -12,7 +12,7 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
       scope.submitFeedback = function (category) {
 
         if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {
-        return FeedbackFactory.addFeedback(category, scope.$parent.curLecture.id)
+        return FeedbackFactory.addFeedback({category: category}, scope.$parent.curLecture.id)
         .then(function () {
           socket.emit('submittedFeedback', category)
           

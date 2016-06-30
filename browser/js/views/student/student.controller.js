@@ -51,7 +51,7 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
 
     $scope.submit = function() {
       var promises = $scope.poll.options.map(function(result) {
-        return FeedbackFactory.addSurveyResult(result, $scope.curLecture.id)
+        return FeedbackFactory.addFeedback(result, $scope.curLecture.id)
       })
       $uibModalInstance.close()
       return Promise.all(promises)
