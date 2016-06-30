@@ -36,7 +36,7 @@
 					<span class="tooltiptext">Can't See?</span>
 				</button>
 				</center>
-				<span ng-if="admin" class="badge badge-notify-sm">{{seeCount}}</span>
+				<span class="badge badge-notify-sm">{{seeCount}}</span>
 			</div>
 			<div class="col-xs-3">
 				<center>
@@ -45,7 +45,7 @@
 					<span class="tooltiptext">Can't Hear?</span>
 				</button>
 				</center>
-				<span ng-if="admin" class="badge badge-notify-sm">{{hearCount}}</span>
+				<span class="badge badge-notify-sm">{{hearCount}}</span>
 			</div>
 			<div class="col-xs-3">
 			<center>
@@ -54,7 +54,7 @@
 					<span class="tooltiptext">Want a break?</span>
 				</button>
 			</center>
-				<span ng-if="admin" class="badge badge-notify-sm">{{breakCount}}</span>
+				<span class="badge badge-notify-sm">{{breakCount}}</span>
 			</div>
 		</div>
 	</div>
@@ -64,10 +64,16 @@
 	<p ng-show="!addMessage && !rejectMessage">
 		<br>
 	</p>
-	<p class='flashMessage text-center' ng-show="addMessage"> 
+	<p class='flashMessage text-center' ng-show="addMessage && !admin"> 
 		Your feedback has been noted
 	</p>
-	<p class='flashMessage text-center' ng-show="rejectMessage"> 
+	<p class='flashMessage text-center' ng-show="rejectMessage && !admin"> 
 		You must wait 30 seconds before giving back the same feedback
+	</p>
+	<p class='flashMessage text-center' ng-show="addMessage && admin"> 
+		You have cleared the feedback count in this category
+	</p>
+	<p class='flashMessage text-center' ng-show="rejectMessage && admin"> 
+		You must wait 30 seconds before clearing the feedback count again for this category
 	</p>
 </div>
