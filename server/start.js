@@ -10,14 +10,12 @@ var createApplication = function () {
     server.on('request', app); // Attach the Express application.
     var io = require('socket.io')(server);   // Attach socket.io.
 
-    var questionQueue = [];
     var curLecture;
 
     io.on('connection', function(socket) {
         var id = socket.id;
 
         socket.on('addingQuestion', function(question) {
-            questionQueue.push(question)
             io.emit('addQuestion', question)
         })
 
