@@ -1,30 +1,34 @@
 <div class="panel panel-default container" id="queue">
   <!-- Default panel contents -->
-  <div class="panel-heading row">
-  	<input class="form-control" ng-keyup="$event.keyCode == 13 ? submit() : null" type="text" ng-model='newQuestion' placeholder='Enter question here...'>
-    <button class="btn btn-success" ng-click='submit()'>Submit</button>
+  <div id="add-question">
+    <div class="panel-heading row">
+    	<input class="form-control" ng-keyup="$event.keyCode == 13 ? submit() : null" type="text" ng-model='newQuestion' placeholder='Enter question here...'>
+      <button class="btn btn-success" ng-click='submit()'>Submit</button>
+    </div>
   </div>
   <!-- Table -->
-  <table class="table">
-    <tr ng-repeat='question in questions'>
-    	<td ng-if='admin'>
-        <i class="glyphicon glyphicon-arrow-up" ng-click='move(question, -1)'></i>
-        <i class="glyphicon glyphicon-arrow-down" ng-click='move(question, 1)'></i>
-      </td>
-    	<td><span class='wordWrap' contenteditable='true'>{{ question.text }}</span></td>
-    	<td><i ng-if='admin' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='delete(question)'></i></td>
-		  <td>
-        <i ng-if='!question.hasUpvoted && !admin' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up" ng-click='upvote(question)'>
-          <strong>{{question.upvotes}}<strong>
-        </i>
-        <i ng-if='admin' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up">
-          <strong>{{question.upvotes}}<strong>
-        </i>
-        <i ng-if='question.hasUpvoted' class="btn btn-xs round btn-info glyphicon glyphicon-thumbs-up" ng-click='downvote(question)'>
-          <strong>{{question.upvotes}}<strong>
-        </i>
-      </td>
-      <td><i ng-if='admin' class="btn btn-xs round btn-success glyphicon glyphicon-ok" ng-click="close(question)"></i></td>
-    </tr>
-  </table>
+  <div id="qqueue" class="container">
+    <table class="table">
+      <tr ng-repeat='question in questions'>
+      	<td ng-if='admin'>
+          <i class="glyphicon glyphicon-arrow-up" ng-click='move(question, -1)'></i>
+          <i class="glyphicon glyphicon-arrow-down" ng-click='move(question, 1)'></i>
+        </td>
+      	<td><span class='wordWrap' contenteditable='true'>{{ question.text }}</span></td>
+      	<td><i ng-if='admin' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click='delete(question)'></i></td>
+  		  <td>
+          <i ng-if='!question.hasUpvoted && !admin' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up" ng-click='upvote(question)'>
+            <strong>{{question.upvotes}}<strong>
+          </i>
+          <i ng-if='admin' class="btn btn-xs round btn-active glyphicon glyphicon-thumbs-up">
+            <strong>{{question.upvotes}}<strong>
+          </i>
+          <i ng-if='question.hasUpvoted' class="btn btn-xs round btn-info glyphicon glyphicon-thumbs-up" ng-click='downvote(question)'>
+            <strong>{{question.upvotes}}<strong>
+          </i>
+        </td>
+        <td><i ng-if='admin' class="btn btn-xs round btn-success glyphicon glyphicon-ok" ng-click="close(question)"></i></td>
+      </tr>
+    </table>
+  </div>
 </div>

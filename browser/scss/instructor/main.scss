@@ -78,17 +78,16 @@
         border-radius: 5px;
     }
     .questionQueue {
-        height: 40%;
+        height: 47%;
         width: 43%;
         background-color: white;
         float: left;
         margin: 0 0 0 5%;
-        overflow-y: auto;
         border-radius: 4px;
     }
     .activePoll {
         width: 43%;
-        height: 13%;
+        height: 15%;
         background-color: white;
         margin: 0 0 0 52%;
         border-radius: 4px;
@@ -101,7 +100,7 @@
         height: 25%;
         background-color: white;
         margin: 2% 0 0 52%;
-        overflow-y: auto;
+        // overflow-y: auto;
         border-radius: 4px;
     }
     .noClass {

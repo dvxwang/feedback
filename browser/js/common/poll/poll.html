@@ -1,12 +1,13 @@
 
 <div class="panel panel-default container" id="poll">
-
+  <div id="add-poll">
     <div ng-controller="CreatePoll">
       <h1>Poll Queue</h1>
       <button class="btn btn-success" ng-click="showModal()">Add a Poll</button>
     </div>
-
+  </div>
     <!-- Table -->
+  <div id="pqueue" class="container">
     <table class="table">
       <tr ng-repeat='poll in polls'>
       	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
@@ -15,5 +16,5 @@
   		<td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
       </tr>
     </table>
-
+  </div>
 </div>
