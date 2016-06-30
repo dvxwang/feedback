@@ -3,11 +3,12 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
     return {
         restrict: 'E',
         scope: {
-            admin: '@',
-            lecture: '='
+            admin: '@'
         },
         templateUrl: 'js/common/question/question.html',
         link: function(scope, element, attrs) {
+            scope.lecture = scope.$parent.curLecture
+
             QuestionFactory.getAllByLectureId(scope.lecture.id).then(function(questions) {
                 scope.questions = questions.filter(function(q) { return q.status === 'open' }).reverse()
             })
@@ -45,8 +46,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             }
 
             scope.close = function(question) {
-                question.status = 'closed'
-                return QuestionFactory.update(question).then(function(){
+                return QuestionFactory.update(question.id, { status: 'closed'}).then(function(){
                     socket.emit('deletingQuestion', question)
                 })
             }
