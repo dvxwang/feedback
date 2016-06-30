@@ -7,12 +7,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
             $(".start").html("Stop");
             $(".start").css('background-color', 'red');
         }
-        console.log("David: ",$scope.curLecture);
         $scope.$evalAsync();
     })
 
     socket.on('startLecture', function(lecture) {
-        console.log("page registered");
         $scope.curLecture = lecture;
         $(".start").html("Stop");
         $(".start").css('background-color', 'red');
@@ -187,7 +185,6 @@ var LectureInstanceCtrl = function($scope, $uibModalInstance, $uibModal, Lecture
     LectureFactory.setStart($scope.lectureName,$scope.lectureTeacher).then(function(lecture) {
         $scope.curLecture = lecture;
         socket.emit('startingLecture', lecture);
-        console.log("David: ");
     })
     .then(function(){
         $uibModalInstance.close();
