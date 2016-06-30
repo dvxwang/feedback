@@ -57,16 +57,14 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
             scope.upvote = function(question) {
                 question.hasUpvoted = !question.hasUpvoted;
-                question.upvotes++;
                 socket.emit('upvoting', question)
-                return QuestionFactory.update(question)
+                return QuestionFactory.update(question.id, { upvotes: question.upvotes+1 })
             }
 
             scope.downvote = function(question) {
                 question.hasUpvoted = !question.hasUpvoted;
-                question.upvotes--;
                 socket.emit('downvoting', question)
-                return QuestionFactory.update(question)
+                return QuestionFactory.update(question.id, { upvotes: question.upvotes-1 })
             }
 
             socket.on('addQuestion', function(question) {
