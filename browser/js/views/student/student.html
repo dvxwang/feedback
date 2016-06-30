@@ -7,8 +7,12 @@
             <div class="content">
                 <div ng-controller="StudentPoll" id="studentBody">
 
-                    <div class="classHeader">Promises and Arrays</div>
-                    <div class="classInstructor">Omri Bernstein</div>
+                    <div ng-if="curLecture">
+                        <div class="classHeader">{{curLecture.name}}</div>
+                        <div class="classInstructor">{{curLecture.lecturer}}</div>
+                    </div>
+                    
+                    <div ng-if="!curLecture"class="classHeader">Welcome</div>
 
                     <div ng-if='!curLecture' class='noClass'>
                         The lecture has not begun

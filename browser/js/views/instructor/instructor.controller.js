@@ -7,21 +7,23 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
             $(".start").html("Stop");
             $(".start").css('background-color', 'red');
         }
+        console.log("David: ",$scope.curLecture);
         $scope.$evalAsync();
     })
 
     socket.on('startLecture', function(lecture) {
+        console.log("page registered");
         $scope.curLecture = lecture;
         $(".start").html("Stop");
         $(".start").css('background-color', 'red');
-        $scope.$evalAsync()
+        $scope.$evalAsync();
     })
 
     socket.on('endLecture', function() {
         $scope.curLecture = undefined;
         $(".start").html("Begin");
         $(".start").css('background-color', 'green');
-        $scope.$evalAsync()
+        $scope.$evalAsync();
     })
 
     $(document).ready(function() {
@@ -127,43 +129,72 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         function updateInstructorView(){
             setInterval(function(){
                 updateChart();
+                socket.emit('signalFeedbackRefresh')
             }, 1000); 
         };
 
-        updateInstructorView();
+        // updateInstructorView();
 
         socket.on('updateFeedback', function (data) {
           data = data.toLowerCase();
           dataQueue[data].push("instance");
         });
 
-        $('.start').click(function(){
-            
-            if ($(this).html()=='Begin') {
-                LectureFactory.setStart().then(function(lecture) {
-                    $scope.curLecture = lecture;
-                    socket.emit('startingLecture', lecture)
-                    $scope.$evalAsync()
-                })
-                .then(function() {
-                    setInterval(function () {
-                        socket.emit('signalFeedbackRefresh')
-                    }, 3*1000)
-                })
-                $(this).html('Stop');
-                $(this).css('background-color', 'red');
-            }
-            else {
-                LectureFactory.setEnd().then(function() {
-                    $scope.curLecture = undefined;
-                    socket.emit('endingLecture')
-                    $scope.$evalAsync()
-                })
-                $(this).html('Begin');
-                $(this).css('background-color', 'green');
-            }
-        })
-
     });
 
 });
+
+app.controller('CreateLecture', function($scope, $uibModal, LectureFactory) {
+
+    $scope.showLectureModal = function() {
+
+        $scope.opts = {
+        backdrop: true,
+        backdropClick: true,
+        transclude: true,
+        dialogFade: false,
+        keyboard: true,
+        templateUrl : 'js/views/instructor/instructorModal.html',
+        controller : LectureInstanceCtrl,
+        resolve: {} // empty storage
+          };
+
+        $scope.opts.resolve.item = function() {
+            return angular.copy({polls:$scope.polls, lecture: $scope.lecture}); // pass name to Dialog
+        }
+
+    if ($(".start").html()=='Begin') {
+        var modalInstance = $uibModal.open($scope.opts);
+    }
+    else {
+        LectureFactory.setEnd().then(function() {
+            $scope.curLecture = undefined;
+            socket.emit('endingLecture');
+            $scope.$evalAsync();
+        })
+        $(".start").html('Begin');
+        $(".start").css('background-color', 'green');
+    }
+
+    };
+
+})
+
+var LectureInstanceCtrl = function($scope, $uibModalInstance, $uibModal, LectureFactory) {
+
+  $scope.submitLecture = function() {
+          
+    LectureFactory.setStart($scope.lectureName,$scope.lectureTeacher).then(function(lecture) {
+        $scope.curLecture = lecture;
+        socket.emit('startingLecture', lecture);
+        console.log("David: ");
+    })
+    .then(function(){
+        $uibModalInstance.close();
+    })
+  };
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  }
+}
