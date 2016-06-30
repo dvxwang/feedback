@@ -30,24 +30,30 @@
 	<div>
 		<div class="btn-container">
 			<div class="col-xs-3">
+				<center>
 				<button type="button" ng-click="submitFeedback('Cannot See')" class="btn btn-default btn-circle-sm"> 
 					<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
 					<span class="tooltiptext">Can't See?</span>
 				</button>
+				</center>
 				<span ng-if="admin" class="badge badge-notify-sm">{{seeCount}}</span>
 			</div>
 			<div class="col-xs-3">
+				<center>
 				<button type="button" ng-click="submitFeedback('Cannot Hear')" class="btn btn-default btn-circle-sm">
 					<span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
 					<span class="tooltiptext">Can't Hear?</span>
 				</button>
+				</center>
 				<span ng-if="admin" class="badge badge-notify-sm">{{hearCount}}</span>
 			</div>
 			<div class="col-xs-3">
+			<center>
 				<button type="button" ng-click="submitFeedback('Request Break')" class="btn btn-default btn-circle-sm">
 					<span class="glyphicon glyph-sm glyphicon-pause"></span>
 					<span class="tooltiptext">Want a break?</span>
 				</button>
+			</center>
 				<span ng-if="admin" class="badge badge-notify-sm">{{breakCount}}</span>
 			</div>
 		</div>

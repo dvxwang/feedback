@@ -40,7 +40,7 @@ router.get('/:questionId', function(req, res) {
 });
 
 router.put('/:questionId', function(req, res, next) {
-	req.question.update(req.body).then(function(question){
+	req.question.updateAttributes(req.body).then(function(question){
 		res.status(200).json(question);
 	}).catch(next)
 });

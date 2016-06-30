@@ -30,11 +30,11 @@ var createApplication = function () {
         })
 
         socket.on('upvoting', function(question) {
-            socket.broadcast.emit('receivedUpvote', question)
+            io.emit('receivedUpvote', question)
         })
 
         socket.on('downvoting', function(question) {
-            socket.broadcast.emit('receivedDownvote', question)
+            io.emit('receivedDownvote', question)
         })
 
         socket.on('submittedFeedback', function (category) {
@@ -51,12 +51,12 @@ var createApplication = function () {
 
         socket.on('startingLecture', function(lecture) {
           curLecture = lecture;
-          socket.broadcast.emit('startLecture', lecture)
+          io.emit('startLecture', lecture);
         })
 
         socket.on('endingLecture', function() {
           curLecture = undefined;
-          socket.broadcast.emit('endLecture')
+          io.emit('endLecture')
         })
         
         socket.on('signalFeedbackRefresh', function() {

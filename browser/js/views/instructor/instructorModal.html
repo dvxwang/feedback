@@ -1,0 +1,13 @@
+<div id="createLecture">
+  <div class="modal-header">
+    <h1>Create Lecture</h1>
+  </div>
+  <div class="modal-body">
+    <input class="mainQuestion form-control" type="text" ng-model='lectureName' placeholder='Lecture Title'>
+    <input class="mainQuestion form-control" type="text" ng-model='lectureTeacher' placeholder='Lecture Instructor'>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-success" ng-click='submitLecture()'>Submit</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</div>

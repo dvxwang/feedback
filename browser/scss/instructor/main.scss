@@ -114,3 +114,19 @@
         border-color: #014A5B;
     }
 }
+
+#createLecture {
+    height: 500px;
+    .modal-header {
+        text-align: center;
+        border-bottom: none;
+    }
+    .modal-footer {
+        border-top: none;
+    }
+    .mainQuestion {
+        font-size: 24px;
+        padding: 5%;
+        margin-bottom: 5%;
+    }
+}

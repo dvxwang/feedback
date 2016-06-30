@@ -6,15 +6,16 @@
         <div id='instructor'>
             <div class="content">
 
-                <div class="classHeader">Promises and Arrays</div>
+                <div ng-if="curLecture" class="classHeader">{{curLecture.name}}</div>
+                <div ng-if="!curLecture"class="classHeader">Welcome</div>
 
                 <div class="launchRow">
                   <div class="launch-panel">
-                    <div style="border-radius:3px;" class="googleButton">
-                        <div style="border-radius:3px;" id="startButton2"></div>
+                    <div class="googleButton">
+                        <div id="startButton2"></div>
                     </div>
-                    <div class="start googleButton">Begin</div>
-                  </div>
+                    <div ng-controller="CreateLecture" class="start googleButton" ng-click="showLectureModal()">Begin</div>
+                </div>
                 </div>
 
                 <div ng-show='curLecture' class="chart">
