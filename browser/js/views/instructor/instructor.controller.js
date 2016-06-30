@@ -131,7 +131,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
             }, 1000); 
         };
 
-        // updateInstructorView();
+        updateInstructorView();
 
         socket.on('updateFeedback', function (data) {
           data = data.toLowerCase();
