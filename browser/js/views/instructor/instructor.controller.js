@@ -115,8 +115,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         updateInstructorView();
 
         socket.on('updateFeedback', function (data) {
-          data = data.toLowerCase();
-          dataQueue[data].push("instance");
+          if (data === "Great" || data === "Confused" || data === "Example") {
+              data = data.toLowerCase();
+              dataQueue[data].push("instance");
+          }
         });
 
         $('.start').click(function(){
