@@ -6,6 +6,10 @@ app.factory('FeedbackFactory', function ($http) {
 		})
 	}
 
+	FeedbackFactory.addSurveyResult = function (result, lectureId) {
+		return $http.post('/api/feedback/' + lectureId, result)
+	}
+
 	FeedbackFactory.countFeedback = function (category, lectureId) {
 		return $http.get('/api/feedback/count/'+lectureId+'/'+category)
 		.then(function(result ) {
