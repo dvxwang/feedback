@@ -14,8 +14,8 @@ app.factory('QuestionFactory', function ($http) {
 		})
 	}
 
-	obj.update = function(question) {
-		return $http.put('/api/question/' + question.id, question).then(function(res) {
+	obj.update = function(questionId, update) {
+		return $http.put('/api/question/' + questionId, update).then(function(res) {
 			return res.data;
 		})
 	}

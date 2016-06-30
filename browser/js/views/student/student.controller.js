@@ -14,5 +14,4 @@ app.controller('StudentCtrl', function($scope, LectureFactory) {
     $scope.curLecture = undefined;
     $scope.$evalAsync()
   })
-
 })

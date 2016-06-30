@@ -30,11 +30,11 @@ var createApplication = function () {
         })
 
         socket.on('upvoting', function(question) {
-            socket.broadcast.emit('receivedUpvote', question)
+            io.emit('receivedUpvote', question)
         })
 
         socket.on('downvoting', function(question) {
-            socket.broadcast.emit('receivedDownvote', question)
+            io.emit('receivedDownvote', question)
         })
 
         socket.on('submittedFeedback', function (category) {
