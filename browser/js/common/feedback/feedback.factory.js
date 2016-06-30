@@ -1,13 +1,8 @@
 app.factory('FeedbackFactory', function ($http) {
 	var FeedbackFactory = {};
 
-	FeedbackFactory.addFeedback = function (category, lectureId, resetComment) {
-		return $http.post('/api/feedback/' + lectureId,
-			{
-			category: category,
-			comment: resetComment
-			}
-		)
+	FeedbackFactory.addFeedback = function (feedbackObj, lectureId) {
+		return $http.post('/api/feedback/' + lectureId, feedbackObj)
 	}
 
 	FeedbackFactory.countFeedback = function (category, lectureId) {
