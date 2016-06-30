@@ -6,8 +6,6 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
     },
     templateUrl: 'js/common/poll/poll.html',
     link: function(scope) {
-
-      console.log("DIRECTIVE LECTURE ID", scope.lecture.id)
       PollFactory.getAllByLectureId(scope.lecture.id)
       .then((currentPolls) => {
         scope.polls = currentPolls
