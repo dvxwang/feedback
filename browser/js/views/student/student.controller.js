@@ -39,8 +39,8 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
       options: [
         'Do you find this useful? (yes/no)',
         'Is this better than the anonymous poll? (yes/no)',
-        'Anonymous feedback on what how we can improve:',
-        'We would appreciate in-person feedback. Please leave us your name and email for further discussion. Thank you!'
+        'Please leave anonymous feedback on what how we can improve:',
+        'We would also appreciate in-person feedback. Please leave us your name and email for further discussion. Thank you!'
       ]
     }).then(function(poll) {
       $scope.poll = poll;
