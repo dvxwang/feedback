@@ -41,7 +41,7 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, item, Pol
     if (check) {
       PollFactory.createPoll(poll)
       .then(function() { return PollFactory.getAllByLectureId($scope.item.lecture.id) })
-      .then((polls) => { $scope.polls = polls })
+      .then(function(polls) { $scope.polls = polls })
       .then(function() { $uibModalInstance.close() })
     } else {
       alert("You must add at least one question to the poll!")

@@ -20,3 +20,10 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/views/summary/summary.html',
     });
 });
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('lecture', {
+        url: '/lecture',
+        templateUrl: 'js/views/lecture/lecture.html'
+    });
+});

@@ -5,7 +5,7 @@ app.controller('LoginCtrl', function ($scope, $state) {
 
 		switch (temp) {
 			case 'admin':
-				$state.go('admin');
+				$state.go('lecture');
 				break;
 			case 'student':
 				$state.go('student');
