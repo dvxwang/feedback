@@ -25,7 +25,7 @@ module.exports = function (db) {
     correct: {
       type: Sequelize.STRING
     },
-    sent: {
+    status: {
       type: Sequelize.ENUM("pending", "sent"),
       defaultValue: "pending"
     }

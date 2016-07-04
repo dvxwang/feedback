@@ -31,7 +31,7 @@ app.factory('PollFactory', ($http) => {
       return $http.put('/api/poll/'+pollId, pollObj)
       .then(dotData)
       .then((poll) => {
-        if (poll.sent === "sent") cleanCache(cachedPolls, poll.id)
+        if (poll.status === "sent") cleanCache(cachedPolls, poll.id)
         return poll
       })
     },

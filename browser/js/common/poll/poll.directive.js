@@ -5,6 +5,10 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
     link: function(scope) {
       scope.curLecture = scope.$parent.curLecture // this is simply to pass it along to the createPoll controller
 
+      PollFactory.createPoll({
+
+      })
+
       PollFactory.getAllByLectureId(scope.curLecture.id)
       .then((currentPolls) => {
         scope.polls = currentPolls
@@ -13,7 +17,7 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
       scope.delete = PollFactory.deletePoll
 
       scope.sendPoll = function(poll) {
-        PollFactory.updatePoll(poll.id, { sent: "sent"})
+        PollFactory.updatePoll(poll.id, { status: "sent"})
         .then(()=> {
           socket.emit('pollOut', poll)
         })
