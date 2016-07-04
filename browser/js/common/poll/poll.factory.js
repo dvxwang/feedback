@@ -21,7 +21,10 @@ app.factory('PollFactory', ($http) => {
     },
     createPoll: (pollObj) => {
       return $http.post('/api/poll/', pollObj)
-      .then(dotData)
+      .then((res) => {
+        cachedPolls.push(res.data)
+        return res.data;
+      })
     },
     updatePoll: (pollObj) => {
       return $http.put('/api/poll/'+pollObj.id, pollObj)
