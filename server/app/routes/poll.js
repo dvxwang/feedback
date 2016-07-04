@@ -38,18 +38,8 @@ router.get('/:pollId', (req, res, next) => {
   .catch(next)
 })
 
-router.put('/mark/:pollId', (req, res, next) => {
-  console.log("HEYYYYY")
-  Poll.mark(req.params.pollId)
-  .then((poll)=> {
-    console.log("POLLL", poll)
-    res.status(200).json(poll)
-  })
-  .catch(next)
-})
-
 router.put('/:pollId', (req, res, next) => {
-  req.poll.update(req.body)
+  req.poll.updateAttributes(req.body)
   .then((poll) => {
     res.status(200).json(poll)
   })

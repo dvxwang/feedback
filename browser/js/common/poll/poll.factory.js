@@ -21,21 +21,18 @@ app.factory('PollFactory', ($http) => {
     },
     createPoll: (pollObj) => {
       return $http.post('/api/poll/', pollObj)
-      .then((res) => {
-        cachedPolls.push(res.data)
-        return res.data;
+      .then(dotData)
+      .then((poll) => {
+        cachedPolls.push(poll)
+        return poll
       })
     },
-    updatePoll: (pollObj) => {
-      return $http.put('/api/poll/'+pollObj.id, pollObj)
+    updatePoll: (pollId, pollObj) => {
+      return $http.put('/api/poll/'+pollId, pollObj)
       .then(dotData)
-    },
-    markSent: (pollObj) => {
-      return $http.put('/api/poll/mark/'+pollObj.id)
-      .then(dotData)
-      .then((sentPoll) => {
-        cleanCache(cachedPolls, sentPoll.id)
-        return cachedPolls
+      .then((poll) => {
+        if (poll.sent === "sent") cleanCache(cachedPolls, poll.id)
+        return poll
       })
     },
     deletePoll: (id) => {
