@@ -1,12 +1,11 @@
 app.directive('poll', ($state, PollFactory, LectureFactory) => {
   return {
     restrict: 'E',
-    scope: {
-      lecture: '='
-    },
     templateUrl: 'js/common/poll/poll.html',
     link: function(scope) {
-      PollFactory.getAllByLectureId(scope.lecture.id)
+      scope.curLecture = scope.$parent.curLecture // this is simply to pass it along to the createPoll controller
+
+      PollFactory.getAllByLectureId(scope.curLecture.id)
       .then((currentPolls) => {
         scope.polls = currentPolls
       })
