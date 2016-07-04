@@ -65,6 +65,12 @@ var createApplication = function () {
           socket.emit('getLecture', curLecture)
         })
 
+        socket.on('getFeedback', function() {
+          socket.emit('updateFeedback', 'Great')
+          socket.emit('updateFeedback', 'Confused')
+          socket.emit('updateFeedback', 'Example')
+        })
+
     })
 
 };
