@@ -1,6 +1,7 @@
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
 
     socket.emit('gettingLecture');
+
     socket.on('getLecture', function(lecture) {
         $scope.curLecture = lecture;
         if (lecture) {

@@ -3,6 +3,8 @@ var router = require('express').Router();
 var db = require('../../database')
 var Question = db.model('question')
 var Lecture = db.model('lecture')
+var adminBrowsers = require('../../database/adminBrowser.js');
+var request = require('request');
 module.exports = router;
 
 router.param('questionId', function(req, res, next, id) {
@@ -22,7 +24,30 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var io = req.app.get('socketio');
 	Question.create(req.body).then(function(question){
+		console.log("Made it here");
 		io.emit('addQuestion', question.dataValues);
+		var adminList = adminBrowsers.getAdmin();
+		console.log("Sent: ", adminList);
+
+		for (var i=0; i<adminList.length; i++) {
+
+          	var dest = JSON.stringify({"to":adminList[i]});
+			
+			request({
+			    url: "https://android.googleapis.com/gcm/send",
+			    method: "POST",
+			    headers: {
+			        "Content-Type": "application/json",
+			        "Authorization": "key=AIzaSyCUjoRzEBbZk-JfGeZTR1gugbeKjQolJtA"
+			    },
+			    body: dest
+			}, function (error, response, body){
+			    console.log(response);
+			});
+
+          
+        }
+
 		res.status(201).json(question);
 	}).catch(next);
 });
