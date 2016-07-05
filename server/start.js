@@ -12,62 +12,43 @@ var createApplication = function () {
 
     var curLecture;
 
+    app.set('socketio', io);
+
     io.on('connection', function(socket) {
         var id = socket.id;
 
-        socket.on('addingQuestion', function(question) {
-            io.emit('addQuestion', question)
-        })
+        function move(question,number) {io.emit('moving', question, number);};
+        function upvoting(question) {io.emit('receivedUpvote', question);}; //synergies for combining?
+        function downvoting(question) {io.emit('receivedDownvote', question);}; //synergies for combining?
 
-        socket.on('deletingQuestion', function(question) {
-            io.emit('deleteQuestion', question)
-        })
+        function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
 
-        socket.on('move', function(question, n) {
-            io.emit('moving', question, n)
-        })
+        function lectureStart(lecture) {
+            curLecture = lecture;
+            io.emit('startLecture', lecture);
+        };
 
-        socket.on('upvoting', function(question) {
-            io.emit('receivedUpvote', question)
-        })
+        function lectureEnd() {
+            curLecture = undefined;
+            io.emit('endLecture');
+        };
+        function gettingLecture() {socket.emit('getLecture', curLecture);};
 
-        socket.on('downvoting', function(question) {
-            io.emit('receivedDownvote', question)
-        })
+        //question queue events
+        socket.on('move', move);
+        socket.on('upvoting', upvoting);
+        socket.on('downvoting', downvoting);
+        
+        //poll events
+        socket.on('studentAnswer', sendPollAnswer);
 
-        socket.on('submittedFeedback', function (category) {
-            io.emit('updateFeedback', category)
-        })
+        //lecture events
+        socket.on('startingLecture', lectureStart);
+        socket.on('endingLecture', lectureEnd);
+        socket.on('gettingLecture', gettingLecture);
 
         socket.on('updatingPolls', function() {
           io.emit('updatePolls')
-        })
-
-        socket.on('pollOut', function(poll) {
-          io.emit('toStudent', poll)
-          io.emit('updatePolls')
-        })
-
-        socket.on('studentAnswer', function() {
-          socket.broadcast.emit('updateActivePoll')
-        })
-
-        socket.on('startingLecture', function(lecture) {
-          curLecture = lecture;
-          io.emit('startLecture', lecture);
-        })
-
-        socket.on('endingLecture', function() {
-          curLecture = undefined;
-          io.emit('endLecture')
-        })
-        
-        socket.on('signalFeedbackRefresh', function() {
-          io.emit('feedbackRefresh')
-        })
-
-        socket.on('gettingLecture', function() {
-          socket.emit('getLecture', curLecture)
         })
 
         socket.on('getFeedback', function() {

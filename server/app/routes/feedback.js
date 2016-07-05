@@ -63,9 +63,11 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
 });
 
 router.post('/:lectureId', function (req, res, next) {
-    req.body.lectureId = req.params.lectureId
+    var io = req.app.get('socketio');
+    req.body.lectureId = req.params.lectureId;
     Feedback.create(req.body)
     .then(function(result){
+        io.emit('submittedFeedback', result.dataValues.category);
         res.json(result);
     });
 });

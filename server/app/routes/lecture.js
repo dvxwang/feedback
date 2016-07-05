@@ -24,7 +24,7 @@ router.get('/:lectureId', function (req, res, next) {
 router.post('/start', function (req, res, next) {
     Lecture.create(req.body)
     .then(function(result){
-        req.session.lecture = result
+        req.session.lecture = result;
         res.send(result);
     });
 });
