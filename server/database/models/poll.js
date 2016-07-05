@@ -25,22 +25,10 @@ module.exports = function (db) {
     correct: {
       type: Sequelize.STRING
     },
-    sent: {
-      type: Sequelize.ENUM("pending", "sent"),
+    status: {
+      type: Sequelize.ENUM("pending", "sent", "favorite"),
       defaultValue: "pending"
     }
-  },
-    {
-      classMethods: {
-        mark: function(id) {
-          return this.findOne({where:{id:id}})
-          .then(function(poll) {
-            console.log(poll)
-            return poll.updateAttributes({sent: "sent"})
-          })
-        }
-      },
-      instanceMethods: {}
-    })
-
+  })
+  
 }

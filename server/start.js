@@ -20,8 +20,7 @@ var createApplication = function () {
         function move(question,number) {io.emit('moving', question, number);};
         function upvoting(question) {io.emit('receivedUpvote', question);}; //synergies for combining?
         function downvoting(question) {io.emit('receivedDownvote', question);}; //synergies for combining?
-        
-        function sendPoll(poll) {io.emit('toStudent', poll);};
+
         function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
 
         function lectureStart(lecture) {
@@ -41,13 +40,23 @@ var createApplication = function () {
         socket.on('downvoting', downvoting(question));
         
         //poll events
-        socket.on('pollOut', sendPoll(poll));
         socket.on('studentAnswer', sendPollAnswer());
 
         //lecture events
         socket.on('startingLecture', lectureStart(lecture));
         socket.on('endingLecture', lectureEnd());
         socket.on('gettingLecture', gettingLecture());
+
+        socket.on('updatingPolls', function() {
+          io.emit('updatePolls')
+        })
+
+        socket.on('getFeedback', function() {
+          socket.emit('updateFeedback', 'Great')
+          socket.emit('updateFeedback', 'Confused')
+          socket.emit('updateFeedback', 'Example')
+        })
+
     })
 
 };

@@ -8,6 +8,7 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
     link: (scope) => {
       scope.addMessage = false;
       scope.rejectMessage = false;
+      socket.emit('getFeedback')
 
       scope.submitFeedback = function (category) {
 
