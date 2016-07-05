@@ -6,22 +6,7 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
       scope.curLecture = scope.$parent.curLecture
 
       PollFactory.getAllByLectureId(scope.curLecture.id)
-      .then((polls) => {
-        scope.polls = polls
-
-        if (!scope.polls.favorite.length) {
-          return PollFactory.createPoll({
-            question: 'Are you confused?',
-            options: [
-              'Yes',
-              'No',
-              'Sort of'
-            ],
-            status: "favorite",
-            lectureId: scope.curLecture.id
-          })
-        }
-      })
+      .then((polls) => scope.polls = polls)
 
       scope.delete = function(poll) {
         return PollFactory.deletePoll(poll)

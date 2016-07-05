@@ -19,11 +19,33 @@ router.param('pollId', (req, res, next, id) => {
 })
 
 router.get('/lecture/:lectureId', (req, res, next) => {
-  Poll.findAll({where:{lectureId:req.params.lectureId}})
-  .then((polls) => {
-    res.json(polls)
+
+  var pendingPolls = Poll.findAll({
+    where: {
+      lectureId: req.params.lectureId,
+      status: "pending"
+    }
   })
+
+  var favoritePolls = Poll.findAll({
+    where: {
+      status: "favorite"
+    }
+  })
+
+  return Promise.all([pendingPolls, favoritePolls])
+  .then((polls) => res.json(polls))
   .catch(next)
+})
+
+router.get('/status/:statusType', (req, res, next) => {
+  Poll.findAll({
+    where: {
+      status: req.params.statusType
+    }
+  }).then((polls) => {
+    res.json(polls)
+  }).catch(next)
 })
 
 router.post('/', (req, res, next) => {
