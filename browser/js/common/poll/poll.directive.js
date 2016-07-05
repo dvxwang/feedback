@@ -9,8 +9,10 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
       .then((polls) => scope.polls = polls)
 
       scope.sendPoll = function(poll) {
-        poll.sent = "sent";
-        PollFactory.markSent(poll);
+        if (poll.status === "pending") {
+          return PollFactory.updatePoll(poll, { status: "sent"})
+        }
+      }
 
       scope.delete = function(poll) {
         return PollFactory.deletePoll(poll);
