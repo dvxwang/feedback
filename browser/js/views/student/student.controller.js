@@ -53,13 +53,12 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
     $scope.selectedRepeat = -1; // Whatever the default selected index is, use -1 for no selection
     $scope.starredArr = [null, null]
 
-    $scope.itemClicked = function (index, question, $index) {
+    $scope.itemClicked = function (index, option, $index) {
       console.log('HERE', $index)
-      question.index = index;
+      option.index = index;
       $scope.selectedRepeat = $index
-      $scope.starredArr[$index] = true;
-      question.comment = index
-      console.log('AND HERE', $scope.starredArr)
+      option.comment = index
+      console.log('AND HERE', option.index)
     }
 
     $scope.submit = function() {
