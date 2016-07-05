@@ -15,56 +15,48 @@ var createApplication = function () {
     io.on('connection', function(socket) {
         var id = socket.id;
 
-        socket.on('addingQuestion', function(question) {
-            io.emit('addQuestion', question)
-        })
-
-        socket.on('deletingQuestion', function(question) {
-            io.emit('deleteQuestion', question)
-        })
-
-        socket.on('move', function(question, n) {
-            io.emit('moving', question, n)
-        })
-
-        socket.on('upvoting', function(question) {
-            io.emit('receivedUpvote', question)
-        })
-
-        socket.on('downvoting', function(question) {
-            io.emit('receivedDownvote', question)
-        })
-
-        socket.on('submittedFeedback', function (category) {
-            io.emit('updateFeedback', category)
-        })
-
-        socket.on('pollOut', function(poll) {
-          io.emit('toStudent', poll)
-        })
-
-        socket.on('studentAnswer', function() {
-          socket.broadcast.emit('updateActivePoll')
-        })
-
-        socket.on('startingLecture', function(lecture) {
-          curLecture = lecture;
-          io.emit('startLecture', lecture);
-        })
-
-        socket.on('endingLecture', function() {
-          curLecture = undefined;
-          io.emit('endLecture')
-        })
+        function addQuestion(question) {io.emit('addQuestion', question);}; //synergies for combining?
+        function deleteQuestion(question){io.emit('deleteQuestion', question);}; //synergies for combining?
+        function move(question,number) {io.emit('moving', question, number);};
+        function upvoting(question) {io.emit('receivedUpvote', question);}; //synergies for combining?
+        function downvoting(question) {io.emit('receivedDownvote', question);}; //synergies for combining?
         
-        socket.on('signalFeedbackRefresh', function() {
-          io.emit('feedbackRefresh')
-        })
+        function submittedFeedback(category) {io.emit('updateFeedback', category);};
+        function signalFeedbackRefresh() {io.emit('feedbackRefresh');};
+        
+        function sendPoll(poll) {io.emit('toStudent', poll);};
+        function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
 
-        socket.on('gettingLecture', function() {
-          socket.emit('getLecture', curLecture)
-        })
+        function lectureStart(lecture) {
+            curLecture = lecture;
+            io.emit('startLecture', lecture);
+        };
 
+        function lectureEnd() {
+            curLecture = undefined;
+            io.emit('endLecture');
+        };
+        function gettingLecture() {socket.emit('getLecture', curLecture);};
+
+        //question queue events
+        socket.on('addingQuestion', addingQuestion(question));
+        socket.on('deletingQuestion', deleteQuestion(question));
+        socket.on('move', move(question,number));
+        socket.on('upvoting', upvoting(question));
+        socket.on('downvoting', downvoting(question));
+        
+        //feedback events
+        socket.on('submittedFeedback', submittedFeedback(category));
+        socket.on('signalFeedbackRefresh', signalFeedbackRefresh());
+        
+        //poll events
+        socket.on('pollOut', sendPoll(poll));
+        socket.on('studentAnswer', sendPollAnswer());
+
+        //lecture events
+        socket.on('startingLecture', lectureStart(lecture));
+        socket.on('endingLecture', lectureEnd());
+        socket.on('gettingLecture', gettingLecture());
     })
 
 };

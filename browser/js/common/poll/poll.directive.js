@@ -11,14 +11,14 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
         scope.polls = currentPolls
       })
 
-      scope.delete = PollFactory.deletePoll
+      scope.delete = PollFactory.deletePoll;
 
       scope.sendPoll = function(poll) {
         poll.sent = "sent"
-        PollFactory.markSent(poll)
-        .then(()=> {
-          socket.emit('pollOut', poll)
-        })
+        PollFactory.markSent(poll);
+        // .then(()=> {
+        //   socket.emit('pollOut', poll)
+        // })
       }
 
     }

@@ -63,9 +63,10 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
 });
 
 router.post('/:lectureId', function (req, res, next) {
-    req.body.lectureId = req.params.lectureId
+    req.body.lectureId = req.params.lectureId;
     Feedback.create(req.body)
     .then(function(result){
+        socket.emit('submittedFeedback', category);
         res.json(result);
     });
 });

@@ -10,19 +10,20 @@ router.param('questionId', function(req, res, next, id) {
 		if (!question) res.sendStatus(404)
 		req.question = question;
 		next()
-	}).catch(next)
+	}).catch(next);
 })
 
 router.get('/', function(req, res, next) {
 	Question.findAll().then(function(questions){
 		res.json(questions);
-	}).catch(next)
+	}).catch(next);
 });
 
 router.post('/', function(req, res, next) {
 	Question.create(req.body).then(function(question){
+		socket.emit('addingQuestion', question);
 		res.status(201).json(question);
-	}).catch(next)
+	}).catch(next);
 });
 
 router.get('/lecture/:lectureId', function(req, res) {
@@ -41,12 +42,14 @@ router.get('/:questionId', function(req, res) {
 
 router.put('/:questionId', function(req, res, next) {
 	req.question.updateAttributes(req.body).then(function(question){
+		if (req.body.status==='closed') socket.emit('deletingQuestion', req.question);
 		res.status(200).json(question);
-	}).catch(next)
+	}).catch(next);
 });
 
 router.delete('/:questionId', function(req, res, next) {
 	req.question.destroy().then(function(){
+		socket.emit('deletingQuestion', req.question);
 		res.sendStatus(204);
-	}).catch(next)
+	}).catch(next);
 });

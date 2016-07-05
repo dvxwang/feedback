@@ -11,9 +11,9 @@ module.exports = router
 router.param('pollId', (req, res, next, id) => {
   Poll.findOne({where:{id:id}, include: [{model:PollAnswer}]})
   .then((poll) => {
-    if (!poll) res.sendStatus(404)
-    req.poll = poll
-    next()
+    if (!poll) res.sendStatus(404);
+    req.poll = poll;
+    next();
   })
   .catch(next)
 })
@@ -21,7 +21,7 @@ router.param('pollId', (req, res, next, id) => {
 router.get('/lecture/:lectureId', (req, res, next) => {
   Poll.findAll({where:{lectureId:req.params.lectureId, sent: "pending"}})
   .then((polls) => {
-    res.json(polls)
+    res.json(polls);
   })
   .catch(next)
 })
@@ -29,21 +29,20 @@ router.get('/lecture/:lectureId', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Poll.create(req.body)
   .then((poll) => {
-    res.status(201).json(poll)
+    res.status(201).json(poll);
   })
 })
 
 router.get('/:pollId', (req, res, next) => {
-  res.json(req.poll)
+  res.json(req.poll);
   .catch(next)
 })
 
 router.put('/mark/:pollId', (req, res, next) => {
-  console.log("HEYYYYY")
   Poll.mark(req.params.pollId)
   .then((poll)=> {
-    console.log("POLLL", poll)
-    res.status(200).json(poll)
+    socket.emit('pollOut', poll);
+    res.status(200).json(poll);
   })
   .catch(next)
 })
@@ -51,7 +50,7 @@ router.put('/mark/:pollId', (req, res, next) => {
 router.put('/:pollId', (req, res, next) => {
   req.poll.update(req.body)
   .then((poll) => {
-    res.status(200).json(poll)
+    res.status(200).json(poll);
   })
   .catch(next)
 })
@@ -60,7 +59,7 @@ router.put('/:pollId', (req, res, next) => {
 router.delete('/:pollId', (req, res, next) => {
   req.poll.destroy()
   .then(() => {
-    res.sendStatus(204)
+    res.sendStatus(204);
   })
   .catch(next)
 })
