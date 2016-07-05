@@ -148,9 +148,9 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         updateInstructorView();
 
         socket.on('updateFeedback', function (data) {
-          if (data === "Great" || data === "Confused" || data === "Example") {
-              data = data.toLowerCase();
-              dataQueue[data].push("instance");
+          if ((data.category === "Great" || data.category === "Confused" || data.category === "Example") && (!data.comment)) {
+              data.category = data.category.toLowerCase();
+              dataQueue[data.category].push("instance");
           }
         });
     });

@@ -62,7 +62,13 @@ var createApplication = function () {
         })
 
         socket.on('gettingLecture', function() {
-          socket.emit('getLecture', curLecture)
+          socket.emit('getLecture', curLecture);
+          socket.emit('updateFeedback', {category: "Great"});
+          socket.emit('updateFeedback', {category: "Confused"});
+          socket.emit('updateFeedback', {category: "Example"});
+          socket.emit('updateFeedback', {category: "Cannot See"});
+          socket.emit('updateFeedback', {category: "Cannot Hear"});
+          socket.emit('updateFeedback', {category: "Request Break"});
         })
 
     })

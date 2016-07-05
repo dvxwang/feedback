@@ -10,18 +10,18 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
       scope.rejectMessage = false;
 
       scope.submitFeedback = function (category) {
-
+        console.log("Submitted: ",category);
         if (scope.admin) {
-          return FeedbackFactory.addFeedback({category: category, comment: 'adminReset'}, scope.$parent.curLecture.id)
+          return FeedbackFactory.addFeedback({'category': category, comment: 'adminReset'}, scope.$parent.curLecture.id)
           .then(function () {
-            socket.emit('submittedFeedback', category)
+            socket.emit('submittedFeedback', {'category': category, comment: 'adminReset'});
           })
         }
 
         if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {
-        return FeedbackFactory.addFeedback({category: category}, scope.$parent.curLecture.id)
+        return FeedbackFactory.addFeedback({'category': category}, scope.$parent.curLecture.id)
         .then(function () {
-          socket.emit('submittedFeedback', category)
+          socket.emit('submittedFeedback', {'category': category})
           
           if (category === 'Great') {
             scope.greatClicked = true;
@@ -78,41 +78,43 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
       }
     }
 
-    socket.on('updateFeedback', function(category) {
-
-        return FeedbackFactory.countFeedback(category, scope.$parent.curLecture.id) 
+    socket.on('updateFeedback', function(feedbackObj) {
+        feedbackObj.category = feedbackObj.category.charAt(0).toUpperCase() + feedbackObj.category.slice(1);
+        console.log("Feedback Obj: ",feedbackObj);
+        return FeedbackFactory.countFeedback(feedbackObj.category, scope.$parent.curLecture.id) 
         .then(function (result) {          
-          if (category === 'Great') {
+          console.log("Feedback 2: ",result);
+          if (feedbackObj.category === 'Great') {
             if (result === 0) {
               scope.greatCount = null
             }
             else scope.greatCount = result
           }
-          if (category === 'Confused') {
+          if (feedbackObj.category === 'Confused') {
             if (result === 0) {
               scope.confusedCount = null
             }
             else scope.confusedCount = result
           }
-          if (category === 'Example') {
+          if (feedbackObj.category === 'Example') {
             if (result === 0) {
               scope.exampleCount = null
             }
             else scope.exampleCount = result
           }
-          if (category === 'Cannot See') {
+          if (feedbackObj.category === 'Cannot See') {
             if (result === 0) {
               scope.seeCount = null
             }
             else scope.seeCount = result
           }
-          if (category === 'Cannot Hear') {
+          if (feedbackObj.category === 'Cannot Hear') {
             if (result === 0) {
               scope.hearCount = null
             }
             else scope.hearCount = result
           }
-          if (category === 'Request Break') {
+          if (feedbackObj.category === 'Request Break') {
             if (result === 0) {
               scope.breakCount = null
             }
