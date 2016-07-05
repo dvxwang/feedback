@@ -1,8 +1,7 @@
 app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
 
   $scope.showModal = function() {
-
-    $scope.opts = {
+    $uibModal.open({
       backdrop: true,
       backdropClick: true,
       transclude: true,
@@ -10,19 +9,10 @@ app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
       keyboard: true,
       templateUrl : 'js/common/studentModal/studentPoll.html',
       controller : StudentModalInstance,
-      resolve: {} // empty storage
-    };
-
-    $scope.opts.resolve.item = function() {
-      return angular.copy({poll:$scope.poll}); // pass name to Dialog
-    }
-
-    var modalInstance = $uibModal.open($scope.opts);
-
-    modalInstance.result.then(function(){
-      //on ok button press
-    },function(){
-      //on cancel button press
+      resolve: {
+        poll: $scope.poll,
+        curLecture: $scope.curLecture
+      },
     })
   }
 
@@ -33,13 +23,14 @@ app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
 
 })
 
-function StudentModalInstance($scope, $uibModalInstance, $uibModal, item, PollFactory, PollAnswerFactory) {
+function StudentModalInstance($scope, $uibModalInstance, $uibModal, PollFactory, PollAnswerFactory, curLecture, poll) {
 
-  $scope.item = item;
+  $scope.poll = poll
+  $scope.curLecture = curLecture
 
   $scope.submitAnswer = function ($event) {
     var answer = {
-      pollId: $scope.item.poll.id,
+      pollId: $scope.poll.id,
       option: $event.currentTarget.value
     }
 

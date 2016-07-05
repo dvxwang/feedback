@@ -41,7 +41,9 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
         'Is this better than the anonymous poll? (yes/no)',
         'Please leave anonymous feedback on what how we can improve:',
         'We would also appreciate in-person feedback. Please leave your name and/or email if you are ok with the development team reaching out. Thank you!'
-      ]
+      ],
+      status: "sent",
+      lectureId: $scope.curLecture.id
     }).then(function(poll) {
       $scope.poll = poll;
       $scope.poll.options = poll.options.map(function(question) {
