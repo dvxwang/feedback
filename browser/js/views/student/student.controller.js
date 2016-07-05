@@ -1,5 +1,7 @@
 app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
   socket.emit('gettingLecture')
+  socket.emit('submittedFeedback')
+
   socket.on('getLecture', function(lecture) {
     $scope.curLecture = lecture
     $scope.$evalAsync()
@@ -37,10 +39,8 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
     PollFactory.createPoll({
       question: 'We would appreciate your feedback!',
       options: [
-        'Do you find this tool useful? (yes/no)',
-        'Is this better than the anonymous poll? (yes/no)',
-        'Please leave anonymous feedback on what how we can improve:',
-        'We would also appreciate in-person feedback. Please leave your name and/or email if you are ok with the development team reaching out. Thank you!'
+        'How would you rate this lecture?',
+        'What about now?'
       ]
     }).then(function(poll) {
       $scope.poll = poll;
@@ -48,6 +48,19 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
         return { category: question }
       })
     })
+
+    $scope.selectedIndex = -1;
+    $scope.selectedRepeat = -1; // Whatever the default selected index is, use -1 for no selection
+    $scope.starredArr = [null, null]
+
+    $scope.itemClicked = function (index, question, $index) {
+      console.log('HERE', $index)
+      question.index = index;
+      $scope.selectedRepeat = $index
+      $scope.starredArr[$index] = true;
+      question.comment = index
+      console.log('AND HERE', $scope.starredArr)
+    }
 
     $scope.submit = function() {
       var promises = $scope.poll.options.map(function(result) {

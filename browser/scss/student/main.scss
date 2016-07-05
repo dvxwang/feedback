@@ -46,4 +46,36 @@
     #studentBody {
         height: 100%;
     }
+
 }
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+  font-size: 30px;
+}
+.rating > span {
+  display: inline-block;
+  text-align: left;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before,
+.ratingChecked {
+   content: "\2605";
+   position: absolute;
+   pointer-events:auto;
+   cursor:pointer;
+}
+
+.ratingSelected:before {
+    content: "\2605";
+    position: absolute !important;
+}
+
+// .star {
+//     pointer-events: auto; 
+//     cursor: pointer;
+// }
