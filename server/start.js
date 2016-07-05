@@ -39,8 +39,13 @@ var createApplication = function () {
             io.emit('updateFeedback', category)
         })
 
+        socket.on('updatingPolls', function() {
+          io.emit('updatePolls')
+        })
+
         socket.on('pollOut', function(poll) {
           io.emit('toStudent', poll)
+          io.emit('updatePolls')
         })
 
         socket.on('studentAnswer', function() {
@@ -63,6 +68,12 @@ var createApplication = function () {
 
         socket.on('gettingLecture', function() {
           socket.emit('getLecture', curLecture)
+        })
+
+        socket.on('getFeedback', function() {
+          socket.emit('updateFeedback', 'Great')
+          socket.emit('updateFeedback', 'Confused')
+          socket.emit('updateFeedback', 'Example')
         })
 
     })
