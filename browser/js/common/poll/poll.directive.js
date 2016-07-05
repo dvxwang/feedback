@@ -5,10 +5,6 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
     link: function(scope) {
       scope.curLecture = scope.$parent.curLecture // this is simply to pass it along to the createPoll controller
 
-      PollFactory.createPoll({
-
-      })
-
       PollFactory.getAllByLectureId(scope.curLecture.id)
       .then((currentPolls) => {
         scope.polls = currentPolls
