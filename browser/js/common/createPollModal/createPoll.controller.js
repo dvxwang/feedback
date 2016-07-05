@@ -26,7 +26,10 @@ var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, PollFacto
     poll.options = [$scope.a, $scope.b, $scope.c].filter(function(option) { return !!option })
     if (poll.options.length > 1) {
       PollFactory.createPoll(poll)
-      .then(function() { $uibModalInstance.close() })
+      .then(() => {
+        $uibModalInstance.close()
+        socket.emit('updatingPolls')
+      })
     } else {
       alert("You must add at least 2 options to the poll!")
     }

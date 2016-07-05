@@ -23,14 +23,24 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
         }
       })
 
-      scope.delete = PollFactory.deletePoll
+      scope.delete = function(poll) {
+        return PollFactory.deletePoll(poll)
+        .then(() => socket.emit('updatingPolls'))
+      }
 
       scope.sendPoll = function(poll) {
-        socket.emit('pollOut', poll)
         if (poll.status === "pending") {
-          return PollFactory.updatePoll(poll, { status: "sent"})
+          return PollFactory.updatePoll(poll, { status: "sent"}).then(() => socket.emit('pollOut', poll))
         }
+        socket.emit('pollOut', poll)
       }
+
+      socket.on('updatePolls', function() {
+        return PollFactory.getAllByLectureId(scope.curLecture.id)
+        .then((polls) => {
+          scope.polls = polls
+        })
+      })
 
     }
   }
