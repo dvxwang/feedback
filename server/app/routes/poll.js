@@ -61,17 +61,6 @@ router.get('/:pollId', (req, res, next) => {
   .catch(next);
 });
 
-router.put('/mark/:pollId', (req, res, next) => {
-  var io = req.app.get('socketio');
-  Poll.mark(req.params.pollId)
-  .then((poll)=> {
-    io.emit('updatePolls');
-    io.emit('toStudent', poll);
-    res.status(200).json(poll);
-  })
-  .catch(next);
-});
-
 router.put('/:pollId', (req, res, next) => {
   req.poll.updateAttributes(req.body)
   .then((poll) => {
