@@ -9,10 +9,18 @@
     <!-- Table -->
   <div id="pqueue" class="container">
     <table class="table">
-      <tr ng-repeat='poll in polls'>
-      	<td><i ng-if='true' class="glyphicon glyphicon-move"></i></td>
+      FAVORITE POLLS
+      <tr ng-repeat='poll in polls.favorite'>
+        <td><span class='mainPollQuestion' contenteditable='true'>{{ poll.question }}</span></td>
+        <td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>
+        <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
+      </tr>
+    </table>
+    <table class="table">
+      PENDING POLLS
+      <tr ng-repeat='poll in polls.pending'>
       	<td><span class='mainPollQuestion' contenteditable='true'>{{ poll.question }}</span></td>
-      	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll.id)"></i></td>
+      	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>
   		  <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
       </tr>
     </table>

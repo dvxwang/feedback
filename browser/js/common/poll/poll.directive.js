@@ -3,24 +3,33 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
     restrict: 'E',
     templateUrl: 'js/common/poll/poll.html',
     link: function(scope) {
-      scope.curLecture = scope.$parent.curLecture // this is simply to pass it along to the createPoll controller
-
-      PollFactory.createPoll({
-
-      })
+      scope.curLecture = scope.$parent.curLecture
 
       PollFactory.getAllByLectureId(scope.curLecture.id)
-      .then((currentPolls) => {
-        scope.polls = currentPolls
+      .then((polls) => {
+        scope.polls = polls
+
+        if (!scope.polls.favorite.length) {
+          return PollFactory.createPoll({
+            question: 'Are you confused?',
+            options: [
+              'Yes',
+              'No',
+              'Sort of'
+            ],
+            status: "favorite",
+            lectureId: scope.curLecture.id
+          })
+        }
       })
 
       scope.delete = PollFactory.deletePoll
 
       scope.sendPoll = function(poll) {
-        PollFactory.updatePoll(poll.id, { status: "sent"})
-        .then(()=> {
-          socket.emit('pollOut', poll)
-        })
+        socket.emit('pollOut', poll)
+        if (poll.status === "pending") {
+          return PollFactory.updatePoll(poll, { status: "sent"})
+        }
       }
 
     }

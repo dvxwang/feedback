@@ -19,7 +19,7 @@ router.param('pollId', (req, res, next, id) => {
 })
 
 router.get('/lecture/:lectureId', (req, res, next) => {
-  Poll.findAll({where:{lectureId:req.params.lectureId, status: "pending"}})
+  Poll.findAll({where:{lectureId:req.params.lectureId}})
   .then((polls) => {
     res.json(polls)
   })

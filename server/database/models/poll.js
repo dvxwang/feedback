@@ -26,7 +26,7 @@ module.exports = function (db) {
       type: Sequelize.STRING
     },
     status: {
-      type: Sequelize.ENUM("pending", "sent"),
+      type: Sequelize.ENUM("pending", "sent", "favorite"),
       defaultValue: "pending"
     }
   })
