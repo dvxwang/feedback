@@ -5,43 +5,40 @@ app.factory('PollFactory', ($http) => {
   function cleanCache(arr, id) {
     arr.splice(arr.map(function(item) { return item.id }).indexOf(id),1)
   }
-  var cachedPolls = []
+  var cachedPolls = { pending: [], favorite: [] }
   return {
     getAllByLectureId: (id) => {
       return $http.get('/api/poll/lecture/'+id)
       .then(dotData)
       .then((polls) => {
-        angular.copy(polls, cachedPolls)
+        var pendingPolls = polls[0]
+        var favoritePolls = polls[1]
+        angular.copy(pendingPolls, cachedPolls.pending)
+        angular.copy(favoritePolls, cachedPolls.favorite)
         return cachedPolls
       })
     },
     getOneByPollId: (id) => {
       return $http.get('/api/poll/'+id)
-      .then(dotData)
+      .then(dotData);
     },
     createPoll: (pollObj) => {
       return $http.post('/api/poll/', pollObj)
       .then(dotData)
-    },
-    updatePoll: (pollObj) => {
-      return $http.put('/api/poll/'+pollObj.id, pollObj)
-      .then(dotData)
-    },
-    markSent: (pollObj) => {
-      return $http.put('/api/poll/mark/'+pollObj.id)
-      .then(dotData)
-      .then((sentPoll) => {
-        cleanCache(cachedPolls, sentPoll.id)
-        return cachedPolls
+      .then((poll) => {
+        if (poll.status !== "sent") cachedPolls[poll.status].push(poll)
+        return poll
       })
     },
-    deletePoll: (id) => {
-      return $http.delete('/api/poll/'+id)
+    updatePoll: (poll, pollObj) => {
+      if (poll.status === "pending") cleanCache(cachedPolls[poll.status], poll.id)
+      return $http.put('/api/poll/'+poll.id, pollObj)
       .then(dotData)
-      .then((removedPoll) => {
-        cleanCache(cachedPolls, id)
-        return cachedPolls
-      })
+    },
+    deletePoll: (poll) => {
+      cleanCache(cachedPolls[poll.status], poll.id)
+      return $http.delete('/api/poll/'+poll.id)
+      .then(dotData)
     }
   }
 })

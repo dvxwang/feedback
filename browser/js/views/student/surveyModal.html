@@ -1,0 +1,14 @@
+<div id="survey-modal">
+  <div class="modal-header">
+    <h1>{{ poll.question }}</h1>
+  </div>
+  <div class='container'>
+    <div ng-repeat="option in poll.options" class="pollOption">
+    	<span class='row'>{{ option.category }}</span>
+    	<textarea class='form-control' ng-model='option.comment'></textarea>
+    </div>
+  </div>
+  <div class='container'>
+  	<button class='btn btn-success' ng-click="submit()">Submit</button>
+  </div>
+</div>

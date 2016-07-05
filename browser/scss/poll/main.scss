@@ -1,11 +1,11 @@
 #poll {
 	max-width: 100%;
 	margin-bottom: 10px;
+	height: 100%;
 	button {
-    width: 20%;
-    margin-top: 10px;
-		margin-bottom: 10px;
-    float: right;
+	    width: 20%;
+	    margin-top: 10px;
+	    float: right;
 	};
 	.btn-xs {
 		border-radius: 20px;
@@ -19,16 +19,26 @@
 			font-size: 20px;
 		};
 	};
+	td {
+		border: none;
+	}
 	#pqueue {
-		height: 120px;
-		// height: 100%;
+		height: 65%;
 		width: 100%;
 		overflow-y: auto;
 		table {
-			height: 100%;
 			width:100%;
 			overflow-y: auto;
 		};
+		.mainPollQuestion {
+			-ms-word-break: break-all;
+			word-break: break-all;
+			word-break: break-word;
+			-webkit-hyphens: auto;
+			-moz-hyphens: auto;
+			-ms-hyphens: auto;
+			hyphens: auto;
+		}
 	};
 };
 
@@ -46,33 +56,74 @@
 	text-align: center;
 	li {
 		display: inline;
-    list-style-type: none;
+    	list-style-type: none;
 	};
 	#active-poll-title {
+		height: 30px;
 		font-size: 24px;
 		margin-top: 5px;
 		margin-bottom: 5px;
+		-ms-word-break: break-all;
+		word-break: break-all;
+		word-break: break-word;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		-ms-hyphens: auto;
+		hyphens: auto;
+		overflow-y: auto;
 	};
 	.optionAnswer {
 		font-size:20px;
 	};
+	.active-poll-option {
+		overflow-y: auto;
+		height: 24px;
+		-ms-word-break: break-all;
+		word-break: break-all;
+		word-break: break-word;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		-ms-hyphens: auto;
+		hyphens: auto;
+	}
 };
 
 #student-modal {
 	height: 200px;
 	.modal-header {
+		margin-top: 10px;
+		height: 80px;
+		padding: 15px;
 		text-align: center;
+		-ms-word-break: break-all;
+		word-break: break-all;
+		word-break: break-word;
+		-webkit-hyphens: auto;
+		-moz-hyphens: auto;
+		-ms-hyphens: auto;
+		hyphens: auto;
+		overflow-y: auto;
+		border: thick solid white;
 	};
 	.modal-body {
 		button {
+			height: 80px;
 			color: white;
 			font-size: 20px;
 			width: 31%;
 			float:left;
 			margin: 0 1% 0 1%;
 			background-color: #015249;
-			padding: 15px 0 15px 0;
+			padding: 15px;
 			border: none;
+			-ms-word-break: break-all;
+			word-break: break-all;
+			word-break: break-word;
+			-webkit-hyphens: auto;
+			-moz-hyphens: auto;
+			-ms-hyphens: auto;
+			hyphens: auto;
+			overflow-y: auto;
 		};
 	};
 };
@@ -90,5 +141,16 @@
 		margin: 5% 0;
 		font-size: 16px;
 		padding: 2% 5%;
+	};
+};
+
+
+#survey-modal {
+	.modal-header {
+		text-align: center;
+	};
+	button {
+		float: right;
+		margin: 5% 0 5% 0
 	};
 };

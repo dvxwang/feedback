@@ -1,9 +1,9 @@
 <div id="student-modal">
   <div class="modal-header">
-    <h1>{{item.poll.question}}</h1>
+    <h1>{{poll.question}}</h1>
   </div>
   <div class="modal-body">
-    <div ng-repeat="option in item.poll.options" class="pollOption">
+    <div ng-repeat="option in poll.options" class="pollOption">
         <button value="{{option}}" ng-click="submitAnswer($event)"> {{option}}</button>
     </div>
   </div>  
