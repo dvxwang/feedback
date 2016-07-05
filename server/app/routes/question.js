@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var io = req.app.get('socketio');
 	Question.create(req.body).then(function(question){
-		io.emit('addingQuestion', question);
+		io.emit('addQuestion', question.dataValues);
 		res.status(201).json(question);
 	}).catch(next);
 });
@@ -44,7 +44,7 @@ router.get('/:questionId', function(req, res) {
 router.put('/:questionId', function(req, res, next) {
 	var io = req.app.get('socketio');
 	req.question.updateAttributes(req.body).then(function(question){
-		if (req.body.status==='closed') socket.emit('deletingQuestion', req.question);
+		if (req.body.status==='closed') io.emit('deleteQuestion', req.question);
 		res.status(200).json(question);
 	}).catch(next);
 });
@@ -52,7 +52,7 @@ router.put('/:questionId', function(req, res, next) {
 router.delete('/:questionId', function(req, res, next) {
 	var io = req.app.get('socketio');
 	req.question.destroy().then(function(){
-		io.emit('deletingQuestion', req.question);
+		io.emit('deleteQuestion', req.question);
 		res.sendStatus(204);
 	}).catch(next);
 });

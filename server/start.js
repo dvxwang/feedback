@@ -35,17 +35,17 @@ var createApplication = function () {
         function gettingLecture() {socket.emit('getLecture', curLecture);};
 
         //question queue events
-        socket.on('move', move(question,number));
-        socket.on('upvoting', upvoting(question));
-        socket.on('downvoting', downvoting(question));
+        socket.on('move', move);
+        socket.on('upvoting', upvoting);
+        socket.on('downvoting', downvoting);
         
         //poll events
-        socket.on('studentAnswer', sendPollAnswer());
+        socket.on('studentAnswer', sendPollAnswer);
 
         //lecture events
-        socket.on('startingLecture', lectureStart(lecture));
-        socket.on('endingLecture', lectureEnd());
-        socket.on('gettingLecture', gettingLecture());
+        socket.on('startingLecture', lectureStart);
+        socket.on('endingLecture', lectureEnd);
+        socket.on('gettingLecture', gettingLecture);
 
         socket.on('updatingPolls', function() {
           io.emit('updatePolls')

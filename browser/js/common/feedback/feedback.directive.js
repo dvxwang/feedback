@@ -124,4 +124,4 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
 
   }
 }
-})
+});

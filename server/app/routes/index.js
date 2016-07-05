@@ -5,7 +5,7 @@ module.exports = router;
 router.use('/lecture', require('./lecture'));
 router.use('/question', require('./question'));
 router.use('/poll', require('./poll'));
-router.use('/answer', require('./pollAnswer'))
+router.use('/answer', require('./pollAnswer'));
 router.use('/feedback', require('./feedback'));
 
 // Make sure this is after all of
