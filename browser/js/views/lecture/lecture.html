@@ -3,7 +3,18 @@
     <head>
     </head>
     <body>
-      <h3>Create New Lecture</h3>
-      <button type="submit">Create</button>
+      <div>
+        <h3>Create New Lecture</h3>
+        <button type="submit" ng-click="createLectureModal()">Create</button>
+      </div>
+      <div id="lectures" class="container">
+        <table class="table">
+          FAVORITE LECTURES
+          <tr ng-repeat='lecture in lecturelist'>
+            <td><span class='mainPollQuestion'>{{ lecture }}</span></td>
+            <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
+          </tr>
+        </table>
+      </div>
     </body>
 </html>

@@ -1,34 +1,19 @@
-app.controller('LoginCtrl', function ($scope, $state) {
+app.controller('LoginCtrl', function ($scope, $state, AuthService) {
 
-	$scope.loginStatus = function(){
-		var temp = $scope.login.toLowerCase();
+    $scope.login = {};
+    $scope.error = null;
 
-		switch (temp) {
-			case 'admin':
-				$state.go('lecture');
-				break;
-			case 'student':
-				$state.go('student');
-				break;
-			case 'summary':
-				$state.go('summary');
-				break;
-			default:
-				$scope.login = "";
-				$("input").attr("placeholder", "Please input valid credential");
-		}
+    $scope.sendLogin = function (loginInfo) {
 
-		// if (temp==='admin'){
-		// 	$state.go('admin');
-		// } else if (temp==='student'){
-		// 	$state.go('student');
-		// } else if (temp==='summary'){
-    //   $state.go('summary');
-    // } else {
-    //   $scope.login = "";
-    //   $("input").attr("placeholder", "Please input valid credential");
-    // }
+        $scope.error = null;
 
-	}
+        AuthService.login(loginInfo).then(function () {
+            $state.go('lecture');
+        }).catch(function () {
+            $scope.error = 'Invalid login credentials.';
+        });
 
+				console.log($scope.login)
+
+    };
 });

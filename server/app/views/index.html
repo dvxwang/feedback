@@ -22,8 +22,9 @@
     <div id="main" ui-view>
         <div class='loginBox' ng-controller='LoginCtrl'>
             <div class='loginHeader'>Login</div>
-            <input type='text' ng-model='login' ng-keyup="$event.keyCode == 13 ? loginStatus() : null"></input><br>
-            <div class='loginButton' ng-click='loginStatus()'>Submit</div>
+            <input type='text' ng-model='login.email' placeholder="email"></input><br>
+            <input type='password' ng-model='login.password' placeholder="password"></input><br>
+            <div class='Button btn btn-success' ng-click='sendLogin(login)'>Submit</div>
         </div>
     </div>
 

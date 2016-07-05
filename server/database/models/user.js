@@ -45,6 +45,9 @@ module.exports = function (db) {
           correctPassword: function(candidatePassword) {
             return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
           },
+          fakeCorrectPass: function(candidatePassword) {
+            return this.password === candidatePassword
+          },
           takeoutPassword: function() {
             this.password = "";
             return this

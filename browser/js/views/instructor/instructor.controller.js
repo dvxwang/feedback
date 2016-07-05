@@ -169,7 +169,7 @@ app.controller('CreateLecture', function($scope, $uibModal, LectureFactory) {
         templateUrl : 'js/views/instructor/instructorModal.html',
         controller : LectureInstanceCtrl,
         resolve: {
-          
+
         } // empty storage
           };
 

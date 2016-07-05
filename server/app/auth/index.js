@@ -21,7 +21,7 @@ module.exports = function (app, db) {
     var User = db.model('user');
 
     dbStore.sync();
-    console.log(dbStore);
+    // console.log(dbStore);
 
     // First, our session middleware will set/read sessions from the request.
     // Our sessions will get stored in Mongo using the same connection from

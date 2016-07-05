@@ -1,4 +1,4 @@
-(function () {
+;(function () {
 
     'use strict';
 
@@ -87,6 +87,7 @@
         };
 
         this.login = function (credentials) {
+          console.log("hello")
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
                 .catch(function () {

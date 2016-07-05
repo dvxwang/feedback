@@ -6,23 +6,21 @@ module.exports = function (db) {
 
   return db.define('lecture', {
     name: {
-      type: Sequelize.STRING, 
+      type: Sequelize.STRING,
       allowNull: false,
       validate: {notEmpty: true}
     },
     lecturer: {
-      type: Sequelize.STRING, 
-      allowNull: false,
-      validate: {notEmpty: true}
+      type: Sequelize.STRING
     },
     vidLink: {
-      type: Sequelize.STRING, 
+      type: Sequelize.STRING,
     },
     startTime: {
-      type: Sequelize.STRING, 
+      type: Sequelize.STRING,
     },
     endTime: {
-      type: Sequelize.STRING, 
+      type: Sequelize.STRING,
     }
   });
 };

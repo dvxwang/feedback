@@ -25,6 +25,6 @@ app.config(function ($stateProvider) {
     $stateProvider.state('lecture', {
         url: '/lecture',
         templateUrl: 'js/views/lecture/lecture.html',
-        controller: 'js/views/lecture/lecture.controller.js'
+        controller: 'LectureController'
     });
 });
