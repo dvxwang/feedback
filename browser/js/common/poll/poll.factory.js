@@ -11,7 +11,6 @@ app.factory('PollFactory', ($http) => {
       return $http.get('/api/poll/lecture/'+id)
       .then(dotData)
       .then((polls) => {
-        console.log(polls)
         var pendingPolls = polls[0]
         var favoritePolls = polls[1]
         angular.copy(pendingPolls, cachedPolls.pending)
