@@ -58,7 +58,7 @@ router.put('/:pollId', (req, res, next) => {
   .then((poll) => {
     var io = req.app.get('socketio');
     io.emit('updatePolls')
-    if (req.body.status === "sent") io.emit('toStudent', poll)
+    io.emit('toStudent', poll)
     res.status(200).json(poll);
   })
   .catch(next);

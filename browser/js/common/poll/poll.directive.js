@@ -11,6 +11,8 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
       scope.sendPoll = function(poll) {
         if (poll.status === "pending") {
           return PollFactory.updatePoll(poll, { status: 'sent' })
+        } else {
+          return PollFactory.updatePoll(poll, { status: 'favorite' })
         }
       }
 
