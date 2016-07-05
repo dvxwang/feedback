@@ -1,5 +1,4 @@
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
-
     socket.emit('gettingLecture');
     socket.on('getLecture', function(lecture) {
         $scope.curLecture = lecture;
@@ -25,6 +24,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
     })
 
     $(document).ready(function() {
+
 
         gapi.hangout.render('startButton2', {
         'render': 'createhangout',
