@@ -5,6 +5,7 @@
   <div class='container'>
     <div ng-repeat="option in poll.options" class="pollOption">
     	<span class='row'>{{ option.category }}</span>
+<!--       <textarea class='form-control' ng-model='option.comment'></textarea> -->
 
       <div class="rating" ng-hide="option.index">
       <span ng-click="itemClicked(5, option, $index)">☆</span>

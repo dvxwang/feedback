@@ -41,7 +41,9 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
       options: [
         'How would you rate this lecture?',
         'What about now?'
-      ]
+      ],
+      status: 'sent',
+      lectureId: $scope.curLecture.id
     }).then(function(poll) {
       $scope.poll = poll;
       $scope.poll.options = poll.options.map(function(question) {
@@ -49,14 +51,26 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
       })
     })
 
-    $scope.selectedIndex = -1;
-    $scope.selectedRepeat = -1; // Whatever the default selected index is, use -1 for no selection
-    $scope.starredArr = [null, null]
+    // PollFactory.createPoll({
+    //   question: 'We would appreciate your feedback!',
+    //   options: [
+    //     'Do you find this tool useful? (yes/no)',
+    //     'Is this better than the anonymous poll? (yes/no)',
+    //     'Please leave anonymous feedback on how we could improve:',
+    //     'We would also appreciate in-person feedback. Please leave your name and/or email if you are ok with the development team reaching out. Thank you!'
+    //   ],
+    //   // status: "sent",
+    //   // lectureId: $scope.curLecture.id
+    // }).then(function(poll) {
+    //   $scope.poll = poll;
+    //   $scope.poll.options = poll.options.map(function(question) {
+    //     return { category: question }
+    //   })
+    // })
 
     $scope.itemClicked = function (index, option, $index) {
       console.log('HERE', $index)
       option.index = index;
-      $scope.selectedRepeat = $index
       option.comment = index
       console.log('AND HERE', option.index)
     }
