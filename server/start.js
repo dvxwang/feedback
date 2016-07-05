@@ -12,17 +12,14 @@ var createApplication = function () {
 
     var curLecture;
 
+    app.set('socketio', io);
+
     io.on('connection', function(socket) {
         var id = socket.id;
 
-        function addQuestion(question) {io.emit('addQuestion', question);}; //synergies for combining?
-        function deleteQuestion(question){io.emit('deleteQuestion', question);}; //synergies for combining?
         function move(question,number) {io.emit('moving', question, number);};
         function upvoting(question) {io.emit('receivedUpvote', question);}; //synergies for combining?
         function downvoting(question) {io.emit('receivedDownvote', question);}; //synergies for combining?
-        
-        function submittedFeedback(category) {io.emit('updateFeedback', category);};
-        function signalFeedbackRefresh() {io.emit('feedbackRefresh');};
         
         function sendPoll(poll) {io.emit('toStudent', poll);};
         function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
@@ -39,15 +36,9 @@ var createApplication = function () {
         function gettingLecture() {socket.emit('getLecture', curLecture);};
 
         //question queue events
-        socket.on('addingQuestion', addingQuestion(question));
-        socket.on('deletingQuestion', deleteQuestion(question));
         socket.on('move', move(question,number));
         socket.on('upvoting', upvoting(question));
         socket.on('downvoting', downvoting(question));
-        
-        //feedback events
-        socket.on('submittedFeedback', submittedFeedback(category));
-        socket.on('signalFeedbackRefresh', signalFeedbackRefresh());
         
         //poll events
         socket.on('pollOut', sendPoll(poll));

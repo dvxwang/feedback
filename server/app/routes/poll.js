@@ -6,7 +6,6 @@ var PollAnswer = db.model('pollAnswer')
 var Lecture = db.model('lecture')
 module.exports = router
 
-
 // should we have all routes prefaced with lecture/:lectureId ?
 router.param('pollId', (req, res, next, id) => {
   Poll.findOne({where:{id:id}, include: [{model:PollAnswer}]})

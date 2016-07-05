@@ -20,8 +20,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+	var io = req.app.get('socketio');
 	Question.create(req.body).then(function(question){
-		socket.emit('addingQuestion', question);
+		io.emit('addingQuestion', question);
 		res.status(201).json(question);
 	}).catch(next);
 });
@@ -41,6 +42,7 @@ router.get('/:questionId', function(req, res) {
 });
 
 router.put('/:questionId', function(req, res, next) {
+	var io = req.app.get('socketio');
 	req.question.updateAttributes(req.body).then(function(question){
 		if (req.body.status==='closed') socket.emit('deletingQuestion', req.question);
 		res.status(200).json(question);
@@ -48,8 +50,9 @@ router.put('/:questionId', function(req, res, next) {
 });
 
 router.delete('/:questionId', function(req, res, next) {
+	var io = req.app.get('socketio');
 	req.question.destroy().then(function(){
-		socket.emit('deletingQuestion', req.question);
+		io.emit('deletingQuestion', req.question);
 		res.sendStatus(204);
 	}).catch(next);
 });

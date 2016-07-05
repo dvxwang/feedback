@@ -63,10 +63,11 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
 });
 
 router.post('/:lectureId', function (req, res, next) {
+    var io = req.app.get('socketio');
     req.body.lectureId = req.params.lectureId;
     Feedback.create(req.body)
     .then(function(result){
-        socket.emit('submittedFeedback', category);
+        io.emit('submittedFeedback', category);
         res.json(result);
     });
 });
