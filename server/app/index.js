@@ -23,6 +23,7 @@ module.exports = function (db) {
 
     // authentication goes here
     // app.use(require('./auth'))
+    var auth = require('./auth')(app, db)
 
     app.use('/api', require('./routes'));
 

@@ -168,7 +168,9 @@ app.controller('CreateLecture', function($scope, $uibModal, LectureFactory) {
         keyboard: true,
         templateUrl : 'js/views/instructor/instructorModal.html',
         controller : LectureInstanceCtrl,
-        resolve: {} // empty storage
+        resolve: {
+          
+        } // empty storage
           };
 
         $scope.opts.resolve.item = function() {
