@@ -39,19 +39,11 @@ router.get('/lecture/:lectureId', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/status/:statusType', (req, res, next) => {
-  Poll.findAll({
-    where: {
-      status: req.params.statusType
-    }
-  }).then((polls) => {
-    res.json(polls)
-  }).catch(next);
-});
-
 router.post('/', (req, res, next) => {
   Poll.create(req.body)
   .then((poll) => {
+    var io = req.app.get('socketio');
+    io.emit('updatePolls')
     res.status(201).json(poll);
   }).catch(next);
 });
@@ -64,6 +56,9 @@ router.get('/:pollId', (req, res, next) => {
 router.put('/:pollId', (req, res, next) => {
   req.poll.updateAttributes(req.body)
   .then((poll) => {
+    var io = req.app.get('socketio');
+    io.emit('updatePolls')
+    if (req.body.status === "sent") io.emit('toStudent', poll)
     res.status(200).json(poll);
   })
   .catch(next);
@@ -73,6 +68,8 @@ router.put('/:pollId', (req, res, next) => {
 router.delete('/:pollId', (req, res, next) => {
   req.poll.destroy()
   .then(() => {
+    var io = req.app.get('socketio');
+    io.emit('updatePolls')
     res.sendStatus(204);
   })
   .catch(next);

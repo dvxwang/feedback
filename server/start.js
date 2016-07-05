@@ -47,10 +47,6 @@ var createApplication = function () {
         socket.on('endingLecture', lectureEnd);
         socket.on('gettingLecture', gettingLecture);
 
-        socket.on('updatingPolls', function() {
-          io.emit('updatePolls')
-        })
-
         socket.on('getFeedback', function() {
           socket.emit('updateFeedback', 'Great')
           socket.emit('updateFeedback', 'Confused')
