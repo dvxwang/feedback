@@ -65,6 +65,12 @@ var createApplication = function () {
           socket.emit('getLecture', curLecture)
         })
 
+        socket.on('getFeedback', function() {
+          socket.emit('updateFeedback', 'Great')
+          socket.emit('updateFeedback', 'Confused')
+          socket.emit('updateFeedback', 'Example')
+        })
+
     })
 
 };
@@ -78,7 +84,7 @@ var startServer = function () {
 
 };
 
-db.sync().then(createApplication).then(startServer).catch(function (err) {
+db.sync({force: true}).then(createApplication).then(startServer).catch(function (err) {
     console.error(chalk.red(err.stack));
     process.kill(1);
 });
