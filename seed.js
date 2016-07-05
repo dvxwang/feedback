@@ -6,14 +6,13 @@ var seedPolls = function () {
 
     var polls = [
         {
-            question: 'Are you like, totally confused?',
+            question: 'Are you confused?',
             options: [
               'Yes',
               'No',
               'Sort of'
             ],
             status: "favorite",
-            //lectureId: scope.curLecture.id
         }
     ];
 

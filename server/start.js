@@ -39,13 +39,13 @@ var createApplication = function () {
             io.emit('updateFeedback', category)
         })
 
-        socket.on('updatingPolls', function() {  // this is being sent from the createPoll controller
-          io.emit('updatePolls') // this is being listened to by the poll directive
+        socket.on('updatingPolls', function() {
+          io.emit('updatePolls')
         })
 
         socket.on('pollOut', function(poll) {
           io.emit('toStudent', poll)
-          io.emit('updatePolls') // this is being listened to by the poll directive
+          io.emit('updatePolls')
         })
 
         socket.on('studentAnswer', function() {
