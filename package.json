@@ -2,7 +2,7 @@
   "name": "feedback",
   "version": "1.0.0",
   "description": "Realtime feedback for instructors",
-  "main": "main.js",
+  "main": "start.js",
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js"
   },
