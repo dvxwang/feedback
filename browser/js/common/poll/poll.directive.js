@@ -13,7 +13,7 @@ app.directive('poll', (PollFactory, LectureFactory) => {
 
       scope.delete = function(poll) {
         return PollFactory.deletePoll(poll);
-      }
+      };
 
       socket.on('updatePolls', function() {
         return PollFactory.getAllByLectureId(scope.curLecture.id)
