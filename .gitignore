@@ -1,4 +1,6 @@
 node_modules
 npm-debug.log
-public
+public/images
+public/main.js
+public/style.css
 server/database/index.js
