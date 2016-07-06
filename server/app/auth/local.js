@@ -15,10 +15,9 @@ module.exports = function (app, db) {
                 }
             })
             .then(function (user) {
-              // console.log(user)
                 // user.correctPassword is a method from the User schema.
                 // console.log(user.correctPassword(password))
-                if (!user || !user.fakeCorrectPass(password)) {
+                if (!user || !user.correctPassword(password)) {
                     done(null, false);
                 } else {
                     // Properly authenticated.
@@ -32,10 +31,7 @@ module.exports = function (app, db) {
 
     // A POST /login route is created to handle login.
     app.post('/login', function (req, res, next) {
-        // console.log("here is the req obj", req.user);
         var authCb = function (err, user) {
-          // console.log("here is the user", user)
-            // console.log("USER", user)
             if (err) return next(err);
 
             if (!user) {

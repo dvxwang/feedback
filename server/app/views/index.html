@@ -5,7 +5,6 @@
     <title>Feedback</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
-    <link rel="manifest" href="manifest.json">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src='/jquery/dist/jquery.min.js'></script>
     <script src="/angular/angular.js"></script>
@@ -23,9 +22,10 @@
     <div id="main" ui-view>
         <div class='loginBox' ng-controller='LoginCtrl'>
             <div class='loginHeader'>Login</div>
-            <input type='text' ng-model='login.email' placeholder="email"></input><br>
-            <input type='password' ng-model='login.password' placeholder="password"></input><br>
+            <input type='text' ng-model='login.email' placeholder="email">
+            <input type='password' ng-model='login.password' placeholder="password">
             <div class='Button btn btn-success' ng-click='sendLogin(login)'>Submit</div>
+            <span class='signupLink'><a ui-sref='signup'>Sign up for an account</a></span>
         </div>
     </div>
 

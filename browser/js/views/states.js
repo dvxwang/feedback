@@ -33,6 +33,27 @@ app.config(function ($stateProvider) {
     $stateProvider.state('lecture', {
         url: '/lecture',
         templateUrl: 'js/views/lecture/lecture.html',
-        controller: 'LectureController'
+        controller: 'LectureController',
+        resolve: {
+            user: function(AuthService) {
+                return AuthService.getLoggedInUser()
+            }
+        }
+    });
+});
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('signup', {
+        url: '/signup',
+        templateUrl: 'js/views/signup/signup.html',
+        controller: 'SignupCtrl'
+    });
+});
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('login', {
+        url: '/login',
+        templateUrl: 'js/views/signup/login.html',
+        controller: 'LoginCtrl'
     });
 });
