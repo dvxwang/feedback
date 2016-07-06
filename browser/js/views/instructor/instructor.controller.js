@@ -1,5 +1,20 @@
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
+
     socket.emit('gettingLecture');
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+        .then(function(reg) {
+            reg.pushManager.subscribe({
+                userVisibleOnly: true
+            }).then(function(sub) {
+                socket.emit("newAdmin", sub.endpoint);
+            });
+        }).catch(function(error) {
+            console.log(':^(', error);
+        });
+    };
+
     socket.on('getLecture', function(lecture) {
         $scope.curLecture = lecture;
         if (lecture) {
@@ -141,7 +156,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         function updateInstructorView(){
             setInterval(function(){
                 updateChart();
-                // socket.emit('signalFeedbackRefresh')
+                socket.emit('signalFeedbackRefresh');
             }, 1000);
         };
 
