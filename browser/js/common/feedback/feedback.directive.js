@@ -9,7 +9,7 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
       scope.addMessage = false;
       scope.rejectMessage = false;
       socket.emit('getFeedback')
-      // current lecture does not persist upon refresh...?
+      console.log("currentLectureparent", scope.$parent.curLecture)
       scope.currentLecture = scope.$parent.curLecture
 
       scope.submitFeedback = function (category) {

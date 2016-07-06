@@ -8,18 +8,23 @@ app.config(function ($stateProvider) {
 
 app.config(function ($stateProvider) {
     $stateProvider.state('instructor', {
-        url: '/instructor',
+        url: '/instructor/:lectureId',
         templateUrl: 'js/views/instructor/instructor.html',
         controller: 'InstructorCtrl',
-        params: {
-          'lecture': null
+        resolve: {
+          curLecture: function(LectureFactory, $stateParams) {
+            return LectureFactory.getById($stateParams.lectureId)
+            .then(function(lecture) {
+              return lecture
+            })
+          }
         }
     });
 });
 
 app.config(function ($stateProvider) {
     $stateProvider.state('summary', {
-        url: '/summary',
+        url: '/summary/:lectureId',
         templateUrl: 'js/views/summary/summary.html',
     });
 });

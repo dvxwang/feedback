@@ -53,7 +53,7 @@ var createApplication = function () {
         })
 
         socket.on('startingLecture', function(lecture) {
-          curLecture = lecture;
+          // curLecture = lecture;
           io.emit('startLecture', lecture);
         })
 

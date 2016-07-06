@@ -1,15 +1,21 @@
 app.controller('LectureController', function ($scope, $state, LectureFactory, $uibModal) {
 
-  LectureFactory.list()
+  LectureFactory.activeList()
   .then((lecturelist)=> {
-    console.log("lecturelist", lecturelist)
-    $scope.lecturelist = lecturelist
+    $scope.activelecturelist = lecturelist;
+  })
+
+  LectureFactory.pastList()
+  .then((lecturelist)=> {
+    $scope.pastlecturelist = lecturelist;
   })
 
   $scope.lectureView = function(lecture) {
-    console.log(lecture)
-    $state.go('instructor', {'lecture':lecture})
-    socket.emit('gettingLecture', lecture)
+    $state.go('instructor', {'lectureId':lecture.id});
+  }
+
+  $scope.summaryView = function(lecture) {
+    $state.go('summary', {'lectureId':lecture.id});
   }
 
   $scope.createLectureModal = function() {
@@ -25,7 +31,7 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
       resolve: {}
       }
 
-      $uibModal.open($scope.opts)
+      $uibModal.open($scope.opts);
 
     }
 
@@ -36,9 +42,7 @@ function CreateLeactureInstance($scope, $uibModalInstance, $uibModal, LectureFac
   $scope.submitLecture = function() {
 
     LectureFactory.create($scope.lectureName).then(function(lecture) {
-      $scope.createdLecture = lecture
-        // $scope.curLecture = lecture;
-        // socket.emit('startingLecture', lecture);
+      $scope.createdLecture = lecture;
     })
     .then(function(){
         $uibModalInstance.close();

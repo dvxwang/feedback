@@ -10,9 +10,15 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/instructor', function (req, res, next) {
-  console.log("USER", req.user.id)
-  Lecture.findAll({where: {userId: req.user.id}})
+router.get('/instructor/active', function (req, res, next) {
+  Lecture.findAll({where: {userId: req.user.id, endTime: null}})
+  .then(function(lectures) {
+    res.json(lectures)
+  })
+})
+
+router.get('/instructor/past', function (req, res, next) {
+  Lecture.findAll({where: {userId: req.user.id, endTime: {$ne: null}}})
   .then(function(lectures) {
     res.json(lectures)
   })
@@ -23,16 +29,8 @@ router.get('/current', function (req, res, next) {
 });
 
 router.get('/:lectureId', function (req, res, next) {
-    Lecture.findById(req.params.id)
+    Lecture.findById(req.params.lectureId)
     .then(function(result){
-        res.send(result);
-    });
-});
-
-router.post('/start', function (req, res, next) {
-    Lecture.create(req.body)
-    .then(function(result){
-        req.session.lecture = result
         res.send(result);
     });
 });
@@ -44,19 +42,29 @@ router.post('/create', function(req, res, next) {
       req.session.lecture = result
       res.send(result);
   });
-})
-
-router.post('/end', function (req, res, next) {
-    Lecture.findById(req.session.lecture.id)
-    .then(function(result){
-        return result.update({
-            endTime: Math.floor(Date.now()/1000)
-        })
-      })
-    .then(function(result){
-        req.session.destroy()
-        res.send(result);
-    });
 });
+
+router.put('/start', function(req, res, next) {
+  Lecture.findById(req.body.id)
+  .then(function(lecture) {
+    return lecture.update({startTime: req.body.startTime})
+  })
+  .then(function(updatedLecture) {
+    res.status(201).json(updatedLecture)
+  });
+});
+
+router.put('/end', function (req, res, next) {
+  Lecture.findById(req.body.id)
+  .then(function(result){
+    return result.update({
+      endTime: Math.floor(Date.now()/1000)
+    })
+  })
+  .then(function(lecture){
+    res.json(lecture);
+  });
+});
+
 
 module.exports = router;
