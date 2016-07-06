@@ -21,3 +21,11 @@ router.get('/:pollId', (req, res, next) => {
   })
   .catch(next)
 })
+
+router.get('/:lectureId', (req, res, next) => {
+  PollAnswer.findAll({where:{lectureId: req.params.lectureId}})
+  .then((answers) => {
+    res.json(answers)
+  })
+  .catch(next)
+})

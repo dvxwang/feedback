@@ -57,7 +57,7 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
                 }
             }
         }
-        )  
+        )
     })
     .then(function(result){
         res.json(result.count);
@@ -75,7 +75,7 @@ router.post('/:lectureId', function (req, res, next) {
         for (var i=0; i<adminList.length; i++) {
 
             var dest = JSON.stringify({"to":adminList[i]});
-            
+
             request({
                 url: "https://android.googleapis.com/gcm/send",
                 method: "POST",
@@ -106,5 +106,11 @@ router.delete('/:feedbackId', function (req, res, next) {
 	})
 })
 
-module.exports = router;
+router.get('/:lectureId/:category', function(req, res, next) {
+  Feedback.findAll({where:{lectureId: req.params.lectureId}})
+  .then(function(feedback) {
+    res.json(feedback)
+  })
+})
 
+module.exports = router;

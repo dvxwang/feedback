@@ -146,11 +146,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
             if (queue['x'].length > dataLength) queue['x'].shift();
 
             chartCode.render();
-            if (xVal%15 === 0) {
-              dataQueue['confused'].shift();
-              dataQueue['example'].shift();
-              dataQueue['great'].shift();
-            }
 
         };
 
