@@ -15,9 +15,6 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
 
         if (scope.admin) {
           return FeedbackFactory.addFeedback({category: category, comment: 'adminReset'}, scope.$parent.curLecture.id);
-          // .then(function () {
-          //   socket.emit('submittedFeedback', category)
-          // })
         }
 
         if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {

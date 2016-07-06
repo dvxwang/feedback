@@ -67,8 +67,8 @@ router.post('/:lectureId', function (req, res, next) {
     req.body.lectureId = req.params.lectureId;
     Feedback.create(req.body)
     .then(function(result){
-        if (!result.comment) io.emit('updateChart', result.category)
-        io.emit('updateFeedback', result.category);
+        io.emit('updateFeedback', result.category)
+        io.emit('updateChart', {category: result.category, comment: result.comment});
         res.json(result);
     });
 });
