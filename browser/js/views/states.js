@@ -12,11 +12,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/views/instructor/instructor.html',
         controller: 'InstructorCtrl',
         resolve: {
-          curLecture: function(LectureFactory, $stateParams) {
-            return LectureFactory.getById($stateParams.lectureId)
-            .then(function(lecture) {
-              return lecture
-            })
+          curLecture: resolveLecture(LectureFactory, $stateParams)
           }
         }
     });
@@ -26,6 +22,11 @@ app.config(function ($stateProvider) {
     $stateProvider.state('summary', {
         url: '/summary/:lectureId',
         templateUrl: 'js/views/summary/summary.html',
+        controller: 'SummaryCtrl',
+        resolve: {
+          lecture: resolveLecture(LectureFactory, $stateParams)
+          }
+        }
     });
 });
 
@@ -36,3 +37,10 @@ app.config(function ($stateProvider) {
         controller: 'LectureController'
     });
 });
+
+function resolveLecture(LF, $sP) {
+  return LF.getById($sP.lectureId)
+  .then(function(lecture) {
+    return lecture
+  })
+}
