@@ -141,13 +141,13 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         function updateInstructorView(){
             setInterval(function(){
                 updateChart();
-                socket.emit('signalFeedbackRefresh')
+                // socket.emit('signalFeedbackRefresh')
             }, 1000);
         };
 
         updateInstructorView();
 
-        socket.on('updateFeedback', function (data) {
+        socket.on('updateChart', function (data) {
           if (data === "Great" || data === "Confused" || data === "Example") {
               data = data.toLowerCase();
               dataQueue[data].push("instance");

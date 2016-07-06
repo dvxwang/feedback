@@ -8,10 +8,8 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
       PollFactory.getAllByLectureId(scope.curLecture.id)
       .then((polls) => scope.polls = polls)
 
-      scope.sendPoll = function(poll) {
-        poll.sent = "sent";
-        PollFactory.markSent(poll);
-      }
+
+      scope.sendPoll = (poll) => PollFactory.updatePoll(poll, { status: 'sent', lectureId: scope.curLecture.id })
 
       scope.delete = function(poll) {
         return PollFactory.deletePoll(poll);
