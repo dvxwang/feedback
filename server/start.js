@@ -23,15 +23,6 @@ var createApplication = function () {
 
         function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
 
-        // function lectureStart(lecture) {
-        //     curLecture = lecture;
-        //     io.emit('startLecture', lecture);
-        // };
-
-        // function lectureEnd() {
-        //     curLecture = undefined;
-        //     io.emit('endLecture');
-        // };
         function gettingLecture() {socket.emit('getLecture', curLecture);
             console.log('huh', curLecture)
         };
@@ -45,8 +36,6 @@ var createApplication = function () {
         socket.on('studentAnswer', sendPollAnswer);
 
         //lecture events
-        // socket.on('startingLecture', lectureStart);
-        // socket.on('endingLecture', lectureEnd);
         socket.on('gettingLecture', gettingLecture);
 
         socket.on('updatingPolls', function() {
@@ -54,12 +43,12 @@ var createApplication = function () {
         });
 
         socket.on('getFeedback', function() {
-          socket.emit('updateFeedback', 'Great')
-          socket.emit('updateFeedback', 'Confused')
-          socket.emit('updateFeedback', 'Example')
-          socket.emit('updateFeedback', 'Cannot See')
-          socket.emit('updateFeedback', 'Cannot Hear')
-          socket.emit('updateFeedback', 'Request Break')
+          socket.emit('updateFeedback', 'Great', true);
+          socket.emit('updateFeedback', 'Confused', true);
+          socket.emit('updateFeedback', 'Example', true);
+          socket.emit('updateFeedback', 'Cannot See', true);
+          socket.emit('updateFeedback', 'Cannot Hear', true);
+          socket.emit('updateFeedback', 'Request Break', true);
         });
     })
 
