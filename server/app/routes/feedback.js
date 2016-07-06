@@ -36,8 +36,7 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
             return Lecture.findOne({
                 where: {
                     id: req.params.lectureId,
-                },
-                // order: [['createdAt', 'ASC']]
+                }
             })
         }
     })
@@ -67,7 +66,6 @@ router.post('/:lectureId', function (req, res, next) {
     req.body.lectureId = req.params.lectureId;
     Feedback.create(req.body)
     .then(function(result){
-        console.log("David: ",result);
         if (result.dataValues.comment) {
             io.emit('updateFeedback', result.category, true);
         }
