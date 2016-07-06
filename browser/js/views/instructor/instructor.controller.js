@@ -17,18 +17,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
       }
     }
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-        .then(function(reg) {
-            reg.pushManager.subscribe({
-                userVisibleOnly: true
-            }).then(function(sub) {
-                socket.emit("newAdmin", sub.endpoint);
-            });
-        }).catch(function(error) {
-            console.log(':^(', error);
-        });
-    };
+
+    Notification.requestPermission().then(function(result) {
+      console.log(result);
+    });
 
     socket.on('startLecture', function(lecture) {
       instructorChart()
@@ -159,9 +151,12 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         updateInstructorView();
 
         socket.on('updateChart', function (data) {
-          if (data === "Great" || data === "Confused" || data === "Example") {
-              data = data.toLowerCase();
-              dataQueue[data].push("instance");
+          data.category = data.category.toLowerCase();
+          if (data.category === "great" || data.category === "confused" || data.category === "example") {
+            if (!data.comment) 
+              dataQueue[data.category].push("instance");
+            if (data.comment)
+              dataQueue[data.category] = [];
           }
         });
     }

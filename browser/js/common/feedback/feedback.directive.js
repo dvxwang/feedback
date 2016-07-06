@@ -17,9 +17,6 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
 
         if (scope.admin) {
           return FeedbackFactory.addFeedback({category: category, comment: 'adminReset'}, scope.$parent.curLecture.id);
-          // .then(function () {
-          //   socket.emit('submittedFeedback', category)
-          // })
         }
 
         if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {
@@ -83,45 +80,11 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
     }
 
 
-    // socket.on('feedbackRefresh', function() {
-    //     if (scope.$parent.curLecture) {
-    //       FeedbackFactory.countFeedback('Great', scope.$parent.curLecture.id)
-    //       .then(function (result) {
-    //           if (result === 0) scope.greatCount = null
-    //             else scope.greatCount = result
-    //       })
-    //       FeedbackFactory.countFeedback('Confused', scope.$parent.curLecture.id)
-    //       .then(function (result) {
-    //           if (result === 0) scope.confusedCount = null
-    //             else scope.confusedCount = result
-    //       })
-    //       FeedbackFactory.countFeedback('Example', scope.$parent.curLecture.id)
-    //       .then(function (result) {
-    //           if (result === 0) scope.exampleCount = null
-    //             else scope.exampleCount = result
-    //       })
-    //       FeedbackFactory.countFeedback('Cannot See', scope.$parent.curLecture.id)
-    //       .then(function (result) {
-    //           if (result === 0) scope.seeCount = null
-    //             else scope.seeCount = result
-    //       })
-    //       FeedbackFactory.countFeedback('Cannot Hear', scope.$parent.curLecture.id)
-    //       .then(function (result) {
-    //           if (result === 0) scope.hearCount = null
-    //             else scope.hearCount = result
-    //       })
-    //       FeedbackFactory.countFeedback('Request Break', scope.$parent.curLecture.id)
-    //       .then(function (result) {
-    //           if (result === 0) scope.breakCount = null
-    //             else scope.breakCount = result
-    //       })
-
-    //       scope.$digest();
-    //     }
-    // })
-
-
     socket.on('updateFeedback', function(category) {
+
+        if (scope.admin) {
+            new Notification("New Feedback", {body: category});
+        };  
 
         return FeedbackFactory.countFeedback(category, scope.currentLecture.id)
         .then(function (result) {
