@@ -3,26 +3,18 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     $scope.curLecture = curLecture;
 
     if ($scope.curLecture.startTime) {
-        $(".start").html('Stop');
+        instructorChart()
+        $(".start").html("Stop");
         $(".start").css('background-color', 'red');
-        instructorChart();
     }
 
     $scope.startLecture = function() {
       if ($(".start").html()=='Begin') {
-          LectureFactory.setStart($scope.curLecture)
-          // .then(function(lecture) {
-          //   // moved to backend
-          //   socket.emit('startingLecture', lecture);
-          // })
+          return LectureFactory.setStart($scope.curLecture)
       } else {
-          LectureFactory.setEnd($scope.curLecture).
-          then(function() {
-            $state.go('lecture')
-          })
+          return LectureFactory.setEnd($scope.curLecture)
       }
     }
-
 
     Notification.requestPermission().then(function(result) {
       console.log(result);

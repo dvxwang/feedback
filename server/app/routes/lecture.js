@@ -51,8 +51,7 @@ router.put('/start', function(req, res, next) {
   .then(function(lecture) {
     return lecture.update({startTime: req.body.startTime})
   })
-  .then(function(updatedLecture) {
-    
+  .then(function(updatedLecture) {    
     io.emit('startLecture', updatedLecture)
     res.status(201).json(updatedLecture)
   });
