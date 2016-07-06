@@ -1,18 +1,7 @@
 'use strict';
 var path = require('path');
 var Sequelize = require('sequelize');
-// var db = new Sequelize('postgres://localhost:5432/feedback');
-
-var db = new Sequelize('feedback', 'bpr', 'sunshine', {
-  dialect: 'postgres',
-  port: '5432',
-  logging: false
-})
-
-var db = new Sequelize('feedback', 'bpr', 'sunshine', {
-  dialect: 'postgres',
-  port: 5432
-})
+var db = new Sequelize('postgres://localhost:5432/feedback');
 
 require('./models/lecture')(db);
 require('./models/question')(db);

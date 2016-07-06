@@ -36,3 +36,11 @@ app.config(function ($stateProvider) {
         controller: 'LectureController'
     });
 });
+
+app.config(function ($stateProvider) {
+    $stateProvider.state('signup', {
+        url: '/signup',
+        templateUrl: 'js/views/signup/signup.html',
+        controller: 'SignupCtrl'
+    });
+});
