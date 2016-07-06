@@ -2,21 +2,19 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
 
     $scope.curLecture = curLecture;
 
-    $scope.startLecture = function() {
-      if ($(".start").html()=='Begin') {
-          LectureFactory.setStart($scope.curLecture)
-          .then(function(lecture) {
-            // moved to backend
-            socket.emit('startingLecture', lecture);
-          })
-      } else {
-          LectureFactory.setEnd($scope.curLecture).
-          then(function() {
-            $state.go('lecture')
-          })
-      }
+    if ($scope.curLecture.startTime) {
+        instructorChart()
+        $(".start").html("Stop");
+        $(".start").css('background-color', 'red');
     }
 
+    $scope.startLecture = function() {
+      if ($(".start").html()=='Begin') {
+          return LectureFactory.setStart($scope.curLecture)
+      } else {
+          return LectureFactory.setEnd($scope.curLecture)
+      }
+    }
 
     Notification.requestPermission().then(function(result) {
       console.log(result);
@@ -27,6 +25,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
       $(".start").html("Stop");
       $(".start").css('background-color', 'red');
       $scope.$evalAsync();
+    })
+
+    socket.on('endLecture', function(lecture) {
+      $state.go('lecture')
     })
 
     $(document).ready(function() {

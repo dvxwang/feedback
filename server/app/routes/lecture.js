@@ -51,6 +51,8 @@ router.put('/start', function(req, res, next) {
     return lecture.update({startTime: req.body.startTime})
   })
   .then(function(updatedLecture) {
+    var io = req.app.get('socketio')
+    io.emit('startLecture')
     res.status(201).json(updatedLecture)
   });
 });
