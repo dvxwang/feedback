@@ -57,11 +57,13 @@ var createApplication = function () {
         });
 
         socket.on('getFeedback', function() {
-          socket.emit('updateFeedback', 'Great');
-          socket.emit('updateFeedback', 'Confused');
-          socket.emit('updateFeedback', 'Example');
+          socket.emit('updateFeedback', 'Great')
+          socket.emit('updateFeedback', 'Confused')
+          socket.emit('updateFeedback', 'Example')
+          socket.emit('updateFeedback', 'Cannot See')
+          socket.emit('updateFeedback', 'Cannot Hear')
+          socket.emit('updateFeedback', 'Request Break')
         });
-
     })
 
 };

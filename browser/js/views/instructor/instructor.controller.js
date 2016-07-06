@@ -146,11 +146,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
             if (queue['x'].length > dataLength) queue['x'].shift();
 
             chartCode.render();
-            if (xVal%15 === 0) {
-              dataQueue['confused'].shift();
-              dataQueue['example'].shift();
-              dataQueue['great'].shift();
-            }
 
         };
 
@@ -164,9 +159,12 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         updateInstructorView();
 
         socket.on('updateChart', function (data) {
-          if (data === "Great" || data === "Confused" || data === "Example") {
-              data = data.toLowerCase();
-              dataQueue[data].push("instance");
+          data.category = data.category.toLowerCase();
+          if (data.category === "great" || data.category === "confused" || data.category === "example") {
+            if (!data.comment) 
+              dataQueue[data.category].push("instance");
+            if (data.comment)
+              dataQueue[data.category] = [];
           }
         });
     }
