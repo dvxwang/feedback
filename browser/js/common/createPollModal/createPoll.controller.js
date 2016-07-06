@@ -1,7 +1,7 @@
 app.controller('CreatePoll', function($scope, $uibModal) {
 
   $scope.showModal = function() {
-    $scope.opts = {
+    $uibModal.open({
       backdrop: true,
       backdropClick: true,
       transclude: true,
@@ -12,9 +12,7 @@ app.controller('CreatePoll', function($scope, $uibModal) {
       resolve: {
         curLecture: $scope.curLecture
       }
-    }
-
-    $uibModal.open($scope.opts)
+    })
   }
 
 })

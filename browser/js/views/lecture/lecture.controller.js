@@ -20,7 +20,7 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
 
   $scope.createLectureModal = function() {
 
-      $scope.opts = {
+      $uibModal.open({
       backdrop: true,
       backdropClick: true,
       transclude: true,
@@ -29,9 +29,7 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
       templateUrl : 'js/views/lecture/lectureModal.html',
       controller : CreateLeactureInstance,
       resolve: {}
-      }
-
-      $uibModal.open($scope.opts);
+      })
 
     }
 
