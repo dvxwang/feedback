@@ -3,18 +3,31 @@
     <head>
     </head>
     <body>
-      <div>
-        <h3>Create New Lecture</h3>
-        <button type="submit" ng-click="createLectureModal()">Create</button>
-      </div>
-      <div id="lectures" class="container">
-        <table class="table">
-          FAVORITE LECTURES
-          <tr ng-repeat='lecture in lecturelist'>
-            <td><span class='mainPollQuestion'>{{ lecture }}</span></td>
-            <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
-          </tr>
-        </table>
+      <div class="container" id="lectures">
+        <div>
+          <h3>Create New Lecture</h3>
+          <button type="submit" ng-click="createLectureModal()">Create</button>
+        </div>
+        <div id="space"></div>
+        <div class="container">
+          <table class="table" id="new-lecture">
+            New Lectures
+            <tr ng-repeat='lecture in lecturelist'>
+              <td><span class='mainPollQuestion'>{{ lecture.name }}</span></td>
+              <td><span class='mainPollQuestion'>{{ lecture.createdAt | date:'medium'}}</span></td>
+              <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
+            </tr>
+          </table>
+          <div id="space"></div>
+          <table class="table" id="old-lecture">
+            Old Lectures
+            <tr ng-repeat='lecture in lecturelist'>
+              <td><span class='mainPollQuestion'>{{ lecture.name }}</span></td>
+              <td><span class='mainPollQuestion'>{{ lecture.createdAt | date:'medium' }}</span></td>
+              <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView()"></i></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </body>
 </html>

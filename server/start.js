@@ -66,8 +66,8 @@ var createApplication = function () {
           io.emit('feedbackRefresh')
         })
 
-        socket.on('gettingLecture', function() {
-          socket.emit('getLecture', curLecture)
+        socket.on('gettingLecture', function(lecture) {
+          io.emit('getLecture', lecture)
         })
 
         socket.on('getFeedback', function() {

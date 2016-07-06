@@ -1,12 +1,16 @@
 app.controller('LectureController', function ($scope, $state, LectureFactory, $uibModal) {
 
-  $scope.lecturelist = [1,2,3]
-
   LectureFactory.list()
   .then((lecturelist)=> {
     console.log("lecturelist", lecturelist)
     $scope.lecturelist = lecturelist
   })
+
+  $scope.lectureView = function(lecture) {
+    console.log(lecture)
+    $state.go('instructor', {'lecture':lecture})
+    socket.emit('gettingLecture', lecture)
+  }
 
   $scope.createLectureModal = function() {
 

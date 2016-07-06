@@ -7,10 +7,13 @@ app.config(function ($stateProvider) {
 });
 
 app.config(function ($stateProvider) {
-    $stateProvider.state('admin', {
-        url: '/admin',
+    $stateProvider.state('instructor', {
+        url: '/instructor',
         templateUrl: 'js/views/instructor/instructor.html',
-        controller: 'InstructorCtrl'
+        controller: 'InstructorCtrl',
+        params: {
+          'lecture': null
+        }
     });
 });
 

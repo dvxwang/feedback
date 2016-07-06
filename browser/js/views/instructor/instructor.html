@@ -15,21 +15,22 @@
                     <div class="googleButton">
                         <div id="startButton2"></div>
                     </div>
-                    <div ng-controller="CreateLecture" class="start googleButton" ng-click="showLectureModal()">Begin</div>
+                    <!-- <div ng-controller="CreateLecture" class="start googleButton" ng-click="showLectureModal()">Begin</div> -->
+                    <div class="start googleButton">Begin</div>
                 </div>
                 </div>
 
-                <div ng-show='curLecture' class="chart">
+                <div class="chart">
                     <div id='chartCode'></div>
                 </div>
 
-                <div ng-if='!curLecture' class='noClass'>
+                <!-- <div ng-if='!curLecture' class='noClass'>
                     The lecture has not begun
-                </div>
+                </div> -->
 
-                <div ng-if='curLecture' class='activeClass'>
+                <div class='activeClass'>
                     <div class="primaryButtonRow">
-                        <feedback admin="true"></feedback>
+                        <!-- <feedback admin="true"></feedback> -->
                     </div>
 
                     <div class="featureBar">
