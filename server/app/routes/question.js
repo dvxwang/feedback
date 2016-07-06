@@ -24,11 +24,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var io = req.app.get('socketio');
 	Question.create(req.body).then(function(question){
-		console.log("Made it here");
 		io.emit('addQuestion', question.dataValues);
-		var adminList = adminBrowsers.getAdmin();
-		console.log("Sent: ", adminList);
 
+		var adminList = adminBrowsers.getAdmin();
 		for (var i=0; i<adminList.length; i++) {
 
           	var dest = JSON.stringify({"to":adminList[i]});
@@ -44,9 +42,7 @@ router.post('/', function(req, res, next) {
 			}, function (error, response, body){
 			    console.log(response);
 			});
-
-          
-        }
+        };
 
 		res.status(201).json(question);
 	}).catch(next);

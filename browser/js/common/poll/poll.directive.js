@@ -11,10 +11,10 @@ app.directive('poll', ($state, PollFactory, LectureFactory) => {
       scope.sendPoll = function(poll) {
         poll.sent = "sent";
         PollFactory.markSent(poll);
-
+      };
       scope.delete = function(poll) {
         return PollFactory.deletePoll(poll);
-      }
+      };
 
       socket.on('updatePolls', function() {
         return PollFactory.getAllByLectureId(scope.curLecture.id)

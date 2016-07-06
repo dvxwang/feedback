@@ -4,6 +4,7 @@ app.controller('LoginCtrl', function ($scope, $state) {
 		var temp = $scope.login.toLowerCase();
 
 		if (temp==='admin'){
+			console.log('Check1');
 			$state.go('admin');
 		}
 		else if (temp==='student'){
