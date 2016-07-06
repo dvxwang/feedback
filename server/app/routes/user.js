@@ -27,8 +27,8 @@ router.get('/:userId', function (req, res, next) {
 router.post('/', function (req, res, next) {
   User.create(req.body)
   .then((newUser) => {
-    req.user = user;
-    res.json(newUser);
+    req.user = newUser;
+    res.json(req.user);
   }).catch(next)
 })
 

@@ -24,13 +24,11 @@ var seedUsers = function() {
 
   var users = [
     {
-      email: 'obama@potus.com',
-      password: '123',
-      isAdmin: true
-    },
-    {
-      email: 'brinn@brinn.com',
-      password: '234',
+      first_name: 'Admin',
+      last_name: 'Istrator',
+      email: 'admin@feedback.com',
+      password: 'e0383ceff689de8200b360dafce2db9878dd0d3f',
+      salt: 'HxU+DrlOTaQQGZVI3vUf1Q==',
       isAdmin: true
     }
   ]
