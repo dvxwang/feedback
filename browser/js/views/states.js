@@ -1,8 +1,16 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('student', {
-        url: '/student',
+        url: '/student/:lectureId',
         templateUrl: 'js/views/student/student.html',
-        controller: 'StudentCtrl'
+        controller: 'StudentCtrl',
+        resolve: {
+          curLecture: function(LectureFactory, $stateParams) {
+            return LectureFactory.getById($stateParams.lectureId)
+            .then(function(lecture) {
+              return lecture
+            })
+          }            
+        }
     });
 });
 

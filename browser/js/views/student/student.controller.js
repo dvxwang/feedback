@@ -1,10 +1,6 @@
-app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
-  socket.emit('gettingLecture');
+app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture) {
 
-  socket.on('getLecture', function(lecture) {
-    $scope.curLecture = lecture
-    $scope.$evalAsync()
-  })
+  $scope.curLecture = curLecture;
   
   socket.on('startLecture', function(lecture) {
     $scope.curLecture = lecture;

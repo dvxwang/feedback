@@ -27,11 +27,6 @@ var createApplication = function () {
         //     curLecture = lecture;
         //     io.emit('startLecture', lecture);
         // };
-        
-        socket.on('startLecture', function (lecture) {
-            console.log('LECTURE HERE ---->', lecture)
-            curLecture = lecture
-        })
 
         // function lectureEnd() {
         //     curLecture = undefined;
