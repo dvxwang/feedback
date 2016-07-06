@@ -17,18 +17,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
       }
     }
 
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js')
-        .then(function(reg) {
-            reg.pushManager.subscribe({
-                userVisibleOnly: true
-            }).then(function(sub) {
-                socket.emit("newAdmin", sub.endpoint);
-            });
-        }).catch(function(error) {
-            console.log(':^(', error);
-        });
-    };
+
+    Notification.requestPermission().then(function(result) {
+      console.log(result);
+    });
 
     socket.on('startLecture', function(lecture) {
       instructorChart()
