@@ -47,9 +47,6 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
             scope.close = function(question) {
                 return QuestionFactory.update(question.id, { status: 'closed'});
-                // .then(function(){
-                    // socket.emit('deletingQuestion', question);
-                // })
             }
 
             scope.move = function(question, n) {
@@ -70,6 +67,9 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
             socket.on('addQuestion', function(question) {
                 scope.questions.unshift(question);
+                if (scope.admin) {
+                    new Notification("New Question", {body: question.text});
+                };
                 scope.$evalAsync();
             })
 

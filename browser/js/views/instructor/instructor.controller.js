@@ -2,23 +2,9 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
 
     socket.emit('gettingLecture');
 
-    if ('serviceWorker' in navigator) {
-        
-        console.log('Service Worker is supported');
-        
-        navigator.serviceWorker.register('sw.js')
-        .then(function(reg) {
-            console.log(':^)', reg);
-            reg.pushManager.subscribe({
-                userVisibleOnly: true
-            }).then(function(sub) {
-                socket.emit("newAdmin", sub.endpoint);
-                console.log('endpoint:', sub.endpoint);
-            });
-        }).catch(function(error) {
-            console.log(':^(', error);
-        });
-    };
+    Notification.requestPermission().then(function(result) {
+      console.log(result);
+    });
 
     socket.on('getLecture', function(lecture) {
         $scope.curLecture = lecture;

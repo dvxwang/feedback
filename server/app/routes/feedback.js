@@ -2,8 +2,6 @@ var router = require('express').Router();
 var db = require('../../database');
 var Feedback = db.model('feedback');
 var Lecture = db.model('lecture');
-var adminBrowsers = require('../../database/adminBrowser.js');
-var request = require('request');
 
 router.get('/', function (req, res, next) {
     Feedback.findAll()
@@ -70,25 +68,6 @@ router.post('/:lectureId', function (req, res, next) {
     Feedback.create(req.body)
     .then(function(result){
         io.emit('submittedFeedback', result.dataValues.category);
-
-        var adminList = adminBrowsers.getAdmin();
-        for (var i=0; i<adminList.length; i++) {
-
-            var dest = JSON.stringify({"to":adminList[i]});
-            
-            request({
-                url: "https://android.googleapis.com/gcm/send",
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "key=AIzaSyCUjoRzEBbZk-JfGeZTR1gugbeKjQolJtA"
-                },
-                body: dest
-            }, function (error, response, body){
-                console.log(response);
-            });
-        };
-
         if (!result.comment) io.emit('updateChart', result.category)
         io.emit('updateFeedback', result.category);
         res.json(result);

@@ -1,7 +1,6 @@
 'use strict';
 var chalk = require('chalk');
 var db = require('./database');
-var adminBrowsers = require('./database/adminBrowser.js');
 
 // Create a node server instance! cOoL!
 var server = require('http').createServer();
@@ -50,11 +49,6 @@ var createApplication = function () {
 
         socket.on('updatingPolls', function() {
           io.emit('updatePolls');
-        });
-
-        socket.on('newAdmin', function(browser) {
-          adminBrowsers.addAdmin(browser.slice(40));
-          console.log("New admin socket: ",browser.slice(40));
         });
 
         socket.on('getFeedback', function() {
