@@ -1,10 +1,6 @@
-app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
-  socket.emit('gettingLecture');
+app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture) {
 
-  socket.on('getLecture', function(lecture) {
-    $scope.curLecture = lecture
-    $scope.$evalAsync()
-  })
+  $scope.curLecture = curLecture;
   
   socket.on('startLecture', function(lecture) {
     $scope.curLecture = lecture;
@@ -68,10 +64,8 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
     // })
 
     $scope.itemClicked = function (index, option, $index) {
-      console.log('HERE', $index)
       option.index = index;
       option.comment = index
-      console.log('AND HERE', option.index)
     }
 
     $scope.submit = function() {

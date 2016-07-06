@@ -146,14 +146,13 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         function updateInstructorView(){
             setInterval(function(){
                 updateChart();
-                socket.emit('signalFeedbackRefresh');
             }, 1000);
         };
 
         updateInstructorView();
 
         socket.on('updateChart', function (data) {
-          data.category = data.category.toLowerCase();
+          if (data.category) data.category = data.category.toLowerCase();
           if (data.category === "great" || data.category === "confused" || data.category === "example") {
             if (!data.comment) 
               dataQueue[data.category].push("instance");
