@@ -92,7 +92,6 @@ router.post('/:lectureId', function (req, res, next) {
 
         if (!result.comment) io.emit('updateChart', result.category)
         io.emit('updateFeedback', result.category);
->>>>>>> 106665a10c58376530f18301ade2b68f2cce20f1
         res.json(result);
     });
 });
