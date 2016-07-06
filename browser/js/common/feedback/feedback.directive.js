@@ -11,6 +11,8 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
       scope.rejectMessage = false;
       socket.emit('getFeedback')
 
+      scope.currentLecture = scope.$parent.curLecture
+
       scope.submitFeedback = function (category) {
 
         if (scope.admin) {
@@ -18,10 +20,10 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
         }
 
         if ((category === 'Great' && !scope.greatClicked) || (category === 'Confused' && !scope.confusedClicked) || (category === 'Example' && !scope.exampleClicked) || (category === 'Cannot See' && !scope.seeClicked) || (category === 'Cannot Hear' && !scope.hearClicked) || (category === 'Request Break' && !scope.breakClicked)) {
-        return FeedbackFactory.addFeedback({category: category}, scope.$parent.curLecture.id)
+        return FeedbackFactory.addFeedback({category: category}, scope.currentLecture.id)
         .then(function () {
           socket.emit('submittedFeedback', category)
-          
+
           if (category === 'Great') {
             scope.greatClicked = true;
             setTimeout(function () {
@@ -73,18 +75,19 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
         setTimeout(function(){
           scope.rejectMessage = false;
           scope.$digest();
-        }, 1500);        
+        }, 1500);
       }
     }
+
 
     socket.on('updateFeedback', function(category) {
 
         if (scope.admin) {
-            new Notification("New Feedbac", {body: category});
-        };
+            new Notification("New Feedback", {body: category});
+        };  
 
-        return FeedbackFactory.countFeedback(category, scope.$parent.curLecture.id) 
-        .then(function (result) {          
+        return FeedbackFactory.countFeedback(category, scope.currentLecture.id)
+        .then(function (result) {
           if (category === 'Great') {
             if (result === 0) {
               scope.greatCount = null

@@ -69,7 +69,7 @@ router.put('/:pollId', (req, res, next) => {
     io.emit('toStudent', polls[0])
     io.emit('updatePolls')
     io.emit('updateActivePoll')
-    res.status(200).json(poll[0]);
+    res.status(200).json(polls[0]);
   })
   .catch(next);
 });

@@ -1,32 +1,32 @@
-app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
+app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory, $stateParams, curLecture) {
 
-    socket.emit('gettingLecture');
+    $scope.curLecture = curLecture;
+
+    $scope.startLecture = function() {
+      if ($(".start").html()=='Begin') {
+          LectureFactory.setStart($scope.curLecture)
+          .then(function(lecture) {
+            // moved to backend
+            socket.emit('startingLecture', lecture);
+          })
+      } else {
+          LectureFactory.setEnd($scope.curLecture).
+          then(function() {
+            $state.go('lecture')
+          })
+      }
+    }
+
 
     Notification.requestPermission().then(function(result) {
       console.log(result);
     });
 
-    socket.on('getLecture', function(lecture) {
-        $scope.curLecture = lecture;
-        if (lecture) {
-            $(".start").html("Stop");
-            $(".start").css('background-color', 'red');
-        }
-        $scope.$evalAsync();
-    })
-
     socket.on('startLecture', function(lecture) {
-        $scope.curLecture = lecture;
-        $(".start").html("Stop");
-        $(".start").css('background-color', 'red');
-        $scope.$evalAsync();
-    })
-
-    socket.on('endLecture', function() {
-        $scope.curLecture = undefined;
-        $(".start").html("Begin");
-        $(".start").css('background-color', 'green');
-        $scope.$evalAsync();
+      instructorChart()
+      $(".start").html("Stop");
+      $(".start").css('background-color', 'red');
+      $scope.$evalAsync();
     })
 
     $(document).ready(function() {
@@ -42,7 +42,9 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         ],
         'widget_size': 72
         });
+      });
 
+    function instructorChart() {
         var queue = {
             confused: [],
             great: [],
@@ -136,11 +138,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
             if (queue['x'].length > dataLength) queue['x'].shift();
 
             chartCode.render();
-            if (xVal%15 === 0) {
-              dataQueue['confused'].shift();
-              dataQueue['example'].shift();
-              dataQueue['great'].shift();
-            }
 
         };
 
@@ -154,64 +151,14 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
         updateInstructorView();
 
         socket.on('updateChart', function (data) {
-          if (data === "Great" || data === "Confused" || data === "Example") {
-              data = data.toLowerCase();
-              dataQueue[data].push("instance");
+          data.category = data.category.toLowerCase();
+          if (data.category === "great" || data.category === "confused" || data.category === "example") {
+            if (!data.comment) 
+              dataQueue[data.category].push("instance");
+            if (data.comment)
+              dataQueue[data.category] = [];
           }
         });
-    });
+    }
+
 });
-
-app.controller('CreateLecture', function($scope, $uibModal, LectureFactory) {
-
-    $scope.showLectureModal = function() {
-
-        $scope.opts = {
-        backdrop: true,
-        backdropClick: true,
-        transclude: true,
-        dialogFade: false,
-        keyboard: true,
-        templateUrl : 'js/views/instructor/instructorModal.html',
-        controller : LectureInstanceCtrl,
-        resolve: {} // empty storage
-          };
-
-        $scope.opts.resolve.item = function() {
-            return angular.copy({polls:$scope.polls, lecture: $scope.lecture}); // pass name to Dialog
-        }
-
-    if ($(".start").html()=='Begin') {
-        var modalInstance = $uibModal.open($scope.opts);
-    }
-    else {
-        LectureFactory.setEnd().then(function() {
-            $scope.curLecture = undefined;
-            socket.emit('endingLecture');
-            $scope.$evalAsync();
-        })
-        $(".start").html('Begin');
-        $(".start").css('background-color', 'green');
-    }
-
-    };
-
-})
-
-var LectureInstanceCtrl = function($scope, $uibModalInstance, $uibModal, LectureFactory) {
-
-  $scope.submitLecture = function() {
-
-    LectureFactory.setStart($scope.lectureName,$scope.lectureTeacher).then(function(lecture) {
-        $scope.curLecture = lecture;
-        socket.emit('startingLecture', lecture);
-    })
-    .then(function(){
-        $uibModalInstance.close();
-    })
-  };
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  }
-}

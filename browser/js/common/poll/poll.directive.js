@@ -1,7 +1,8 @@
-app.directive('poll', ($state, PollFactory, LectureFactory) => {
+app.directive('poll', (PollFactory, LectureFactory) => {
   return {
     restrict: 'E',
     templateUrl: 'js/common/poll/poll.html',
+    scope: {},
     link: function(scope) {
       scope.curLecture = scope.$parent.curLecture
 

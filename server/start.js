@@ -38,7 +38,7 @@ var createApplication = function () {
         socket.on('move', move);
         socket.on('upvoting', upvoting);
         socket.on('downvoting', downvoting);
-        
+
         //poll events
         socket.on('studentAnswer', sendPollAnswer);
 
@@ -52,11 +52,13 @@ var createApplication = function () {
         });
 
         socket.on('getFeedback', function() {
-          socket.emit('updateFeedback', 'Great');
-          socket.emit('updateFeedback', 'Confused');
-          socket.emit('updateFeedback', 'Example');
+          socket.emit('updateFeedback', 'Great')
+          socket.emit('updateFeedback', 'Confused')
+          socket.emit('updateFeedback', 'Example')
+          socket.emit('updateFeedback', 'Cannot See')
+          socket.emit('updateFeedback', 'Cannot Hear')
+          socket.emit('updateFeedback', 'Request Break')
         });
-
     })
 
 };

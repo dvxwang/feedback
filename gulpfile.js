@@ -50,6 +50,7 @@ gulp.task('buildJS', function () {  // removed ['lintJS'] because not compatible
           }))
           .pipe(sourcemaps.write())
           .pipe(gulp.dest('./public'));
+
         // var filetext = ''
         // pipefirst.on('data', function(chunk) {
         //   filetext += chunk.contents
@@ -57,8 +58,9 @@ gulp.task('buildJS', function () {  // removed ['lintJS'] because not compatible
         //   // console.log(chunk.contents.toString())
         // })
         // pipefirst.on('end', function() {
-        //   console.log(filetext.split('\n').slice(370,380).join('\n'))
+        //   console.log(filetext.split('\n').slice(340,370).join('\n'))
         // })
+
         return pipefirst
 });
 
