@@ -6,7 +6,7 @@ app.factory('SummaryFactory', function ($http) {
     return $http.get('/api/feedback/'+lectureId)
     .then((feedbacks) => {
       return feedbacks.map(function(feedback) {
-        return {category: feedback.category, time: moment(feedback.updatedAt).unix()})
+        return {category: feedback.category, time: feedback.updatedAt})
       })
     })
   }

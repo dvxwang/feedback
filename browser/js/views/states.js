@@ -47,7 +47,7 @@ function resolveLecture(LF, $sP) {
   return LF.getById($sP.lectureId)
   .then(function(lecture) {
     return lecture
-  })
+  });
 }
 
 app.config(function ($stateProvider) {
