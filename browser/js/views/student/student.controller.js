@@ -64,10 +64,8 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
     // })
 
     $scope.itemClicked = function (index, option, $index) {
-      console.log('HERE', $index)
       option.index = index;
       option.comment = index
-      console.log('AND HERE', option.index)
     }
 
     $scope.submit = function() {
