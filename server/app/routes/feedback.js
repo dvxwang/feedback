@@ -89,6 +89,8 @@ router.post('/:lectureId', function (req, res, next) {
             });
         };
 
+        if (!result.comment) io.emit('updateChart', result.category)
+        io.emit('updateFeedback', result.category);
         res.json(result);
     });
 });

@@ -1,9 +1,6 @@
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory) {
-    console.log('Check0');
 
     socket.emit('gettingLecture');
-
-    console.log('Check1');
 
     if ('serviceWorker' in navigator) {
         
@@ -22,8 +19,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
             console.log(':^(', error);
         });
     };
-
-    console.log('Check2');
 
     socket.on('getLecture', function(lecture) {
         $scope.curLecture = lecture;
@@ -49,6 +44,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
     })
 
     $(document).ready(function() {
+
 
         gapi.hangout.render('startButton2', {
         'render': 'createhangout',
@@ -171,7 +167,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory)
 
         updateInstructorView();
 
-        socket.on('updateFeedback', function (data) {
+        socket.on('updateChart', function (data) {
           if (data === "Great" || data === "Confused" || data === "Example") {
               data = data.toLowerCase();
               dataQueue[data].push("instance");

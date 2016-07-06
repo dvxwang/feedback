@@ -39,19 +39,11 @@ router.get('/lecture/:lectureId', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/status/:statusType', (req, res, next) => {
-  Poll.findAll({
-    where: {
-      status: req.params.statusType
-    }
-  }).then((polls) => {
-    res.json(polls)
-  }).catch(next);
-});
-
 router.post('/', (req, res, next) => {
   Poll.create(req.body)
   .then((poll) => {
+    var io = req.app.get('socketio');
+    io.emit('updatePolls')
     res.status(201).json(poll);
   }).catch(next);
 });
@@ -61,21 +53,23 @@ router.get('/:pollId', (req, res, next) => {
   .catch(next);
 });
 
-router.put('/mark/:pollId', (req, res, next) => {
-  var io = req.app.get('socketio');
-  Poll.mark(req.params.pollId)
-  .then((poll)=> {
-    io.emit('updatePolls');
-    io.emit('toStudent', poll);
-    res.status(200).json(poll);
-  })
-  .catch(next);
-});
-
 router.put('/:pollId', (req, res, next) => {
-  req.poll.updateAttributes(req.body)
-  .then((poll) => {
-    res.status(200).json(poll);
+  var duplicate;
+  if (req.poll.status === "favorite") {
+    duplicate = Poll.create({
+      question: req.poll.question,
+      options: req.poll.options,
+      status: "favorite"
+    })
+  }
+
+  Promise.all([req.poll.updateAttributes(req.body), duplicate])
+  .then((polls) => {
+    var io = req.app.get('socketio');
+    io.emit('toStudent', polls[0])
+    io.emit('updatePolls')
+    io.emit('updateActivePoll')
+    res.status(200).json(poll[0]);
   })
   .catch(next);
 });
@@ -84,6 +78,8 @@ router.put('/:pollId', (req, res, next) => {
 router.delete('/:pollId', (req, res, next) => {
   req.poll.destroy()
   .then(() => {
+    var io = req.app.get('socketio');
+    io.emit('updatePolls')
     res.sendStatus(204);
   })
   .catch(next);

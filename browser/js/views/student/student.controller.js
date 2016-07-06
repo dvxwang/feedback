@@ -1,5 +1,6 @@
 app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
-  socket.emit('gettingLecture')
+  socket.emit('gettingLecture');
+
   socket.on('getLecture', function(lecture) {
     $scope.curLecture = lecture
     $scope.$evalAsync()
@@ -37,12 +38,10 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
     PollFactory.createPoll({
       question: 'We would appreciate your feedback!',
       options: [
-        'Do you find this tool useful? (yes/no)',
-        'Is this better than the anonymous poll? (yes/no)',
-        'Please leave anonymous feedback on what how we can improve:',
-        'We would also appreciate in-person feedback. Please leave your name and/or email if you are ok with the development team reaching out. Thank you!'
+        'How would you rate this lecture?',
+        'What about now?'
       ],
-      status: "sent",
+      status: 'sent',
       lectureId: $scope.curLecture.id
     }).then(function(poll) {
       $scope.poll = poll;
@@ -50,6 +49,30 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
         return { category: question }
       })
     })
+
+    // PollFactory.createPoll({
+    //   question: 'We would appreciate your feedback!',
+    //   options: [
+    //     'Do you find this tool useful? (yes/no)',
+    //     'Is this better than the anonymous poll? (yes/no)',
+    //     'Please leave anonymous feedback on how we could improve:',
+    //     'We would also appreciate in-person feedback. Please leave your name and/or email if you are ok with the development team reaching out. Thank you!'
+    //   ],
+    //   // status: "sent",
+    //   // lectureId: $scope.curLecture.id
+    // }).then(function(poll) {
+    //   $scope.poll = poll;
+    //   $scope.poll.options = poll.options.map(function(question) {
+    //     return { category: question }
+    //   })
+    // })
+
+    $scope.itemClicked = function (index, option, $index) {
+      console.log('HERE', $index)
+      option.index = index;
+      option.comment = index
+      console.log('AND HERE', option.index)
+    }
 
     $scope.submit = function() {
       var promises = $scope.poll.options.map(function(result) {
