@@ -56,6 +56,7 @@ router.put('/start', function(req, res, next) {
 });
 
 router.put('/end', function (req, res, next) {
+  var io = req.app.get('socketio')
   Lecture.findById(req.body.id)
   .then(function(result){
     return result.update({
@@ -63,6 +64,7 @@ router.put('/end', function (req, res, next) {
     })
   })
   .then(function(lecture){
+    io.emit('endLecture')
     res.json(lecture);
   });
 });

@@ -6,6 +6,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
       if ($(".start").html()=='Begin') {
           LectureFactory.setStart($scope.curLecture)
           .then(function(lecture) {
+            // moved to backend
             socket.emit('startingLecture', lecture);
           })
       } else {
