@@ -36,8 +36,7 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
             return Lecture.findOne({
                 where: {
                     id: req.params.lectureId,
-                },
-                // order: [['createdAt', 'ASC']]
+                }
             })
         }
     })
@@ -67,8 +66,12 @@ router.post('/:lectureId', function (req, res, next) {
     req.body.lectureId = req.params.lectureId;
     Feedback.create(req.body)
     .then(function(result){
-
-        io.emit('updateFeedback', result.category)
+        if (result.dataValues.comment) {
+            io.emit('updateFeedback', result.category, true);
+        }
+        else {
+            io.emit('updateFeedback', result.category);
+        }
         io.emit('updateChart', {category: result.category, comment: result.comment});
 
         if (!result.comment) io.emit('updateChart', result.category)
