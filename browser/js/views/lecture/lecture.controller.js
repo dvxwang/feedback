@@ -1,4 +1,8 @@
-app.controller('LectureController', function ($scope, $state, LectureFactory, $uibModal) {
+app.controller('LectureController', function ($scope, $state, LectureFactory, $uibModal, user, AuthService) {
+  $scope.user = user;
+  $scope.logout = () => {
+    return AuthService.logout().then(() => $state.go('login'))
+  }
 
   LectureFactory.activeList()
   .then((lecturelist)=> {

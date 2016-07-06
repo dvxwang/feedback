@@ -1,33 +1,28 @@
-<!doctype html>
-<html>
-    <head>
-    </head>
-    <body>
-      <div class="container" id="lectures">
-        <div id="new-lecture">
-          <h3>Create New Lecture</h3>
-          <button type="submit" ng-click="createLectureModal()">Create</button>
-        </div>
-        <div id="space"></div>
-        <div class="container">
-          <table class="table" id="new-lecture">
-            New Lectures
-            <tr ng-repeat='lecture in activelecturelist'>
-              <td><span class=''>{{ lecture.name }}</span></td>
-              <td><span class=''>{{ lecture.createdAt | date:'medium'}}</span></td>
-              <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
-            </tr>
-          </table>
-          <div id="space"></div>
-          <table class="table" id="old-lecture">
-            Past Lectures
-            <tr ng-repeat='lecture in pastlecturelist'>
-              <td><span class=''>{{ lecture.name }}</span></td>
-              <td><span class=''>{{ lecture.updatedAt | date:'medium' }}</span></td>
-              <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </body>
-</html>
+<div class="container" id="lectures">
+  <button id='logoutButton' class='btn btn-danger' type="submit" ng-click='logout()'>Log out</button>
+  <h1>Welcome, {{ user.first_name }}!</h1>
+  <div class="container">
+    <div class='tableDiv'>
+      <table class="table" id="new-lecture">
+        <h3>Pending Lectures</h3>
+        <tr ng-repeat='lecture in activelecturelist'>
+          <td>{{ lecture.name }}</td>
+          <td>{{ lecture.createdAt | date:'medium'}}</td>
+          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
+        </tr>
+      </table>
+      <button class='btn btn-info' type="submit" ng-click="createLectureModal()">Add New Lecture</button>
+    </div>
+    <br>
+    <div class='tableDiv'>
+      <table class="table" id="old-lecture">
+        <h3>Past Lectures</h3>
+        <tr ng-repeat='lecture in pastlecturelist'>
+          <td>{{ lecture.name }}</td>
+          <td>{{ lecture.updatedAt | date:'medium' }}</td>
+          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
