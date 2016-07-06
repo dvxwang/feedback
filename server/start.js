@@ -24,16 +24,23 @@ var createApplication = function () {
 
         function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
 
-        function lectureStart(lecture) {
-            curLecture = lecture;
-            io.emit('startLecture', lecture);
-        };
+        // function lectureStart(lecture) {
+        //     curLecture = lecture;
+        //     io.emit('startLecture', lecture);
+        // };
+        
+        socket.on('startLecture', function (lecture) {
+            console.log('LECTURE HERE ---->', lecture)
+            curLecture = lecture
+        })
 
-        function lectureEnd() {
-            curLecture = undefined;
-            io.emit('endLecture');
+        // function lectureEnd() {
+        //     curLecture = undefined;
+        //     io.emit('endLecture');
+        // };
+        function gettingLecture() {socket.emit('getLecture', curLecture);
+            console.log('huh', curLecture)
         };
-        function gettingLecture() {socket.emit('getLecture', curLecture);};
 
         //question queue events
         socket.on('move', move);
@@ -44,8 +51,8 @@ var createApplication = function () {
         socket.on('studentAnswer', sendPollAnswer);
 
         //lecture events
-        socket.on('startingLecture', lectureStart);
-        socket.on('endingLecture', lectureEnd);
+        // socket.on('startingLecture', lectureStart);
+        // socket.on('endingLecture', lectureEnd);
         socket.on('gettingLecture', gettingLecture);
 
         socket.on('updatingPolls', function() {

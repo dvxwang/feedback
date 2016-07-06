@@ -46,11 +46,14 @@ router.post('/create', function(req, res, next) {
 });
 
 router.put('/start', function(req, res, next) {
+  var io = req.app.get('socketio');
   Lecture.findById(req.body.id)
   .then(function(lecture) {
     return lecture.update({startTime: req.body.startTime})
   })
   .then(function(updatedLecture) {
+    
+    io.emit('startLecture', updatedLecture)
     res.status(201).json(updatedLecture)
   });
 });

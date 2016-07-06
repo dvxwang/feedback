@@ -2,13 +2,19 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
 
     $scope.curLecture = curLecture;
 
+    if ($scope.curLecture.startTime) {
+        $(".start").html('Stop');
+        $(".start").css('background-color', 'red');
+        instructorChart();
+    }
+
     $scope.startLecture = function() {
       if ($(".start").html()=='Begin') {
           LectureFactory.setStart($scope.curLecture)
-          .then(function(lecture) {
-            // moved to backend
-            socket.emit('startingLecture', lecture);
-          })
+          // .then(function(lecture) {
+          //   // moved to backend
+          //   socket.emit('startingLecture', lecture);
+          // })
       } else {
           LectureFactory.setEnd($scope.curLecture).
           then(function() {
@@ -35,6 +41,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
       $(".start").html("Stop");
       $(".start").css('background-color', 'red');
       $scope.$evalAsync();
+    })
+
+    socket.on('endLecture', function(lecture) {
+      $state.go('lecture')
     })
 
     $(document).ready(function() {
@@ -152,14 +162,13 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         function updateInstructorView(){
             setInterval(function(){
                 updateChart();
-                socket.emit('signalFeedbackRefresh');
             }, 1000);
         };
 
         updateInstructorView();
 
         socket.on('updateChart', function (data) {
-          data.category = data.category.toLowerCase();
+          if (data.category) data.category = data.category.toLowerCase();
           if (data.category === "great" || data.category === "confused" || data.category === "example") {
             if (!data.comment) 
               dataQueue[data.category].push("instance");
