@@ -159,7 +159,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         updateInstructorView();
 
         socket.on('updateChart', function (data) {
-          console.log('yo', data)
           data.category = data.category.toLowerCase();
           if (data.category === "great" || data.category === "confused" || data.category === "example") {
             if (!data.comment) 
