@@ -10,19 +10,19 @@ app.controller('CreatePoll', function($scope, $uibModal) {
       templateUrl : 'js/common/createPollModal/createPollModal.html',
       controller : ModalInstanceCtrl,
       resolve: {
-        lecture: $scope.$parent.curLecture
+        curLecture: $scope.curLecture
       }
     })
   }
 
 })
 
-var ModalInstanceCtrl = function($scope, $uibModalInstance, $uibModal, PollFactory, lecture) {
+function ModalInstanceCtrl($scope, $uibModalInstance, $uibModal, PollFactory, curLecture) {
 
   $scope.submitPoll = function () {
     var poll = {}
     poll.question = $scope.newPoll
-    poll.lectureId = lecture.id
+    poll.lectureId = curLecture.id
     poll.options = [$scope.a, $scope.b, $scope.c].filter(function(option) { return !!option })
     if (poll.options.length > 1) {
       PollFactory.createPoll(poll)

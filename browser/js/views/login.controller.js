@@ -1,21 +1,14 @@
-app.controller('LoginCtrl', function ($scope, $state) {
+app.controller('LoginCtrl', function ($scope, $state, AuthService) {
 
-	$scope.loginStatus = function(){
-		var temp = $scope.login.toLowerCase();
+    $scope.login = {};
+    $scope.error = null;
 
-		if (temp==='admin'){
-			$state.go('admin');
-		}
-		else if (temp==='student'){
-			$state.go('student');
-		}
-        else if (temp==='summary'){
-            $state.go('summary');
-        }
-        else {
-            $scope.login = "";
-            $("input").attr("placeholder", "Please input valid credential");            
-        }
-	}
+    $scope.sendLogin = function (loginInfo) {
+        AuthService.login(loginInfo).then(function () {
+            $state.go('lecture');
+        }).catch(function () {
+            $scope.error = 'Invalid login credentials.';
+        });
+    };
 
 });

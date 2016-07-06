@@ -39,7 +39,7 @@ var createApplication = function () {
         socket.on('move', move);
         socket.on('upvoting', upvoting);
         socket.on('downvoting', downvoting);
-        
+
         //poll events
         socket.on('studentAnswer', sendPollAnswer);
 
