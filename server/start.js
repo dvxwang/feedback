@@ -54,7 +54,6 @@ var createApplication = function () {
 
         socket.on('newAdmin', function(browser) {
           adminBrowsers.addAdmin(browser.slice(40));
-          console.log("New admin socket: ",browser.slice(40));
         });
 
         socket.on('getFeedback', function() {
