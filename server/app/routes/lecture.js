@@ -35,6 +35,7 @@ router.get('/:lectureId', function (req, res, next) {
     });
 });
 
+
 router.post('/create', function(req, res, next) {
   req.body.userId = req.user.id
   Lecture.create(req.body)

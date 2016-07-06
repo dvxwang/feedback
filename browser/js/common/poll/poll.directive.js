@@ -9,16 +9,11 @@ app.directive('poll', (PollFactory, LectureFactory) => {
       PollFactory.getAllByLectureId(scope.curLecture.id)
       .then((polls) => scope.polls = polls)
 
-      scope.delete = function(poll) {
-        return PollFactory.deletePoll(poll)
-        .then(() => socket.emit('updatingPolls'))
-      }
 
-      scope.sendPoll = function(poll) {
-        if (poll.status === "pending") {
-          return PollFactory.updatePoll(poll, { status: "sent"}).then(() => socket.emit('pollOut', poll))
-        }
-        socket.emit('pollOut', poll)
+      scope.sendPoll = (poll) => PollFactory.updatePoll(poll, { status: 'sent', lectureId: scope.curLecture.id })
+
+      scope.delete = function(poll) {
+        return PollFactory.deletePoll(poll);
       }
 
       socket.on('updatePolls', function() {

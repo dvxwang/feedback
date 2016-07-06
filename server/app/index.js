@@ -19,7 +19,7 @@ module.exports = function (db) {
     app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
     app.use(cookieParser());
 
-    app.use(session({secret: 'feedme'}))
+    app.use(session({secret: 'feedme'}));
 
     // authentication goes here
     // app.use(require('./auth'))
