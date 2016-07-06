@@ -6,8 +6,9 @@
       <table class="table" id="new-lecture">
         <h3>Pending Lectures</h3>
         <tr ng-repeat='lecture in activelecturelist'>
-          <td>{{ lecture.name }}</td>
-          <td>{{ lecture.createdAt | date:'medium'}}</td>
+          <td>Lecture: {{ lecture.name }}</td>
+          <td>ID: {{ lecture.id }}</td>
+          <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
           <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
         </tr>
       </table>
@@ -18,8 +19,9 @@
       <table class="table" id="old-lecture">
         <h3>Past Lectures</h3>
         <tr ng-repeat='lecture in pastlecturelist'>
-          <td>{{ lecture.name }}</td>
-          <td>{{ lecture.updatedAt | date:'medium' }}</td>
+          <td>Lecture: {{ lecture.name }}</td>
+          <td>ID: {{ lecture.id }}</td>
+          <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
           <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
         </tr>
       </table>
