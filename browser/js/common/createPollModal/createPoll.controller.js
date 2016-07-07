@@ -30,7 +30,6 @@ function ModalInstanceCtrl($scope, $uibModalInstance, PollFactory, curLecture) {
       PollFactory.createPoll(poll)
       .then(() => {
         $uibModalInstance.close();
-        socket.emit('updatingPolls');
       });
     } else {
       alert("You must add at least 2 options to the poll!");

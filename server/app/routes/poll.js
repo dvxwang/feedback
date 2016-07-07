@@ -1,13 +1,12 @@
 'use strict';
 
-var router = require('express').Router();
-var db = require('../../database');
-var Poll = db.model('poll');
-var PollAnswer = db.model('pollAnswer');
-var Lecture = db.model('lecture');
+let router = require('express').Router();
+let db = require('../../database');
+let Poll = db.model('poll');
+let PollAnswer = db.model('pollAnswer');
+let Lecture = db.model('lecture');
 module.exports = router;
 
-// should we have all routes prefaced with lecture/:lectureId ?
 router.param('pollId', (req, res, next, id) => {
   Poll.findOne({where:{id:id}, include: [{model:PollAnswer}]})
   .then((poll) => {
@@ -21,14 +20,14 @@ router.param('pollId', (req, res, next, id) => {
 
 router.get('/lecture/:lectureId', (req, res, next) => {
 
-  var pendingPolls = Poll.findAll({
+  let pendingPolls = Poll.findAll({
     where: {
       lectureId: req.params.lectureId,
       status: "pending"
     }
   });
 
-  var favoritePolls = Poll.findAll({
+  let favoritePolls = Poll.findAll({
     where: {
       status: "favorite"
     }
@@ -42,8 +41,7 @@ router.get('/lecture/:lectureId', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Poll.create(req.body)
   .then((poll) => {
-    var io = req.app.get('socketio');
-    io.emit('updatePolls')
+    req.app.get('socketio').emit('updatePolls');
     res.status(201).json(poll);
   }).catch(next);
 });
@@ -54,7 +52,7 @@ router.get('/:pollId', (req, res, next) => {
 });
 
 router.put('/:pollId', (req, res, next) => {
-  var duplicate;
+  let duplicate;
   if (req.poll.status === "favorite") {
     duplicate = Poll.create({
       question: req.poll.question,
@@ -65,10 +63,10 @@ router.put('/:pollId', (req, res, next) => {
 
   Promise.all([req.poll.updateAttributes(req.body), duplicate])
   .then((polls) => {
-    var io = req.app.get('socketio');
-    io.emit('toStudent', polls[0])
-    io.emit('updatePolls')
-    io.emit('updateActivePoll')
+    let io = req.app.get('socketio');
+    io.emit('toStudent', polls[0]);
+    io.emit('updatePolls');
+    io.emit('updateActivePoll');
     res.status(200).json(polls[0]);
   })
   .catch(next);
@@ -78,8 +76,7 @@ router.put('/:pollId', (req, res, next) => {
 router.delete('/:pollId', (req, res, next) => {
   req.poll.destroy()
   .then(() => {
-    var io = req.app.get('socketio');
-    io.emit('updatePolls')
+    req.app.get('socketio').emit('updatePolls');
     res.sendStatus(204);
   })
   .catch(next);

@@ -36,7 +36,6 @@ function StudentModalInstance($scope, $uibModalInstance, PollAnswerFactory, curL
 
     PollAnswerFactory.answerPoll(answer)
     .then(() => {
-      socket.emit('studentAnswer');
       $uibModalInstance.close();
     });
   }
