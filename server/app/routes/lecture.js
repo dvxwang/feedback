@@ -50,8 +50,8 @@ router.put('/:lectureId', function(req, res, next) {
   var io = req.app.get('socketio');
   req.lecture.update(req.body)
   .then(function(updatedLecture) {
-    if (req.body.startTime) return io.emit('startLecture', updatedLecture)
-    if (req.body.endTime) return io.emit('endLecture', updatedLecture)
+    if (req.body.startTime) io.emit('startLecture', updatedLecture)
+    else if (req.body.endTime) io.emit('endLecture', updatedLecture)
     res.status(201).json(updatedLecture)
   });
 });
