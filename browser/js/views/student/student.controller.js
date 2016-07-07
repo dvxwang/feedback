@@ -4,16 +4,14 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
   
   socket.on('startLecture', function(lecture) {
     $scope.curLecture = lecture;
-    $scope.$evalAsync()
   })
 
   socket.on('endLecture', function() {
-    $scope.showSurveyModal()
+    showSurveyModal();
     $scope.curLecture = undefined;
-    $scope.$evalAsync()
   })
 
-  $scope.showSurveyModal = function() {
+  function showSurveyModal() {
     $uibModal.open({
       backdrop: true,
       backdropClick: true,
@@ -29,7 +27,8 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
   }
 
   function SurveyModalInstance($scope, $uibModalInstance, $uibModal, curLecture, PollFactory, FeedbackFactory) {
-    $scope.curLecture = curLecture
+    
+    $scope.curLecture = curLecture;
 
     PollFactory.createPoll({
       question: 'We would appreciate your feedback!',
@@ -38,24 +37,25 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
       ],
       status: 'sent',
       lectureId: $scope.curLecture.id
-    }).then(function(poll) {
+    })
+    .then(function(poll) {
       $scope.poll = poll;
       $scope.poll.options = poll.options.map(function(question) {
-        return { category: question }
+        return { category: question };
       })
     })
 
-    $scope.itemClicked = function (index, option, $index) {
+    $scope.itemClicked = function (index, option) {
       option.index = index;
-      option.comment = index
+      option.comment = index;
     }
 
     $scope.submit = function() {
-      var promises = $scope.poll.options.map(function(result) {
+      var endLectureFeedback = $scope.poll.options.map(function(result) {
         return FeedbackFactory.addFeedback(result, $scope.curLecture.id)
-      })
-      $uibModalInstance.close()
-      return Promise.all(promises)
+      });
+      $uibModalInstance.close();
+      return Promise.all(endLectureFeedback);
     }
   }
 
