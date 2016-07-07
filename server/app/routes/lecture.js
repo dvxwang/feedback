@@ -3,73 +3,57 @@ var router = require('express').Router();
 var db = require('../../database');
 var Lecture = db.model('lecture');
 
-router.get('/', function (req, res, next) {
-    Lecture.findAll()
-    .then(function(result){
-        res.send(result);
-    });
-});
-
-router.get('/instructor/active', function (req, res, next) {
-  Lecture.findAll({where: {userId: req.user.id, endTime: null}})
-  .then(function(lectures) {
-    res.json(lectures)
-  })
+router.param('lectureId', function(req, res, next, id) {
+  Lecture.findById(id).then(function(lecture) {
+    if (!lecture) res.sendStatus(404)
+    req.lecture = lecture;
+    next()
+  }).catch(next);
 })
 
-router.get('/instructor/past', function (req, res, next) {
-  Lecture.findAll({where: {userId: req.user.id, endTime: {$ne: null}}})
-  .then(function(lectures) {
+router.get('/', function (req, res, next) {
+  Lecture.findAll()
+  .then(function(result){
+      res.json(result);
+  });
+});
+
+router.get('/instructor', function (req, res, next) {
+  Lecture.findAll({
+    where: {
+      userId: req.user.id
+    }
+  }).then(function(lectures) {
     res.json(lectures)
   })
 })
 
 router.get('/current', function (req, res, next) {
-    res.send(req.session.lecture)
+  res.json(req.session.lecture)
 });
 
 router.get('/:lectureId', function (req, res, next) {
-    Lecture.findById(req.params.lectureId)
-    .then(function(result){
-        res.send(result);
-    });
+  res.json(req.lecture)
 });
 
 
-router.post('/create', function(req, res, next) {
-  req.body.userId = req.user.id
+router.post('/', function(req, res, next) {
+  req.body.userId = req.user.id;
   Lecture.create(req.body)
   .then(function(result){
-      req.session.lecture = result
-      res.send(result);
+      req.session.lecture = result;
+      res.json(result);
   });
 });
 
-router.put('/start', function(req, res, next) {
+router.put('/:lectureId', function(req, res, next) {
   var io = req.app.get('socketio');
-  Lecture.findById(req.body.id)
-  .then(function(lecture) {
-    return lecture.update({startTime: req.body.startTime})
-  })
-  .then(function(updatedLecture) {    
-    io.emit('startLecture', updatedLecture)
+  req.lecture.update(req.body)
+  .then(function(updatedLecture) {
+    if (req.body.startTime) return io.emit('startLecture', updatedLecture)
+    if (req.body.endTime) return io.emit('endLecture', updatedLecture)
     res.status(201).json(updatedLecture)
   });
 });
-
-router.put('/end', function (req, res, next) {
-  var io = req.app.get('socketio')
-  Lecture.findById(req.body.id)
-  .then(function(result){
-    return result.update({
-      endTime: Math.floor(Date.now()/1000)
-    })
-  })
-  .then(function(lecture){
-    io.emit('endLecture')
-    res.json(lecture);
-  });
-});
-
 
 module.exports = router;
