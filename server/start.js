@@ -19,8 +19,6 @@ var createApplication = function () {
 
         function move(question,number) {io.emit('moving', question, number);};
 
-        function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
-
         function gettingLecture() {socket.emit('getLecture', curLecture);
             console.log('huh', curLecture)
         };
@@ -28,15 +26,9 @@ var createApplication = function () {
         //question queue events
         socket.on('move', move);
 
-        //poll events
-        socket.on('studentAnswer', sendPollAnswer);
 
         //lecture events
         socket.on('gettingLecture', gettingLecture);
-
-        socket.on('updatingPolls', function() {
-          io.emit('updatePolls');
-        });
 
         socket.on('getFeedback', function() {
           socket.emit('updateFeedback', 'Great', true);

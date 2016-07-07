@@ -1,20 +1,26 @@
 app.factory('PollAnswerFactory', ($http) => {
+  let PollAnswerFactory = {};
+  let cachedAnswers = [];
+
   function dotData(dot) {
     return dot.data;
   }
-  var cachedAnswers = [];
-  return {
-    getAllByPollId: (id) => {
-      return $http.get('/api/answer/'+id)
-      .then(dotData)
-      .then((answers) => {
-        angular.copy(answers, cachedAnswers);
-        return cachedAnswers;
-      })
-    },
-    answerPoll: (pollObj) => {
-      return $http.post('/api/answer/', pollObj)
-      .then(dotData);
-    }
+
+  function setCache(answers) {
+    angular.copy(answers, cachedAnswers);
+    return cachedAnswers
   }
+
+  PollAnswerFactory.getAllByPollId = (id) => {
+    return $http.get('/api/answer/'+id)
+    .then(dotData)
+    .then(setCache)
+  }
+
+  PollAnswerFactory.answerPoll = (pollObj) => {
+    return $http.post('/api/answer/', pollObj)
+    .then(dotData);
+  }
+
+  return PollAnswerFactory
 })
