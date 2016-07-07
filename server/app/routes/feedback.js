@@ -90,7 +90,7 @@ router.delete('/:feedbackId', function (req, res, next) {
 	})
 })
 
-router.get('/:lectureId/:category', function(req, res, next) {
+router.get('/summary/:lectureId', function(req, res, next) {
   Feedback.findAll({where:{lectureId: req.params.lectureId}})
   .then(function(feedback) {
     res.json(feedback)
