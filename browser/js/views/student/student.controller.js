@@ -1,10 +1,6 @@
-app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
-  socket.emit('gettingLecture');
+app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture) {
 
-  socket.on('getLecture', function(lecture) {
-    $scope.curLecture = lecture
-    $scope.$evalAsync()
-  })
+  $scope.curLecture = curLecture;
   
   socket.on('startLecture', function(lecture) {
     $scope.curLecture = lecture;
@@ -38,8 +34,7 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
     PollFactory.createPoll({
       question: 'We would appreciate your feedback!',
       options: [
-        'How would you rate this lecture?',
-        'What about now?'
+        'How would you rate this lecture?'
       ],
       status: 'sent',
       lectureId: $scope.curLecture.id
@@ -50,28 +45,9 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal) {
       })
     })
 
-    // PollFactory.createPoll({
-    //   question: 'We would appreciate your feedback!',
-    //   options: [
-    //     'Do you find this tool useful? (yes/no)',
-    //     'Is this better than the anonymous poll? (yes/no)',
-    //     'Please leave anonymous feedback on how we could improve:',
-    //     'We would also appreciate in-person feedback. Please leave your name and/or email if you are ok with the development team reaching out. Thank you!'
-    //   ],
-    //   // status: "sent",
-    //   // lectureId: $scope.curLecture.id
-    // }).then(function(poll) {
-    //   $scope.poll = poll;
-    //   $scope.poll.options = poll.options.map(function(question) {
-    //     return { category: question }
-    //   })
-    // })
-
     $scope.itemClicked = function (index, option, $index) {
-      console.log('HERE', $index)
       option.index = index;
       option.comment = index
-      console.log('AND HERE', option.index)
     }
 
     $scope.submit = function() {

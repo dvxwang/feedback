@@ -7,17 +7,17 @@
             <div class="content">
                 <div ng-controller="StudentPoll" id="studentBody">
 
-                    <div ng-if="curLecture">
+                    <div ng-if="curLecture.startTime">
                         <div class="classHeader">{{curLecture.name}}</div>
                         <div class="classInstructor">{{curLecture.lecturer}}</div>
                     </div>
 
-                    <div ng-if="!curLecture"class="classHeader">Welcome</div>
+                    <div ng-if="!curLecture.startTime"class="classHeader">Welcome to {{curLecture.name}} Lecture</div>
 
-                    <div ng-if='!curLecture' class='noClass'>
+                    <div ng-if='!curLecture.startTime' class='noClass'>
                         The lecture has not begun
                     </div>
-                    <div ng-if='curLecture' class='activeClass'>
+                    <div ng-if='curLecture.startTime' class='activeClass'>
                         <div class="primaryButtonRow">
                             <feedback></feedback>
                         </div>

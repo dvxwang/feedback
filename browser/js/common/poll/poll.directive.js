@@ -4,23 +4,23 @@ app.directive('poll', (PollFactory, LectureFactory) => {
     templateUrl: 'js/common/poll/poll.html',
     scope: {},
     link: function(scope) {
-      scope.curLecture = scope.$parent.curLecture
+      scope.curLecture = scope.$parent.curLecture;
 
       PollFactory.getAllByLectureId(scope.curLecture.id)
-      .then((polls) => scope.polls = polls)
+      .then((polls) => scope.polls = polls);
 
-      scope.sendPoll = (poll) => PollFactory.updatePoll(poll, { status: 'sent', lectureId: scope.curLecture.id })
+      scope.sendPoll = (poll) => PollFactory.updatePoll(poll, { status: 'sent', lectureId: scope.curLecture.id });
 
-      scope.delete = function(poll) {
+      scope.delete = (poll) => {
         return PollFactory.deletePoll(poll);
       };
 
-      socket.on('updatePolls', function() {
+      socket.on('updatePolls', () => {
         return PollFactory.getAllByLectureId(scope.curLecture.id)
         .then((polls) => {
-          scope.polls = polls
-        })
-      })
+          scope.polls = polls;
+        });
+      });
 
     }
   }
