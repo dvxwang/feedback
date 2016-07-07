@@ -6,25 +6,21 @@
     </div>
   </div>
     <!-- Table -->
-  <div class="container">
+  <div id="pqueue" class="container">
     <table class="table">
-      <strong>FAVORITE POLLS</strong>
-      <div id="pqueue">
-        <tr ng-repeat='poll in polls.favorite'>
-          <td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
-          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
-        </tr>
-      </div>
+      FAVORITE POLLS
+      <tr ng-repeat='poll in polls.favorite'>
+        <td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
+        <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
+      </tr>
     </table>
     <table class="table">
-      <strong>PENDING POLLS</strong>
-        <div id="pqueue">
-        <tr ng-repeat='poll in polls.pending'>
-        	<td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
-        	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>
-    		  <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
-        </tr>
-      </div>
+      PENDING POLLS
+      <tr ng-repeat='poll in polls.pending'>
+      	<td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
+      	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>
+  		  <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
+      </tr>
     </table>
   </div>
 </div>
