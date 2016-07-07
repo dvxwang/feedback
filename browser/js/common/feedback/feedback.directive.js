@@ -42,50 +42,6 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
                 scope[clickedCategory] = false
               }, 30*1000);              
 
-            // switch(category) {
-
-            //   case "Great":
-            //     scope.greatClicked = true;
-            //     setTimeout(function () {
-            //       scope.greatClicked = false
-            //     }, 30*1000)
-            //     break;
-
-            //   case "confused":
-            //     scope.confusedClicked = true
-            //     setTimeout(function () {
-            //       scope.confusedClicked = false
-            //     }, 30*1000);
-            //     break;
-
-            //   case "example":
-            //     scope.exampleClicked = true
-            //     setTimeout(function () {
-            //       scope.exampleClicked = false
-            //     }, 30*1000);
-            //     break;
-              
-            //   case "see":
-            //     scope.seeClicked = true
-            //     setTimeout(function () {
-            //       scope.seeClicked = false
-            //     }, 30*1000);
-            //     break;
-
-            //   case "hear":
-            //     scope.hearClicked = true;
-            //     setTimeout(function () {
-            //       scope.hearClicked = false
-            //     }, 30*1000);
-            //     break;
-              
-            //   case "break":
-            //     scope.breakClicked = true;
-            //     setTimeout(function () {
-            //       scope.breakClicked = false
-            //     }, 30*1000);
-            //     break;
-            // }
         })
         //message confirming new feedback submitted
         .then(function () {
@@ -122,38 +78,6 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
           if (feedbackCount === 0) scope[countCategory] = null
             else scope[countCategory] = feedbackCount
 
-          // switch(category) {
-
-          //   case 'great':
-          //     if (result === 0) scope.greatCount = null
-          //     else scope.greatCount = result
-          //     break;
-
-          //   case 'confused':
-          //     if (result === 0) scope.confusedCount = null
-          //     else scope.confusedCount = result
-          //     break;
-            
-          //   case 'example':
-          //     if (result === 0) scope.exampleCount = null
-          //     else scope.exampleCount = result
-          //     break;
-            
-          //   case 'see':
-          //     if (result === 0) scope.seeCount = null
-          //     else scope.seeCount = result
-          //     break;
-            
-          //   case 'hear':
-          //     if (result === 0) scope.hearCount = null
-          //     else scope.hearCount = result
-          //     break;
-            
-          //   case 'break':
-          //     if (result === 0) scope.breakCount = null
-          //     else scope.breakCount = result          
-          //     break;
-          // }
         })
         scope.$digest()
     })
