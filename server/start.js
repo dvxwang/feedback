@@ -31,12 +31,12 @@ var createApplication = function () {
         socket.on('gettingLecture', gettingLecture);
 
         socket.on('getFeedback', function() {
-          socket.emit('updateFeedback', 'Great', true);
-          socket.emit('updateFeedback', 'Confused', true);
-          socket.emit('updateFeedback', 'Example', true);
-          socket.emit('updateFeedback', 'Cannot See', true);
-          socket.emit('updateFeedback', 'Cannot Hear', true);
-          socket.emit('updateFeedback', 'Request Break', true);
+          socket.emit('updateFeedback', 'great', true);
+          socket.emit('updateFeedback', 'confused', true);
+          socket.emit('updateFeedback', 'example', true);
+          socket.emit('updateFeedback', 'see', true);
+          socket.emit('updateFeedback', 'hear', true);
+          socket.emit('updateFeedback', 'break', true);
         });
     })
 

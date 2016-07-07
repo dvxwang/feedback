@@ -4,14 +4,9 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
     return AuthService.logout().then(() => $state.go('login'))
   }
 
-  LectureFactory.activeList()
-  .then((lecturelist)=> {
-    $scope.activelecturelist = lecturelist;
-  })
-
-  LectureFactory.pastList()
-  .then((lecturelist)=> {
-    $scope.pastlecturelist = lecturelist;
+  LectureFactory.getInstructorLectures().then((lectures) => {
+    $scope.activelecturelist = lectures.active;
+    $scope.pastlecturelist = lectures.past;
   })
 
   $scope.lectureView = function(lecture) {
