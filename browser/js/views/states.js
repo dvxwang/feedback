@@ -1,3 +1,8 @@
+
+function resolveLecture(LF, $sP) {
+  return LF.getById($sP.lectureId)
+}
+
 app.config(function ($stateProvider) {
     $stateProvider.state('student', {
         url: '/student/:lectureId',
@@ -9,7 +14,7 @@ app.config(function ($stateProvider) {
             .then(function(lecture) {
               return lecture
             })
-          }            
+          }
         }
     });
 });
@@ -19,10 +24,7 @@ app.config(function ($stateProvider) {
         url: '/instructor/:lectureId',
         templateUrl: 'js/views/instructor/instructor.html',
         controller: 'InstructorCtrl',
-        resolve: {
-          curLecture: resolveLecture(LectureFactory, $stateParams)
-          }
-        }
+        resolve: { curLecture: resolveLecture(LectureFactory, $stateParams) }
     });
 });
 
@@ -31,10 +33,7 @@ app.config(function ($stateProvider) {
         url: '/summary/:lectureId',
         templateUrl: 'js/views/summary/summary.html',
         controller: 'SummaryCtrl',
-        resolve: {
-          lecture: resolveLecture(LectureFactory, $stateParams)
-          }
-        }
+        resolve: { lecture: resolveLecture(LectureFactory, $stateParams) }
     });
 });
 
@@ -50,13 +49,6 @@ app.config(function ($stateProvider) {
         }
     });
 });
-
-function resolveLecture(LF, $sP) {
-  return LF.getById($sP.lectureId)
-  .then(function(lecture) {
-    return lecture
-  });
-}
 
 app.config(function ($stateProvider) {
     $stateProvider.state('signup', {
