@@ -44,6 +44,7 @@
         border: medium solid #015249;
     }
     #studentBody {
+        width: 100%;
         height: 100%;
     }
 
@@ -74,8 +75,3 @@
     content: "\2605";
     position: absolute !important;
 }
-
-// .star {
-//     pointer-events: auto; 
-//     cursor: pointer;
-// }

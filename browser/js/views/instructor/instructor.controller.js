@@ -2,7 +2,7 @@
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory, $stateParams, curLecture) {
     
     //Requests permission for Chrome notifications
-    Notification.requestPermission();
+    if ("Notification" in window) Notification.requestPermission();
 
     //Renders Google Hangouts button
     gapi.hangout.render('startButton2', {
