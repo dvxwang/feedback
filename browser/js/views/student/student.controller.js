@@ -4,6 +4,7 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
   
   socket.on('startLecture', function(lecture) {
     $scope.curLecture = lecture;
+    $scope.$evalAsync();
   })
 
   socket.on('endLecture', function() {
