@@ -1,6 +1,7 @@
-app.controller('StudentPoll', ($scope, $uibModal) => {
+app.controller('StudentPoll', ($scope, $uibModal, $uibModalStack) => {
 
   $scope.showModal = () => {
+    $uibModalStack.dismissAll();
     $uibModal.open({
       backdrop: true,
       backdropClick: true,

@@ -1,4 +1,4 @@
-app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture) {
+app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture, $uibModalStack) {
 
   $scope.curLecture = curLecture;
   
@@ -13,6 +13,7 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
   })
 
   function showSurveyModal() {
+    $uibModalStack.dismissAll();
     $uibModal.open({
       backdrop: true,
       backdropClick: true,

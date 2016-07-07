@@ -9,6 +9,7 @@
           <td>Lecture: {{ lecture.name }}</td>
           <td>ID: {{ lecture.id }}</td>
           <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
+          <td>Student Link: http://localhost:1337/student/{{lecture.id}}</td>
           <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
         </tr>
       </table>

@@ -1,8 +1,8 @@
 
 app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory, $stateParams, curLecture) {
-    
+
     //Requests permission for Chrome notifications
-    Notification.requestPermission();
+    if ("Notification" in window) Notification.requestPermission();
 
     //Renders Google Hangouts button
     gapi.hangout.render('startButton2', {
@@ -17,8 +17,8 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     });
 
     //Activates page once lecture starts
-    function initLecture() {
-        $scope.curLecture = curLecture;
+    function initLecture(updatedLecture) {
+        $scope.curLecture = updatedLecture;
         if ($scope.curLecture.startTime) {
             instructorChart();
             $(".start").html("Stop");
@@ -29,9 +29,9 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     //Starts/ends lecture for all members
     $scope.startLecture = function() {
       if ($(".start").html()=='Begin') {
-          return LectureFactory.setStart($scope.curLecture)
+        return LectureFactory.setStart($scope.curLecture);
       } else {
-          return LectureFactory.setEnd($scope.curLecture)
+        return LectureFactory.setEnd($scope.curLecture);
       }
     }
 
@@ -148,5 +148,5 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     socket.on('startLecture', initLecture);
     socket.on('endLecture', function(lecture) {$state.go('lecture'); });
 
-    initLecture();
+    initLecture(curLecture);
 });

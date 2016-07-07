@@ -8,6 +8,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src='/jquery/dist/jquery.min.js'></script>
     <script src="/angular/angular.js"></script>
+    <script src="/angular-touch/angular-touch.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
     <script src="/ngkookies/ngKookies.min.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
@@ -24,9 +25,11 @@
 
     <div id="main" ui-view>
         <div class='loginBox' ng-controller='LoginCtrl'>
-            <div class='loginHeader'>Login</div>
+            <div class='loginHeader'>Log into a Lecture</div>
+            <input class='lectureInput' ng-model='lectureRoom' ng-keyup="$event.keyCode == 13 ? lectureView(lectureRoom) : null" placeholder="Lecture ID">
+            <div class='loginHeader'>Admin Login</div>
             <input type='text' ng-model='login.email' placeholder="email">
-            <input type='password' ng-model='login.password' placeholder="password">
+            <input type='password' ng-model='login.password' ng-keyup="$event.keyCode == 13 ? sendLogin(login) : null" placeholder="password">
             <div class='Button btn btn-success' ng-click='sendLogin(login)'>Submit</div>
             <span class='signupLink'><a ui-sref='signup'>Sign up for an account</a></span>
         </div>
