@@ -3,6 +3,6 @@
     <input type='text' ng-model='signup.first_name' placeholder="first name">
     <input type='text' ng-model='signup.last_name' placeholder="last name">
     <input type='text' ng-model='signup.email' placeholder="email">
-    <input type='password' ng-model='signup.password' placeholder="password">
+    <input type='password' ng-model='signup.password'  ng-keyup="$event.keyCode == 13 ? createUser(signup) : null" placeholder="password">
     <div class='Button btn btn-success' ng-click='createUser(signup)'>Submit</div>
 </div>

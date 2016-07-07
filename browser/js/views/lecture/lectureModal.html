@@ -3,7 +3,7 @@
     <h1>Create Lecture</h1>
   </div>
   <div class="modal-body">
-    <input class="mainQuestion form-control" type="text" ng-model='lectureName' placeholder='Lecture Title'>
+    <input class="mainQuestion form-control" type="text" ng-model='lectureName' ng-keyup="$event.keyCode == 13 ? submitLecture() : null" placeholder='Lecture Title'>
   </div>
   <div class="modal-footer">
       <button class="btn btn-success" ng-click='submitLecture()'>Submit</button>
