@@ -2,7 +2,7 @@
 	<div>
 		<div class="btn-container">
 			<div class="col-lg-4">
-				<button type="button" ng-click="submitFeedback('Great')" id="like-feedback" class="btn btn-success btn-circle btn-xl"> 
+				<button type="button" ng-click="submitFeedback('great')" id="like-feedback" class="btn btn-success btn-circle btn-xl"> 
 					<span class="glyphicon glyph-bg glyphicon-thumbs-up"></span>
 					<span class="tooltiptext" ng-if="admin">Clear feedback</span>
 					<span class="tooltiptext" ng-if="!admin">Feeling good?</span>
@@ -10,7 +10,7 @@
 				<span class="badge badge-notify">{{greatCount}}</span>
 			</div>
 			<div class="col-lg-4">
-				<button type="button" ng-click="submitFeedback('Confused')" id="confused-feedback" class="btn btn-warning btn-circle btn-xl">
+				<button type="button" ng-click="submitFeedback('confused')" id="confused-feedback" class="btn btn-warning btn-circle btn-xl">
 					<span class="glyphicon glyph-bg glyphicon-question-sign"></span>
 					<span class="tooltiptext" ng-if="admin">Clear feedback</span>					
 					<span class="tooltiptext" ng-if="!admin">Feeling confused?</span>
@@ -18,7 +18,7 @@
 				<span class="badge badge-notify">{{confusedCount}}</span>
 			</div>
 			<div class="col-lg-4">
-				<button type="button" ng-click="submitFeedback('Example')" id="code-feedback" class="btn btn-info btn-circle btn-xl">
+				<button type="button" ng-click="submitFeedback('example')" id="code-feedback" class="btn btn-info btn-circle btn-xl">
 					<span class="glyphicon glyph-bg glyphicon-edit"></span>
 					<span class="tooltiptext" ng-if="admin">Clear feedback</span>									
 					<span class="tooltiptext" ng-if="!admin">Want an example?</span>
@@ -35,7 +35,7 @@
 			<center>
 			<div class="col-xs-3">
 				<center>
-				<button type="button" ng-click="submitFeedback('Cannot See')" class="btn btn-default btn-circle-sm"> 
+				<button type="button" ng-click="submitFeedback('see')" class="btn btn-default btn-circle-sm"> 
 					<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
 					<span class="tooltiptext" ng-if="admin">Clear feedback</span>				
 					<span class="tooltiptext" ng-if="!admin">Can't See?</span>
@@ -47,7 +47,7 @@
 			<center>
 			<div class="col-xs-3">
 				<center>
-				<button type="button" ng-click="submitFeedback('Cannot Hear')" class="btn btn-default btn-circle-sm">
+				<button type="button" ng-click="submitFeedback('hear')" class="btn btn-default btn-circle-sm">
 					<span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
 					<span class="tooltiptext" ng-if="admin">Clear feedback</span>				
 					<span class="tooltiptext" ng-if="!admin">Can't Hear?</span>
@@ -59,9 +59,9 @@
 			<center>
 			<div class="col-xs-3">
 			<center>
-				<button type="button" ng-click="submitFeedback('Request Break')" class="btn btn-default btn-circle-sm">
+				<button type="button" ng-click="submitFeedback('break')" class="btn btn-default btn-circle-sm">
 					<span class="glyphicon glyph-sm glyphicon-pause"></span>
-					<span class="tooltiptext" ng-if="admin">Clear feedback</span>									
+					<span class="tooltiptext" ng-if="admin">Clear feedback</span>
 					<span class="tooltiptext" ng-if="!admin">Want a break?</span>
 				</button>
 			</center>
@@ -73,19 +73,19 @@
 </div>
 
 <div>
-	<p ng-show="!addMessage && !rejectMessage">
+	<p ng-show="!clickedMessage && !rejectClickMessage">
 		<br>
 	</p>
-	<p class='flashMessage text-center' ng-show="addMessage && !admin"> 
+	<p class='flashMessage text-center' ng-show="clickedMessage && !admin"> 
 		Your feedback has been noted
 	</p>
-	<p class='flashMessage text-center' ng-show="rejectMessage && !admin"> 
+	<p class='flashMessage text-center' ng-show="rejectClickMessage && !admin"> 
 		You must wait 30 seconds before giving back the same feedback
 	</p>
-	<p class='flashMessage text-center' ng-show="addMessage && admin"> 
+	<p class='flashMessage text-center' ng-show="clickedMessage && admin"> 
 		You have cleared the feedback count in this category
 	</p>
-	<p class='flashMessage text-center' ng-show="rejectMessage && admin"> 
+	<p class='flashMessage text-center' ng-show="rejectClickMessage && admin"> 
 		You must wait 30 seconds before clearing the feedback count again for this category
 	</p>
 </div>
