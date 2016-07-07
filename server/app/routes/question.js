@@ -44,7 +44,8 @@ router.get('/:questionId', function(req, res) {
 router.put('/:questionId', function(req, res, next) {
 	var io = req.app.get('socketio');
 	req.question.updateAttributes(req.body).then(function(question){
-		if (req.body.status==='closed') io.emit('deleteQuestion', req.question);
+		if (req.body.status==='closed') return io.emit('deleteQuestion', req.question);
+		if (req.body.upvotes !== undefined) return io.emit('voting', question);
 		res.status(200).json(question);
 	}).catch(next);
 });
