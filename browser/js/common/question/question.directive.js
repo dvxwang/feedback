@@ -86,7 +86,10 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
 
             function renderAddQuestion(question) {
                 scope.questions.unshift(question);
-                if (scope.admin) new Notification("New Question", { body: question.text });
+                if (scope.admin) {
+                    var newNotification = new Notification("New Question", {body: question.text, tag: "question"});
+                    setTimeout(newNotification.close.bind(newNotification), 2000);
+                }
                 rerender();
             }
 

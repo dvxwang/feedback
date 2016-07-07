@@ -66,8 +66,8 @@ app.directive('feedback', ($state, FeedbackFactory, LectureFactory) => {
     socket.on('updateFeedback', function(category, flag) {
 
         if (scope.admin && !flag) {
-            console.log("David: ",flag);
-            new Notification("New Feedback", {body: category});
+            var newNotification = new Notification("New Feedback", {body: category, tag: category});
+            setTimeout(newNotification.close.bind(newNotification), 2000);
         };  
 
         return FeedbackFactory.countFeedback(category, scope.currentLecture.id)
