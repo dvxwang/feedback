@@ -18,29 +18,20 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             scope.delete = deleteQuestion;
             scope.close = close;
             scope.move = emitMove;
-            scope.upvote = upvote;
-            scope.downvote = downvote;
+            scope.vote = vote;
 
             // event listeners
 
             socket.on('addQuestion', renderAddQuestion);
             socket.on('deleteQuestion', renderDeleteQuestion);
-            socket.on('receivedUpvote', renderUpvote);
-            socket.on('receivedDownvote', renderDownvote);
+            socket.on('voting', renderVote);
             socket.on('moving', renderMoveQuestion);
 
             // scope-related function declarations
 
-            function upvote(question) {
+            function vote(question, n) {
                 question.hasUpvoted = !question.hasUpvoted;
-                socket.emit('upvoting', question);
-                return QuestionFactory.update(question.id, { upvotes: question.upvotes+1 });
-            }
-
-            function downvote(question) {
-                question.hasUpvoted = !question.hasUpvoted;
-                socket.emit('downvoting', question);
-                return QuestionFactory.update(question.id, { upvotes: question.upvotes-1 });
+                return QuestionFactory.update(question.id, { upvotes: question.upvotes + n });
             }
 
             function close(question) { return QuestionFactory.update(question.id, { status: 'closed'}) };
@@ -80,16 +71,10 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
                 }
                 rerender();
             };
-            
-            function renderDownvote(question) {
-                var index = findIndex(question);
-                scope.questions[index].upvotes = question.upvotes - 1;
-                rerender();
-            }
 
-            function renderUpvote(question) {
+            function renderVote(question) {
                 var index = findIndex(question);
-                scope.questions[index].upvotes = question.upvotes + 1;
+                scope.questions[index].upvotes = question.upvotes;
                 rerender();
             }
 

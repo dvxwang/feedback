@@ -18,8 +18,6 @@ var createApplication = function () {
         var id = socket.id;
 
         function move(question,number) {io.emit('moving', question, number);};
-        function upvoting(question) {io.emit('receivedUpvote', question);}; //synergies for combining?
-        function downvoting(question) {io.emit('receivedDownvote', question);}; //synergies for combining?
 
         function sendPollAnswer() {socket.broadcast.emit('updateActivePoll');}; //unsure about purpose, use io.emit?
 
@@ -29,8 +27,6 @@ var createApplication = function () {
 
         //question queue events
         socket.on('move', move);
-        socket.on('upvoting', upvoting);
-        socket.on('downvoting', downvoting);
 
         //poll events
         socket.on('studentAnswer', sendPollAnswer);
