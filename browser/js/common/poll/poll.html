@@ -2,26 +2,29 @@
 <div class="container" id="poll">
   <div id="add-poll">
     <div ng-controller="CreatePoll">
-      <h1>Poll Queue</h1>
       <button class="btn btn-success" ng-click="showModal()">Add a Poll</button>
     </div>
   </div>
     <!-- Table -->
-  <div id="pqueue" class="container">
+  <div class="container">
     <table class="table">
-      FAVORITE POLLS
-      <tr ng-repeat='poll in polls.favorite'>
-        <td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
-        <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
-      </tr>
+      <strong>FAVORITE POLLS</strong>
+      <div id="pqueue">
+        <tr ng-repeat='poll in polls.favorite'>
+          <td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
+          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
+        </tr>
+      </div>
     </table>
     <table class="table">
-      PENDING POLLS
-      <tr ng-repeat='poll in polls.pending'>
-      	<td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
-      	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>
-  		  <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
-      </tr>
+      <strong>PENDING POLLS</strong>
+        <div id="pqueue">
+        <tr ng-repeat='poll in polls.pending'>
+        	<td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
+        	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>
+    		  <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
+        </tr>
+      </div>
     </table>
   </div>
 </div>

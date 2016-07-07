@@ -1,6 +1,6 @@
-app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
+app.controller('StudentPoll', ($scope, $uibModal) => {
 
-  $scope.showModal = function() {
+  $scope.showModal = () => {
     $uibModal.open({
       backdrop: true,
       backdropClick: true,
@@ -16,29 +16,29 @@ app.controller('StudentPoll', function($scope, $uibModal, LectureFactory) {
     })
   }
 
-  socket.on('toStudent', function(pollQuestion) {
-    $scope.poll = pollQuestion
-    $scope.showModal()
+  socket.on('toStudent', (pollQuestion) => {
+    $scope.poll = pollQuestion;
+    $scope.showModal();
   })
 
 })
 
-function StudentModalInstance($scope, $uibModalInstance, $uibModal, PollFactory, PollAnswerFactory, curLecture, poll) {
+function StudentModalInstance($scope, $uibModalInstance, PollAnswerFactory, curLecture, poll) {
 
-  $scope.poll = poll
-  $scope.curLecture = curLecture
+  $scope.poll = poll;
+  $scope.curLecture = curLecture;
 
-  $scope.submitAnswer = function ($event) {
-    var answer = {
+  $scope.submitAnswer = ($event) => {
+    let answer = {
       pollId: $scope.poll.id,
       option: $event.currentTarget.value
     }
 
     PollAnswerFactory.answerPoll(answer)
-    .then(function() {
-      socket.emit('studentAnswer')
-      $uibModalInstance.close()
-    })
+    .then(() => {
+      socket.emit('studentAnswer');
+      $uibModalInstance.close();
+    });
   }
 
 }
