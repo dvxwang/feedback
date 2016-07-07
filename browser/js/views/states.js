@@ -1,8 +1,3 @@
-
-function resolveLecture(LF, $sP) {
-  return LF.getById($sP.lectureId)
-}
-
 app.config(function ($stateProvider) {
     $stateProvider.state('student', {
         url: '/student/:lectureId',
@@ -24,7 +19,11 @@ app.config(function ($stateProvider) {
         url: '/instructor/:lectureId',
         templateUrl: 'js/views/instructor/instructor.html',
         controller: 'InstructorCtrl',
-        resolve: { curLecture: resolveLecture(LectureFactory, $stateParams) }
+        resolve: {
+          curLecture: function(LectureFactory, $stateParams) {
+            return LectureFactory.getById($stateParams.lectureId)
+        }
+      }
     });
 });
 
@@ -33,7 +32,11 @@ app.config(function ($stateProvider) {
         url: '/summary/:lectureId',
         templateUrl: 'js/views/summary/summary.html',
         controller: 'SummaryCtrl',
-        resolve: { lecture: resolveLecture(LectureFactory, $stateParams) }
+        resolve: {
+          lecture: function(LectureFactory, $stateParams) {
+            return LectureFactory.getById($stateParams.lectureId)
+        }
+      }
     });
 });
 

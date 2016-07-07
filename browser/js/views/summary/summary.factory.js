@@ -11,4 +11,6 @@ app.factory('SummaryFactory', function ($http) {
     })
   }
 
+  return SummaryFactory
+
 })
