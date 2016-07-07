@@ -1,16 +1,9 @@
 app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture) {
 
+  //Init page lecture
   $scope.curLecture = curLecture;
-  
-  socket.on('startLecture', function(lecture) {
-    $scope.curLecture = lecture;
-  })
 
-  socket.on('endLecture', function() {
-    showSurveyModal();
-    $scope.curLecture = undefined;
-  })
-
+  //Triggers end of lecture modal
   function showSurveyModal() {
     $uibModal.open({
       backdrop: true,
@@ -26,9 +19,8 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
     })
   }
 
+  //Creates end of survey modal
   function SurveyModalInstance($scope, $uibModalInstance, $uibModal, curLecture, PollFactory, FeedbackFactory) {
-    
-    $scope.curLecture = curLecture;
 
     PollFactory.createPoll({
       question: 'We would appreciate your feedback!',
@@ -50,6 +42,7 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
       option.comment = index;
     }
 
+    //Submit end of lecture feedback
     $scope.submit = function() {
       var endLectureFeedback = $scope.poll.options.map(function(result) {
         return FeedbackFactory.addFeedback(result, $scope.curLecture.id)
@@ -58,5 +51,14 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
       return Promise.all(endLectureFeedback);
     }
   }
+  
+  //Listening for starting/ending events
+  socket.on('startLecture', function(lecture) {
+    $scope.curLecture = lecture;
+  })
 
+  socket.on('endLecture', function() {
+    showSurveyModal();
+    $scope.curLecture = undefined;
+  })
 })
