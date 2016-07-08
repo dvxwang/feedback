@@ -12,7 +12,6 @@ require('./models/user')(db);
 
 var Lecture = db.model('lecture');
 var Question = db.model('question');
-var PollAnswer = db.model('pollAnswer');
 var Poll = db.model('poll');
 var PollAnswer = db.model('pollAnswer');
 var Feedback = db.model('feedback');
