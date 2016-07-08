@@ -26,13 +26,16 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
 
     $scope.timeSeries = timeSeries(feedback);
 
-    $scope.example = {"points": $scope.timeSeries.example};
-    $scope.great = {"points": $scope.timeSeries.great};
-    $scope.confused = {"points": $scope.timeSeries.confused};
-    $scope.see = {"points": $scope.timeSeries.see};
-    $scope.hear = {"points": $scope.timeSeries.hear};
-    $scope.break = {"points": $scope.timeSeries.break};
-    $scope.Series = $scope.great;
+    $scope.timeSeriesFormat = {
+      example: {"points": $scope.timeSeries.example},
+      great: {"points": $scope.timeSeries.great},
+      confused: {"points": $scope.timeSeries.confused},
+      see: {"points": $scope.timeSeries.see},
+      hear: {"points": $scope.timeSeries.hear},
+      bbreak: {"points": $scope.timeSeries.break}
+    }
+
+    $scope.Series = $scope.timeSeriesFormat.great;
 
     $scope.example_max = $scope.timeSeries.example[$scope.timeSeries.example.length-1].y;
     $scope.great_max = $scope.timeSeries.great[$scope.timeSeries.great.length-1].y;
@@ -52,23 +55,25 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
     $scope.columns = table_data;
   })
 
-  function compareTimeSeries(compare) {
-    SummaryFactory.returnFeedBackJSON(compare.id)
+  $scope.compareTimeSeries = function(compare) {
+    return SummaryFactory.returnFeedBackJSON(compare)
     .then((feedback) => {
       return feedback.map(function(el) {
         return {"time": el.time-$scope.baseTime, "category":el.category}
       })
     })
     .then((feedback) => {
-      $scope.timeSeriesCompare = timeSeries(feedback);
-      $scope.exampleCompare = {"points": $scope.timeSeriesCompare.example};
-      $scope.greatCompare = {"points": $scope.timeSeriesCompare.great};
-      $scope.confusedCompare = {"points": $scope.timeSeriesCompare.confused};
-      $scope.seeCompare = {"points": $scope.timeSeriesCompare.see};
-      $scope.hearCompare = {"points": $scope.timeSeriesCompare.hear};
-      $scope.breakCompare = {"points": $scope.timeSeriesCompare.break};
 
-      console.log("confusedCompare", $scope.confusedCompare)
+      $scope.timeSeriesCompare = timeSeries(feedback);
+      $scope.timeSeriesFormatCompare = {
+        example: {"points": $scope.timeSeriesCompare.example},
+        great: {"points": $scope.timeSeriesCompare.great},
+        confused: {"points": $scope.timeSeriesCompare.confused},
+        see: {"points": $scope.timeSeriesCompare.see},
+        hear: {"points": $scope.timeSeriesCompare.hear},
+        bbreak: {"points": $scope.timeSeriesCompare.break}
+      }
+
     })
 
   }
