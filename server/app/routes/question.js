@@ -46,6 +46,7 @@ router.put('/:questionId', function(req, res, next) {
 	req.question.updateAttributes(req.body).then(function(question){
 		if (req.body.status==='closed') io.emit('deleteQuestion', req.question);
 		else if (req.body.upvotes !== undefined) io.emit('voting', question);
+		else if (req.body.answer !== undefined) io.emit('updateQuestion', question);
 		res.status(200).json(question);
 	}).catch(next);
 });
