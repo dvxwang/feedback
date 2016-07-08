@@ -1,13 +1,6 @@
 app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, lecture) {
 
   $scope.lecture = lecture;
-  // $scope.Series = data2;
-
-  var data2 = {
-  points: [
-    {"x": 1,  "y": 2}
-  ]
-};
 
   LectureFactory.getById($scope.lecture.id)
   .then((lecture)=> {
@@ -53,6 +46,10 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
     ]};
     $scope.columns = table_data;
   })
+
+  function compareTimeSeries(feedback) {
+
+  }
 
   function timeSeries(feedback) {
 
