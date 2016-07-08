@@ -23,6 +23,9 @@ module.exports = function (db) {
             type: Sequelize.ENUM('open', 'closed'),
             defaultValue: 'open',
             allowNull: false,
+        },
+        answer: {
+            type: Sequelize.TEXT,
         }
     });
 };

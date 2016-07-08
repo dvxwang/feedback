@@ -5,7 +5,6 @@ var db = new Sequelize('postgres://localhost:5432/feedback');
 
 require('./models/lecture')(db);
 require('./models/question')(db);
-require('./models/questionAnswer')(db);
 require('./models/poll')(db);
 require('./models/pollAnswer')(db);
 require('./models/feedback')(db);
@@ -13,7 +12,6 @@ require('./models/user')(db);
 
 var Lecture = db.model('lecture');
 var Question = db.model('question');
-var QuestionAnswer = db.model('questionAnswer');
 var PollAnswer = db.model('pollAnswer');
 var Poll = db.model('poll');
 var PollAnswer = db.model('pollAnswer');
@@ -25,7 +23,6 @@ Lecture.hasMany(Question);
 Lecture.hasMany(Poll);
 Lecture.hasMany(Feedback);
 Poll.hasMany(PollAnswer);
-Question.hasMany(QuestionAnswer);
 
 
 module.exports = db;

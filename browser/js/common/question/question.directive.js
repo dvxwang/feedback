@@ -42,7 +42,7 @@ app.directive('question', function($state, QuestionFactory, QuestionAnswerFactor
             function deleteQuestion(question) { return QuestionFactory.delete(question) };
 
             function saveResponse(question) {
-                return QuestionAnswerFactory.create(question.answer, question.id)
+                return QuestionFactory.update(question.id, { answer: question.answer });
             };
             
             function submit() {
