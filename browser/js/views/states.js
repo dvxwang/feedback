@@ -9,7 +9,7 @@ app.config(function ($stateProvider) {
             .then(function(lecture) {
               return lecture
             })
-          }            
+          }
         }
     });
 });
@@ -22,11 +22,8 @@ app.config(function ($stateProvider) {
         resolve: {
           curLecture: function(LectureFactory, $stateParams) {
             return LectureFactory.getById($stateParams.lectureId)
-            .then(function(lecture) {
-              return lecture
-            })
-          }
         }
+      }
     });
 });
 
@@ -34,6 +31,12 @@ app.config(function ($stateProvider) {
     $stateProvider.state('summary', {
         url: '/summary/:lectureId',
         templateUrl: 'js/views/summary/summary.html',
+        controller: 'SummaryCtrl',
+        resolve: {
+          lecture: function(LectureFactory, $stateParams) {
+            return LectureFactory.getById($stateParams.lectureId)
+        }
+      }
     });
 });
 

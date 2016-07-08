@@ -54,7 +54,7 @@ router.get('/count/:lectureId/:category', function (req, res, next) {
                 }
             }
         }
-        )  
+        )
     })
     .then(function(result){
         res.json(result.count);
@@ -90,5 +90,11 @@ router.delete('/:feedbackId', function (req, res, next) {
 	})
 })
 
-module.exports = router;
+router.get('/summary/:lectureId', function(req, res, next) {
+  Feedback.findAll({where:{lectureId: req.params.lectureId}})
+  .then(function(feedback) {
+    res.json(feedback)
+  })
+})
 
+module.exports = router;

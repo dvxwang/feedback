@@ -58,7 +58,7 @@ gulp.task('buildJS', function () {  // removed ['lintJS'] because not compatible
         //   // console.log(chunk.contents.toString())
         // })
         // pipefirst.on('end', function() {
-        //   console.log(filetext.split('\n').slice(340,370).join('\n'))
+        //   console.log(filetext.split('\n').slice(1050,1080).join('\n'))
         // })
 
         return pipefirst

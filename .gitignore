@@ -2,5 +2,6 @@ node_modules
 npm-debug.log
 public/images
 public/main.js
+public/main.js.orig
 public/style.css
 server/database/index.js
