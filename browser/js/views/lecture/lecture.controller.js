@@ -4,10 +4,17 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
     return AuthService.logout().then(() => $state.go('login'))
   }
 
-  LectureFactory.getInstructorLectures().then((lectures) => {
-    $scope.activelecturelist = lectures.active;
-    $scope.pastlecturelist = lectures.past;
-  })
+  getLectures();
+
+  socket.on('lectureAdded', getLectures);
+
+  function getLectures() {
+    LectureFactory.getInstructorLectures()
+    .then((lectures) => {
+      $scope.activelecturelist = lectures.active;
+      $scope.pastlecturelist = lectures.past;
+    })
+  }
 
   $scope.lectureView = function(lecture) {
     $state.go('instructor', {'lectureId':lecture.id});

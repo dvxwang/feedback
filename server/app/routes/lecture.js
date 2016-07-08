@@ -41,6 +41,8 @@ router.post('/', function(req, res, next) {
   req.body.userId = req.user.id;
   Lecture.create(req.body)
   .then(function(result){
+      var io = req.app.get('socketio');    
+      io.emit('lectureAdded');
       req.session.lecture = result;
       res.json(result);
   });
@@ -50,8 +52,12 @@ router.put('/:lectureId', function(req, res, next) {
   var io = req.app.get('socketio');
   req.lecture.update(req.body)
   .then(function(updatedLecture) {
-    if (req.body.startTime) io.emit('startLecture', updatedLecture)
-    else if (req.body.endTime) io.emit('endLecture', updatedLecture)
+    if (req.body.startTime) {
+      io.emit('startLecture', updatedLecture);
+    }
+    else if (req.body.endTime) {
+      io.emit('endLecture', updatedLecture);
+    }
     res.status(201).json(updatedLecture)
   });
 });
