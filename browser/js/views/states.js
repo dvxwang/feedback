@@ -61,7 +61,9 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.config(function ($stateProvider) {
+app.config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.when('/', '/login');
+
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: 'js/views/signup/login.html',

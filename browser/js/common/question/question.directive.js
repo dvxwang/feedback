@@ -27,7 +27,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             socket.on('deleteQuestion', renderDeleteQuestion);
             socket.on('voting', renderVote);
             socket.on('moving', renderMoveQuestion);
-            socket.on('updateQuestion', renderUpdateQuestion);
+            socket.on('answering', renderQuestionAnswer);
 
             // scope-related function declarations
 
@@ -99,10 +99,9 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
                 rerender();
             }
 
-            function renderUpdateQuestion(question) {
-                console.log('updating')
+            function renderQuestionAnswer(question) {
                 var index = findIndex(question);
-                scope.questions[index] = question;
+                scope.questions[index].answer = question.answer;
                 rerender();
             }
 
