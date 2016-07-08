@@ -43,6 +43,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             function deleteQuestion(question) { return QuestionFactory.delete(question) };
 
             function saveResponse(question) {
+                question.showResponse = false;
                 return QuestionFactory.update(question.id, { answer: question.answer });
             };
             
