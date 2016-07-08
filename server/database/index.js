@@ -23,4 +23,5 @@ Lecture.hasMany(Poll);
 Lecture.hasMany(Feedback);
 Poll.hasMany(PollAnswer);
 
+
 module.exports = db;

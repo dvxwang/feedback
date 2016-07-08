@@ -19,6 +19,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             scope.close = close;
             scope.move = emitMove;
             scope.vote = vote;
+            scope.saveResponse = saveResponse;
 
             // event listeners
 
@@ -39,6 +40,10 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             function emitMove(question, n) { socket.emit('move', question, n) };
             
             function deleteQuestion(question) { return QuestionFactory.delete(question) };
+
+            function saveResponse(question) {
+                return QuestionFactory.update(question.id, { answer: question.answer });
+            };
             
             function submit() {
                 if (scope.newQuestion) {
