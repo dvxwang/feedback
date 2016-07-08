@@ -50,16 +50,20 @@
       font-family: sans-serif, Arial;
       font-style: oblique;
     }
-    .select-data {
+    .select {
+      width: 100%;
       display: inline-block;
-      width: 70%;
-      height: 30px;
-      margin: 2%;
-      padding: 2%;
-      font-size: 8px;
-      justify-content: center;
-      button {
-        width: 11%;
+      .select-data {
+        display: inline-block;
+        width: 70%;
+        height: 30px;
+        margin: 2%;
+        padding: 2%;
+        font-size: 8px;
+        justify-content: center;
+        button {
+          width: 11%;
+        }
       }
     }
 }

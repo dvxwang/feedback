@@ -24,15 +24,23 @@
                       <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
                     </div>
                   </div>
-                  <div class="select-data">
-                    <button class="btn btn-success" ng-click="Series=great">Great</button>
-                    <button class="btn btn-success" ng-click="Series=confused">Confused</button>
-                    <button class="btn btn-success" ng-click="Series=example">Example</button>
-                    <button class="btn btn-success" ng-click="Series=see">See</button>
-                    <button class="btn btn-success" ng-click="Series=hear">Hear</button>
-                    <button class="btn btn-success" ng-click="Series=break">Break</button>
-                  </div>
+                  <div class="select">
+                    <div class="select-data">
+                      <button class="btn btn-success" ng-click="Series=great">Great</button>
+                      <button class="btn btn-success" ng-click="Series=confused">Confused</button>
+                      <button class="btn btn-success" ng-click="Series=example">Example</button>
+                      <button class="btn btn-success" ng-click="Series=see">See</button>
+                      <button class="btn btn-success" ng-click="Series=hear">Hear</button>
+                      <button class="btn btn-success" ng-click="Series=break">Break</button>
+                    </div>
+                    <!-- <div class="select-compare">
+                      <select ng-model="compare">
+                          <option ng-repeat="pastLecture in pastLectures" value="{{pastLecture.id}}"> {{pastLecture.name}}</option>
+                      </select>
+                    </div> -->
+                    <button class="btn btn-success" ng-click="compareTimeSeries(compare)">Compare</button>
                 </div>
+              </div>
         </div>
       </div>
     </body>

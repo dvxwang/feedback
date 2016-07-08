@@ -2,20 +2,25 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
 
   $scope.lecture = lecture;
 
+  $scope.clicker = function() {
+    console.log($scope.compare)
+  }
+
   LectureFactory.getById($scope.lecture.id)
   .then((lecture)=> {
-    $scope.baseTime = lecture.startTime
+    $scope.baseTime = lecture.startTime;
   });
+
+  LectureFactory.getInstructorLectures()
+  .then((lectures) => {
+    $scope.pastLectures = lectures.past;
+  })
 
   SummaryFactory.returnFeedBackJSON($scope.lecture.id)
   .then((feedback) => {
     return feedback.map(function(el) {
       return {"time": el.time-$scope.baseTime, "category":el.category}
     })
-  })
-  .then((feedback)=> {
-    $scope.feedback = feedback
-    return $scope.feedback
   })
   .then((feedback) => {
 
@@ -47,7 +52,24 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
     $scope.columns = table_data;
   })
 
-  function compareTimeSeries(feedback) {
+  function compareTimeSeries(compare) {
+    SummaryFactory.returnFeedBackJSON(compare.id)
+    .then((feedback) => {
+      return feedback.map(function(el) {
+        return {"time": el.time-$scope.baseTime, "category":el.category}
+      })
+    })
+    .then((feedback) => {
+      $scope.timeSeriesCompare = timeSeries(feedback);
+      $scope.exampleCompare = {"points": $scope.timeSeriesCompare.example};
+      $scope.greatCompare = {"points": $scope.timeSeriesCompare.great};
+      $scope.confusedCompare = {"points": $scope.timeSeriesCompare.confused};
+      $scope.seeCompare = {"points": $scope.timeSeriesCompare.see};
+      $scope.hearCompare = {"points": $scope.timeSeriesCompare.hear};
+      $scope.breakCompare = {"points": $scope.timeSeriesCompare.break};
+
+      console.log("confusedCompare", $scope.confusedCompare)
+    })
 
   }
 
