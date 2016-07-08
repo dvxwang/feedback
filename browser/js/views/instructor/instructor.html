@@ -9,35 +9,43 @@
                 <div ng-if="curLecture" class="classHeader">{{curLecture.name}}</div>
 
                 <div class="launchRow">
-                  <div class="launch-panel">
-                    <div class="googleButton">
-                        <div id="startButton2"></div>
-                    </div>
-                    <div class="start googleButton" ng-click="startLecture()">Begin</div>
-                </div>
-                </div>
-
-                <div class="chart">
-                    <div id='chartCode'></div>
-                </div>
-
-                <div class='activeClass'>
-                    <div class="primaryButtonRow">
-                        <feedback admin="true"></feedback>
-                    </div>
-
-                    <div class="featureBar">
-                        <div class="questionQueue">
-                            <question admin="true"></question>
+                    <div class="launch-panel">
+                        <div class="googleButton">
+                            <div id="startButton2"></div>
                         </div>
+                        <div class="start googleButton" ng-click="startLecture()">Begin</div>
+                    </div>
+                </div>
 
+                <div class="leftSection">
+                    <div class="feedbackSection">
+                        <div class="chart">
+                            <div id='chartCode'></div>
+                        </div>
+                        <div class="primaryButtonRow">
+                            <feedbackinstructor admin="true"></feedbackinstructor>
+                        </div>
+                    </div>
+
+                    <div class="pollSection">
+                        <div class="spacer"></div>
                         <div class="activePoll">
                           <active-poll></active-poll>
                         </div>
-
+                        <div class="spacer"></div>
                         <div class="pollQueue">
                             <poll></poll>
                         </div>
+                    </div>      
+                </div>      
+
+                <div class="rightSection">
+                    <div class="questionQueue">
+                        <question admin="true"></question>
+                    </div>
+                </div>
+
+                        
                     </div>
                 </div>
             </div>

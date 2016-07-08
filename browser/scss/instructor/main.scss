@@ -15,10 +15,10 @@
         width: 144px;
         margin-left:auto;
         margin-right:auto;
-        margin-top: 1%;
-        margin-bottom: 1%;
         height: 5%;
         border-radius: 1px;
+        margin-top: 1%;
+        margin-bottom: 1%;
     }
     .googleButton {
         width: 72px;
@@ -40,7 +40,7 @@
     }
     .content {
         background-color: #015249;
-        height: 900px;
+        height: 100%;
         overflow: hidden;
     }
     .classHeader {
@@ -48,6 +48,7 @@
         text-align: center;
         padding: 2% 0 0 0;
         color: white;
+        height: 10%
     }
     .classInstructor {
         font-size: 24px;
@@ -55,16 +56,35 @@
         padding: 1% 0 1% 0;
         color: white;
     }
+    .leftSection {
+        height:80%;
+        width: 46%;
+        float: left;
+        margin-left: 2%;
+    }
+    .rightSection {
+        height:80%;
+        width: 46%;
+        margin-left: 52%;
+    }
+    .feedbackSection {
+        height: 40%;
+        width: 100%;
+    }
+    .pollSection {
+        height: 60%;
+        width: 100%;
+    }
     .primaryButtonRow {
-        width: 30%;
-        margin: 0 35% 2% 35%;
+        width: 100%;
+        height: 30%;
     }
     .featureBar {
         height: 70%;
     }
     .chart {
         width: 90%;
-        height: 20%;
+        height: 68%;
         background-color: #015249;
         margin: 0% 5% 2% 5%;
         .canvasjs-chart-credit {
@@ -78,28 +98,28 @@
         border-radius: 5px;
     }
     .questionQueue {
-        height: 47%;
-        width: 43%;
+        height: 100%;
+        width: 100%;
         background-color: white;
-        float: left;
-        margin: 0 0 0 5%;
         border-radius: 4px;
     }
+    .spacer {
+        height: 2.5%;
+        width: 100%;
+    }
     .activePoll {
-        width: 43%;
-        height: 15%;
+        width: 100%;
+        height: 35%;
         background-color: white;
-        margin: 0 0 0 52%;
         border-radius: 4px;
     }
     .activeClass {
         height: 100%;
     }
     .pollQueue {
-        width: 43%;
-        height: 28%;
+        width: 100%;
+        height: 60%;
         background-color: white;
-        margin: 2% 0 0 52%;
         border-radius: 4px;
         padding-bottom: 10px;
     }
