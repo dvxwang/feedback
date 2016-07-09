@@ -39,16 +39,41 @@
         border-radius: 1px;
     }
     .content {
-        background-color: #015249;
+        background-color: lightgray;
         height: 100%;
         overflow: hidden;
     }
     .classHeader {
         font-size: 42px;
         text-align: center;
-        padding: 2% 0 0 0;
         color: white;
-        height: 10%
+        height: 10%;
+        background-color: #015249;
+        width: 100%;
+
+        img {
+            padding-top: 1.5%;
+            float: left;
+            width: 5%;
+            margin-left: 2%;
+            height: 70%;
+        }
+
+        .classHeaderText {
+            padding-top: 1%;
+            width: 86%;
+            float: left;
+        }
+
+        .backButton {
+            padding-top: 1.5%;
+            width: 7%;
+            float: left;
+            height: 100%;
+        }
+        .backButton:hover {
+            background-color: green;
+        }
     }
     .classInstructor {
         font-size: 24px;
@@ -58,17 +83,18 @@
     }
     .leftSection {
         height:80%;
-        width: 46%;
+        width: 44%;
         float: left;
-        margin-left: 2%;
+        margin-left: 3%;
     }
     .rightSection {
         height:80%;
-        width: 46%;
-        margin-left: 52%;
+        width: 44%;
+        margin-left: 53%;
+        overflow: hidden
     }
     .feedbackSection {
-        height: 40%;
+        height: 34%;
         width: 100%;
     }
     .pollSection {
@@ -77,50 +103,62 @@
     }
     .primaryButtonRow {
         width: 100%;
-        height: 30%;
+        height: 32%;
+        border-radius: 0 0 5px 5px;
+        padding: 1% 0 1% 0;
+        border: thin solid #545454;
+        border-top: none;
     }
     .featureBar {
         height: 70%;
     }
     .chart {
-        width: 90%;
+        width: 100%;
         height: 68%;
-        background-color: #015249;
-        margin: 0% 5% 2% 5%;
         .canvasjs-chart-credit {
            display: none;
         }
     }
     #chartCode {
         height: 100%;
-        background-color: #014A5B;
+        background-color: #015249;
         border-color: #015249;
-        border-radius: 5px;
+    }
+    .rightHeader {
+        height: 6%;
+        width: 100%;
+        background-color: #545454;
+        color: white;
+        padding-left: 2%;
+        font-family: sans-serif;
+        padding-top: 1%;
+        font-size: 125%;
+        border-radius: 5px 5px 0 0;
     }
     .questionQueue {
-        height: 100%;
+        height: 94%;
         width: 100%;
         background-color: white;
-        border-radius: 4px;
+        border-radius: 0 0 5px 5px;
     }
     .spacer {
-        height: 2.5%;
+        height: 2%;
         width: 100%;
     }
     .activePoll {
         width: 100%;
-        height: 35%;
+        height: 15%;
         background-color: white;
-        border-radius: 4px;
+        border-radius: 0 0 5px 5px;
     }
     .activeClass {
         height: 100%;
     }
     .pollQueue {
         width: 100%;
-        height: 60%;
+        height: 29%;
         background-color: white;
-        border-radius: 4px;
+        border-radius: 0 0 5px 5px;
         padding-bottom: 10px;
     }
     .noClass {
