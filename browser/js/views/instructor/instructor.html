@@ -41,14 +41,15 @@
 
                     <div class="spacer"></div>
                     <div class="rightHeader">
-                        Current Poll
+                        <span>Current Poll</span>
                     </div>
                     <div class="activePoll">
                       <active-poll></active-poll>
                     </div>
                     <div class="spacer"></div>
                     <div class="rightHeader">
-                        Polls
+                        <span>Polls</span>
+                        <button ng-controller="CreatePoll" class="btn btn-success" ng-click="showModal()">Add a Poll</button>
                     </div>
                     <div class="pollQueue">
                         <poll></poll>

@@ -14,12 +14,6 @@
 		float: right;
 		border-radius: 20px;
 	};
-	td {
-		border:none;
-		button {
-			width: 100%;
-		}
-	}
 	.col-75 {
 		width: 75%;
 	}
@@ -47,6 +41,15 @@
 		overflow-y: auto;
 		table {
 			width:100%;
+			tr:hover {
+				background-color: lightgray;
+			}
+			td {
+				border:none;
+				button {
+					width: 100%;
+				}
+			}
 		};
 	};
 }
