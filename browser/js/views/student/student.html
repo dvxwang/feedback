@@ -1,32 +1,25 @@
-<!doctype html>
-<html>
-    <head>
-    </head>
-    <body>
-        <div id="student">
-            <div class="content">
-                <div ng-controller="StudentPoll" id="studentBody">
+<div id="student">
+    <div class="content">
+        <div ng-controller="StudentPoll" id="studentBody">
 
-                    <div ng-if="curLecture.startTime">
-                        <div class="classHeader">{{curLecture.name}}</div>
-                        <div class="classInstructor">{{curLecture.lecturer}}</div>
-                    </div>
+            <div ng-if="curLecture.startTime">
+                <div class="classHeader">{{curLecture.name}}</div>
+                <div class="classInstructor">{{curLecture.lecturer}}</div>
+            </div>
 
-                    <div ng-if="!curLecture.startTime"class="classHeader">Welcome to {{curLecture.name}} Lecture</div>
+            <div ng-if="!curLecture.startTime"class="classHeader">Welcome to {{curLecture.name}} Lecture</div>
 
-                    <div ng-if='!curLecture.startTime' class='noClass'>
-                        The lecture has not begun
-                    </div>
-                    <div ng-if='curLecture.startTime' class='activeClass'>
-                        <div class="primaryButtonRow">
-                            <feedbackstudent></feedbackstudent>
-                        </div>
-                        <div class="questionQueue">
-                            <question></question>
-                        </div>
-                    </div>
+            <div ng-if='!curLecture.startTime' class='noClass'>
+                The lecture has not begun
+            </div>
+            <div ng-if='curLecture.startTime' class='activeClass'>
+                <div class="primaryButtonRow">
+                    <feedbackstudent></feedbackstudent>
+                </div>
+                <div class="questionQueue">
+                    <question></question>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
