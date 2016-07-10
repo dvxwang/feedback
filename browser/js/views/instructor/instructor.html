@@ -6,21 +6,25 @@
         <div id='instructor'>
             <div class="content">
 
-                <div ng-if="curLecture" class="classHeader">
+                <div class="classHeader">
                     <img src="./images/send-symbol.png">
-                    <div class="classHeaderText">{{curLecture.name}}</div>
-                    <div class='backButton glyphicon glyph-bg glyphicon-arrow-right' ng-click="goBack()">
-                    </div>
-                </div>  
-
-                <div class="launchRow">
-                    <div class="launch-panel">
-                        <div class="googleButton">
-                            <div id="startButton2"></div>
+                    <div class='backButtonSpace'></div> 
+                    <div class='middleBox'>
+                        <div class="classHeaderText">{{curLecture.name}}</div>
+                        <div class="launchRow">
+                            <div class="launch-panel">
+                                <div class="googleButton">
+                                    <div id="startButton2"></div>
+                                </div>
+                                <div class="start googleButton" ng-click="startLecture()">Begin</div>
+                            </div>
                         </div>
-                        <div class="start googleButton" ng-click="startLecture()">Begin</div>
                     </div>
-                </div>
+
+                    <div class='backButton' ng-click="goToLecture()"><i class="material-icons mdsize">home</i></div>
+                    <div class='backButton' ng-click="logOut()"><i class="material-icons mdsize">exit_to_app</i></div>
+                </div>  
+                <div class="spacer"></div>
 
                 <div class="leftSection">
                     <div class="rightHeader">
@@ -62,6 +66,7 @@
 
                         
                     </div>
+            <div class="spacerBottom"></div>
                 </div>
             </div>
         </div>

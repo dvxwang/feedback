@@ -36,8 +36,12 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     }
 
     //Back to lectures page
-    $scope.goBack = function() {
+    $scope.goToLecture = function() {
         $state.go('lecture');
+    }
+
+    $scope.logOut = function() {
+        $state.go('login');
     }
 
     //Sets up time series chart
