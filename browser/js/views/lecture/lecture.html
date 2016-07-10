@@ -1,6 +1,14 @@
-<div class="container" id="lectures">
-  <button id='logoutButton' class='btn btn-danger' type="submit" ng-click='logout()'>Log out</button>
-  <h1>Welcome, {{ user.first_name }}!</h1>
+<div id="lectures">
+  <div class="classHeader">
+    <img src="./images/send-symbol.png">
+    <div class='backButtonSpace'></div> 
+    <div class='middleBox'>
+        <div class="classHeaderText">Welcome, {{user.first_name}}!</div>
+    </div>
+    <div class='backButtonSpace'></div> 
+    <div class='backButton' ng-click="logout()"><i class="material-icons mdsize">exit_to_app</i></div>
+  </div>  
+  <div class="spacer"></div>
   <div class="container">
     <div class='tableDiv'>
       <table class="table" id="new-lecture">
