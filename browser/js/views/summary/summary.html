@@ -24,20 +24,34 @@
                       <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
                     </div>
                   </div>
-                  <div class="select row">
-                    <div class="select-data col-xs-10">
-                      <button class="btn btn-compare" ng-click="Series=timeSeriesFormat.great">Great</button>
-                      <button class="btn btn-compare" ng-click="Series=timeSeriesFormat.confused">Confused</button>
-                      <button class="btn btn-compare" ng-click="Series=timeSeriesFormat.example">Example</button>
-                      <button class="btn btn-compare" ng-click="Series=timeSeriesFormat.see">See</button>
-                      <button class="btn btn-compare" ng-click="Series=timeSeriesFormat.hear">Hear</button>
-                      <button class="btn btn-compare" ng-click="Series=timeSeriesFormat.bbreak">Break</button>
+                  <div class="row">
+                    <div class="col-xs-2 select" ng-repeat="lecture in compareLectures">
+                			<button type="button" ng-click="toggleTimeSeries(lecture.data.great)" class="btn btn-default btn-circle-sm">
+                        <span class="glyphicon glyph-sm glyphicon-thumbs-up"></span>
+                      </button>
+                      <button type="button" ng-click="toggleTimeSeries(lecture.data.confused)" class="btn btn-default btn-circle-sm">
+                      	<span class="glyphicon glyph-sm glyphicon-question-sign"></span>
+                      </button>
+                      <button type="button" ng-click="toggleTimeSeries(lecture.data.example)" class="btn btn-default btn-circle-sm">
+                      	<span class="glyphicon glyph-md glyphicon-edit"></span>
+                      </button>
+                      <button type="button" ng-click="toggleTimeSeries(lecture.data.see)" class="btn btn-default btn-circle-sm">
+                      	<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
+                      </button>
+                      <button type="button" ng-click="toggleTimeSeries(lecture.data.hear)" class="btn btn-default btn-circle-sm">
+				                <span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
+                      </button>
+                      <button type="button" ng-click="toggleTimeSeries(lecture.data.bbreak)" class="btn btn-default btn-circle-sm">
+                        <span class="glyphicon glyph-sm glyphicon-pause"></span>
+                      </button>
+
+                      <div>Remove</div>
                     </div>
-                    <div class="select-compare col-xs-2">
+                    <div class="compare col-xs-2">
                       <br>
                       <div>Select a Lecture to Compare</div>
                       <select ng-model="compare">
-                          <option ng-repeat="pastLecture in pastLectures" ng-value="pastLecture.id" value="{{$parent.pastLecture.id}}"> {{pastLecture.name}}</option>
+                          <option ng-repeat="pastLecture in pastLectures" ng-value="pastLecture.id"> {{pastLecture.name}}</option>
                       </select>
                       <div>
                         <button class="btn btn-compare" ng-click="compareTimeSeries(compare)">Compare</button>

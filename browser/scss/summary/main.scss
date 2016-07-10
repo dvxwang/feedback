@@ -51,23 +51,12 @@
       font-style: oblique;
     }
     .select {
-      width: 100%;
+      width: 10%;
+      height:100%;
       display: inline-block;
-      .select-data {
-        display: inline-block;
-        width: 70%;
-        height: 30px;
-        margin: 2%;
-        padding: 2%;
-        font-size: 8px;
-        justify-content: center;
-        button {
-          width: 11%;
-        }
-      }
-      .select-compare {
-        // height: 10%;
-        display: block;
-      }
+      margin: 1%;
+    }
+    .compare {
+      float: right;
     }
 }

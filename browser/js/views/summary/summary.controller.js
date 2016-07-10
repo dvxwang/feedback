@@ -1,12 +1,11 @@
 app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, lecture) {
 
   $scope.lecture = lecture;
+  $scope.compareLectures = [];
 
-  $scope.clicker = function() {
-    console.log($scope.compare)
-  }
+  $scope.getLecture = LectureFactory.getById;
 
-  LectureFactory.getById($scope.lecture.id)
+  $scope.getLecture($scope.lecture.id)
   .then((lecture)=> {
     $scope.baseTime = lecture.startTime;
   });
@@ -26,16 +25,21 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
 
     $scope.timeSeries = timeSeries(feedback);
 
+    let id = $scope.lecture.id;
+
     $scope.timeSeriesFormat = {
-      example: {"points": $scope.timeSeries.example},
-      great: {"points": $scope.timeSeries.great},
-      confused: {"points": $scope.timeSeries.confused},
-      see: {"points": $scope.timeSeries.see},
-      hear: {"points": $scope.timeSeries.hear},
-      bbreak: {"points": $scope.timeSeries.break}
+      example: { "name": "example"+id, "values": $scope.timeSeries.example },
+      great: { "name": "great"+id, "values": $scope.timeSeries.great },
+      confused: { "name": "confused"+id, "values": $scope.timeSeries.confused },
+      see: { "name": "see"+id, "values": $scope.timeSeries.see },
+      hear: { "name": "hear"+id, "values": $scope.timeSeries.hear },
+      bbreak: { "name": "bbreak"+id, "values": $scope.timeSeries.break }
     }
 
-    $scope.Series = $scope.timeSeriesFormat.great;
+    $scope.compareLectures.push({"lecureId":$scope.lecture.id, "data":$scope.timeSeriesFormat});
+    console.log($scope.compareLectures)
+
+    $scope.toggleTimeSeries($scope.timeSeriesFormat.confused);
 
     $scope.example_max = $scope.timeSeries.example[$scope.timeSeries.example.length-1].y;
     $scope.great_max = $scope.timeSeries.great[$scope.timeSeries.great.length-1].y;
@@ -56,26 +60,32 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
   })
 
   $scope.compareTimeSeries = function(compare) {
+    let baseTime = 0;
+    LectureFactory.getById($scope.lecture.id)
+    .then((lecture)=> {
+      baseTime = lecture.startTime;
+    });
+
     return SummaryFactory.returnFeedBackJSON(compare)
     .then((feedback) => {
       return feedback.map(function(el) {
-        return {"time": el.time-$scope.baseTime, "category":el.category}
+        return {"time": el.time-baseTime, "category":el.category}
       })
     })
     .then((feedback) => {
 
-      $scope.timeSeriesCompare = timeSeries(feedback);
-      $scope.timeSeriesFormatCompare = {
-        example: {"points": $scope.timeSeriesCompare.example},
-        great: {"points": $scope.timeSeriesCompare.great},
-        confused: {"points": $scope.timeSeriesCompare.confused},
-        see: {"points": $scope.timeSeriesCompare.see},
-        hear: {"points": $scope.timeSeriesCompare.hear},
-        bbreak: {"points": $scope.timeSeriesCompare.break}
+      let timeSeriesCompare = timeSeries(feedback);
+      let timeSeriesFormatCompare = {
+        example: { "name": "example"+compare, "values": timeSeriesCompare.example },
+        great: { "name": "great"+compare, "values": timeSeriesCompare.great },
+        confused: { "name": "confused"+compare, "values": timeSeriesCompare.confused },
+        see: { "name": "see"+compare, "values": timeSeriesCompare.see },
+        hear: { "name": "hear"+compare, "values": timeSeriesCompare.hear },
+        bbreak: { "name": "bbreak"+compare, "values": timeSeriesCompare.break }
       }
 
-    })
-
+      $scope.compareLectures.push({"lectureId": compare, "data":timeSeriesFormatCompare});
+    });
   }
 
   function timeSeries(feedback) {
@@ -112,7 +122,7 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
       let time = 0;
       while (time < max) {
         if (group[type][time]) responses += group[type][time].length;
-        timeSeries[type].push({"x":(time/60), "y":responses});
+        timeSeries[type].push({"x":(time/60), "y":responses, "symbol":type});
         time ++;
       }
     }
@@ -127,14 +137,82 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
     return timeSeries;
   }
 
+  $scope.toggleTimeSeries = function(data) {
+
+    let markObj = {
+      "type": "line",
+      "from": {"data": data.name},
+      "key": "x",
+      "properties": {
+        "enter": {
+          "x": {"scale": "x", "field": "x"},
+          "y": {"scale": "y", "field": "y"},
+        },
+        "update": {
+          "x": {"scale": "x", "field": "x"},
+          "y": {"scale": "y", "field": "y"},
+          "stroke": {"value": "green"},
+          "strokeWidth": {"value": "1"}
+        }
+      }
+    }
+
+    if (checkSpec($scope.line.data, data)) {
+      $scope.line.data.push(data);
+      $scope.line.marks.push(markObj);
+    } else {
+      spliceSpec($scope.line.data, data);
+    }
+    setScale(data);
+
+    function checkSpec(data, input) {
+      return data.map(function(datum) { return datum.name; } ).indexOf(input.name) === -1;
+    }
+
+    function spliceSpec(data, input, amount=1) {
+      data.splice(data.map(function(datum) { return datum.name; } ).indexOf(input.name), amount)
+    }
+
+    function setScale(input) {
+      let max_x = 0;
+      let max_y = 0;
+      let index;
+
+      $scope.line.data.forEach(function(type, i) {
+        if (type.values[type.values.length-1].y > max_y || type.values.length > max_x) {
+          max_x = type.values.length;
+          max_y = type.values[type.values.length-1].y;
+          index = i;
+        }
+        $scope.line.scales = [
+          {
+            "name": "x",
+            "type": "linear",
+            "range": "width",
+            "domain": {"data": $scope.line.data[index].name, "field": "x"}
+          },
+          {
+            "name": "y",
+            "range": "height",
+            "nice": true,
+            "domain": {"data": $scope.line.data[index].name, "field": "y"}
+          }
+        ];
+      });
+    }
+
+  }
+
   $scope.renderer = 'canvas';
-  // "domain": {"data": "points", "field": "x"},
+
   $scope.line = {
     "width": 800,
     "height": 200,
     "padding": {"top": 10, "left": 30, "bottom": 30, "right": 10},
     "data": [
-      {"name": "points"}
+      {"name": "points",
+       "values": [{"x":0, "y":0}]
+      }
     ],
     "scales": [
       {
@@ -167,7 +245,7 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
           "update": {
             "x": {"scale": "x", "field": "x"},
             "y": {"scale": "y", "field": "y"},
-            "stroke": {"value": "steelblue"},
+            "stroke": {"value": "white"},
             "strokeWidth": {"value": "2"}
           }
         }
