@@ -16,6 +16,12 @@
 	};
 	td {
 		border:none;
+		button {
+			width: 100%;
+		}
+	}
+	.col-75 {
+		width: 75%;
 	}
 	.wordWrap {
 		font-size: 18px;
@@ -28,7 +34,7 @@
 		hyphens: auto;
 	}
 	#add-question {
-		height: 15%;
+		height: 10%;
 		width: 100%;
 		h1 {
 			float: left;

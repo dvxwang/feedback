@@ -19,6 +19,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             scope.close = close;
             scope.move = emitMove;
             scope.vote = vote;
+            scope.saveResponse = saveResponse;
 
             // event listeners
 
@@ -26,6 +27,7 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             socket.on('deleteQuestion', renderDeleteQuestion);
             socket.on('voting', renderVote);
             socket.on('moving', renderMoveQuestion);
+            socket.on('answering', renderQuestionAnswer);
 
             // scope-related function declarations
 
@@ -39,6 +41,11 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             function emitMove(question, n) { socket.emit('move', question, n) };
             
             function deleteQuestion(question) { return QuestionFactory.delete(question) };
+
+            function saveResponse(question) {
+                question.showResponse = false;
+                return QuestionFactory.update(question.id, { answer: question.answer });
+            };
             
             function submit() {
                 if (scope.newQuestion) {
@@ -90,6 +97,12 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
                     var newNotification = new Notification("New Question", {body: question.text, tag: "question"});
                     setTimeout(newNotification.close.bind(newNotification), 2000);
                 }
+                rerender();
+            }
+
+            function renderQuestionAnswer(question) {
+                var index = findIndex(question);
+                scope.questions[index].answer = question.answer;
                 rerender();
             }
 

@@ -6,18 +6,30 @@
         <div id='instructor'>
             <div class="content">
 
-                <div ng-if="curLecture" class="classHeader">{{curLecture.name}}</div>
-
-                <div class="launchRow">
-                    <div class="launch-panel">
-                        <div class="googleButton">
-                            <div id="startButton2"></div>
+                <div class="classHeader">
+                    <img src="./images/send-symbol.png">
+                    <div class='backButtonSpace'></div> 
+                    <div class='middleBox'>
+                        <div class="classHeaderText">{{curLecture.name}}</div>
+                        <div class="launchRow">
+                            <div class="launch-panel">
+                                <div class="googleButton">
+                                    <div id="startButton2"></div>
+                                </div>
+                                <div class="start googleButton" ng-click="startLecture()">Begin</div>
+                            </div>
                         </div>
-                        <div class="start googleButton" ng-click="startLecture()">Begin</div>
                     </div>
-                </div>
+
+                    <div class='backButton' ng-click="goToLecture()"><i class="material-icons mdsize">home</i></div>
+                    <div class='backButton' ng-click="logOut()"><i class="material-icons mdsize">exit_to_app</i></div>
+                </div>  
+                <div class="spacer"></div>
 
                 <div class="leftSection">
+                    <div class="rightHeader">
+                            Live Feedback
+                        </div>
                     <div class="feedbackSection">
                         <div class="chart">
                             <div id='chartCode'></div>
@@ -27,19 +39,26 @@
                         </div>
                     </div>
 
-                    <div class="pollSection">
-                        <div class="spacer"></div>
-                        <div class="activePoll">
-                          <active-poll></active-poll>
-                        </div>
-                        <div class="spacer"></div>
-                        <div class="pollQueue">
-                            <poll></poll>
-                        </div>
-                    </div>      
-                </div>      
+                    <div class="spacer"></div>
+                    <div class="rightHeader">
+                        Current Poll
+                    </div>
+                    <div class="activePoll">
+                      <active-poll></active-poll>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="rightHeader">
+                        Polls
+                    </div>
+                    <div class="pollQueue">
+                        <poll></poll>
+                    </div>
+                </div>       
 
                 <div class="rightSection">
+                    <div class="rightHeader">
+                        Questions
+                    </div>
                     <div class="questionQueue">
                         <question admin="true"></question>
                     </div>
@@ -47,6 +66,7 @@
 
                         
                     </div>
+            <div class="spacerBottom"></div>
                 </div>
             </div>
         </div>

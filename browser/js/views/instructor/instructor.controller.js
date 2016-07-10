@@ -35,6 +35,15 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
       }
     }
 
+    //Back to lectures page
+    $scope.goToLecture = function() {
+        $state.go('lecture');
+    }
+
+    $scope.logOut = function() {
+        $state.go('login');
+    }
+
     //Sets up time series chart
     function instructorChart() {
         
@@ -72,10 +81,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
 
         var chartCode = new CanvasJS.Chart("chartCode",{
             creditText: "",
-            title :{
-                text: "Live Feedback",
-                fontColor: "white"
-            },
             backgroundColor: null,
             axisX: {
                 tickLength: 0,
@@ -83,7 +88,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
                 lineThickness: 0
             },
             axisY: {
-                minimum: -5,
+                minimum: 0,
                 maximum: 10,
                 tickLength: 0,
                 gridThickness: 0,
