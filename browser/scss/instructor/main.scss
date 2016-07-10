@@ -10,20 +10,19 @@
     }
     #startButton2 {
       padding-left: 1px;
+      height: 100%;
     }
     .launchRow {
         width: 144px;
         margin-left:auto;
         margin-right:auto;
-        height: 5%;
         border-radius: 1px;
-        margin-top: 1%;
         margin-bottom: 1%;
     }
     .googleButton {
         width: 72px;
         text-align: center;
-        height: 25%;
+        height: 100%;
         float:left;
         height: 30px;
         align-self: center;
@@ -40,36 +39,50 @@
     }
     .content {
         background-color: lightgray;
-        height: 100%;
+        height: 98%;
         overflow: hidden;
     }
     .classHeader {
-        font-size: 42px;
         text-align: center;
         color: white;
-        height: 10%;
+        height: 13%;
         background-color: #015249;
         width: 100%;
 
         img {
-            padding-top: 1.5%;
+            padding-top: 2%;
             float: left;
             width: 5%;
             margin-left: 2%;
             height: 70%;
         }
 
-        .classHeaderText {
-            padding-top: 1%;
-            width: 86%;
+        .middleBox {
+            padding-top: 0.5%;
+            width: 72%;
             float: left;
+        
         }
 
-        .backButton {
-            padding-top: 1.5%;
+        .classHeaderText {
+            font-size: 42px;
+        }
+        .backButtonSpace {
             width: 7%;
             float: left;
             height: 100%;
+        }
+
+        .backButton {
+            padding-top: 2%;
+            width: 7%;
+            float: left;
+            height: 100%;
+            cursor: pointer;
+
+            .mdsize {
+                font-size: 48px;
+            }
         }
         .backButton:hover {
             background-color: green;
@@ -82,13 +95,13 @@
         color: white;
     }
     .leftSection {
-        height:80%;
+        height:83%;
         width: 44%;
         float: left;
         margin-left: 3%;
     }
     .rightSection {
-        height:80%;
+        height:83%;
         width: 44%;
         margin-left: 53%;
         overflow: hidden
@@ -144,6 +157,11 @@
     .spacer {
         height: 2%;
         width: 100%;
+    }
+    .spacerBottom {
+        height: 2%;
+        width: 100%;
+        background-color: #545454;
     }
     .activePoll {
         width: 100%;
