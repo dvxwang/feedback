@@ -1,21 +1,14 @@
-
 <div class="container" id="poll">
-  <div id="add-poll">
-    <div ng-controller="CreatePoll">
-      <button class="btn btn-success" ng-click="showModal()">Add a Poll</button>
-    </div>
-  </div>
-    <!-- Table -->
   <div id="pqueue" class="container">
     <table class="table">
-      FAVORITE POLLS
+      <th colspan="2"><strong>Favorite Polls:</strong></th>
       <tr ng-repeat='poll in polls.favorite'>
         <td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
         <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-send" ng-click="sendPoll(poll)"></i></td>
       </tr>
     </table>
     <table class="table">
-      PENDING POLLS
+      <th colspan="3"><strong>Pending Polls:</strong></th>
       <tr ng-repeat='poll in polls.pending'>
       	<td><span class='mainPollQuestion'>{{ poll.question }}</span></td>
       	<td><i ng-if='true' class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="delete(poll)"></i></td>

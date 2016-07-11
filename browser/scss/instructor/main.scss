@@ -147,6 +147,12 @@
         padding-top: 1%;
         font-size: 125%;
         border-radius: 5px 5px 0 0;
+        button {
+            height: 80%;
+            float: right;
+            margin: 0 1% 1% 0;
+            padding: 0 1%;
+        }
     }
     .questionQueue {
         height: 94%;
