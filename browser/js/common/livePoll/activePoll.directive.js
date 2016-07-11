@@ -6,7 +6,6 @@ app.directive('activePoll', ($state, PollFactory, PollAnswerFactory) => {
     link: function(scope) {
       
       scope.$parent.nopoll = true
-      console.log('POLL', scope.nopoll)
       socket.on('toStudent', function(pollQuestion) {
         scope.poll = pollQuestion
         scope.$parent.nopoll = false
