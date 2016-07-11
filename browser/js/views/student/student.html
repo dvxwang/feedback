@@ -7,12 +7,16 @@
             <div class="content">
                 <div ng-controller="StudentPoll" id="studentBody">
 
-                    <div ng-if="curLecture.startTime">
-                        <div class="classHeader">{{curLecture.name}}</div>
-                        <div class="classInstructor">{{curLecture.lecturer}}</div>
-                    </div>
-
-                    <div ng-if="!curLecture.startTime || curlecture.endTime" class="classHeader">Welcome to {{curLecture.name}} Lecture</div>
+                    <div class="classHeader">
+                        <img src="./images/send-symbol-white.png">
+                        <div class='backButtonSpace'></div> 
+                        <div class='middleBox'>
+                            <div class="classHeaderText">{{curLecture.name}}</div>
+                        </div>
+                        <div class='backButtonSpace'></div> 
+                        <div class='backButtonSpace'></div> 
+                    </div> 
+                    <div class="spacer"></div>
 
                     <div ng-if='!curLecture.startTime' class='noClass'>
                         The lecture has not begun
