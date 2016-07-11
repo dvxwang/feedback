@@ -2,12 +2,20 @@ html, body, #main{
     height: 100%;
     margin: 0;
 }
+.btn-success {
+    background-color: #00a0c3;
+    border-color: #00a0c3;
+}
+.btn-success:hover {
+    background-color: #00b9b9;
+    border-color: #00b9b9;
+}
 #homepage {
     height: 100%;
     .classHeader {
         text-align: center;
         height: 15%;
-        color: #015249;
+        color: #00a0c3;
         background-color: white;
         width: 100%;
 
@@ -85,8 +93,8 @@ html, body, #main{
             font-size: 16px;
         }
         .loginBox .lectureInput{
-            width: 60%;
-            margin: 0 20% 15% 20%;
+            width: 55%;
+            margin: 0 0 0 15%;
             color: black;
             padding: 2%;
             font-size: 16px;
@@ -111,6 +119,9 @@ html, body, #main{
             a {
                 color: white;
             }
+        }
+        .lectureBtn {
+            padding: 2px 8px;
         }
     }
     .footerSlide {

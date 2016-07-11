@@ -10,8 +10,6 @@ var createApplication = function () {
     server.on('request', app); // Attach the Express application.
     var io = require('socket.io')(server);   // Attach socket.io.
 
-    var curLecture;
-
     app.set('socketio', io);
 
     io.on('connection', function(socket) {
@@ -19,17 +17,11 @@ var createApplication = function () {
 
         function move(question,number) {io.emit('moving', question, number);};
 
-        function gettingLecture() {socket.emit('getLecture', curLecture);
-            console.log('huh', curLecture)
-        };
-
         //question queue events
         socket.on('move', move);
 
 
         //lecture events
-        socket.on('gettingLecture', gettingLecture);
-
         socket.on('getFeedback', function() {
           socket.emit('updateFeedback', 'great', true);
           socket.emit('updateFeedback', 'confused', true);

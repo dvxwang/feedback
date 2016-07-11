@@ -4,10 +4,11 @@ app.directive('activePoll', ($state, PollFactory, PollAnswerFactory) => {
     scope: {},
     templateUrl: 'js/common/livePoll/activePoll.html',
     link: function(scope) {
-      scope.nopoll = true
+      
+      scope.$parent.nopoll = true
       socket.on('toStudent', function(pollQuestion) {
         scope.poll = pollQuestion
-        scope.nopoll = false
+        scope.$parent.nopoll = false
         scope.$digest()
       })
 
