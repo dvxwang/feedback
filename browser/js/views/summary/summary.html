@@ -5,40 +5,71 @@
     <body>
         <div id="summary">
             <div class="content">
+              <div class="classHeader">
+                  <img src="./images/send-symbol.png">
+                  <div class='backButtonSpace'></div>
+                  <div class='middleBox'>
+                      <div class="classHeaderText">{{lecture.name}}</div>
+                  </div>
 
-                <div class="classHeader">{{lecture.name}}</div>
-                <div class="classInstructor">{{lecture.lecturer}}</div>
-
-                <div class="video">
-                    <iframe src="https://www.youtube.com/embed/pBI6rqRP3RA" frameborder="0" allowfullscreen></iframe>
-                </div>
+                  <div class='backButton' ng-click="goToLecture()"><i class="material-icons mdsize">home</i></div>
+                  <div class='backButton' ng-click="logOut()"><i class="material-icons mdsize">exit_to_app</i></div>
+              </div>
 
                 <div class="chart">
-                  <div class="row">
-                    <div class="col-xs-8">
-                      <div class="chart-title">Lecture: {{lecture.name}} | Timeline</div>
-                      <div vega spec="line" vega-data="Series" vega-renderer="'canvas'"></div>
+                  <div class="row header">
+                    <div class="times-series col-xs-8">
+                        <div class="time-series-chart">
+                          <div class="chart-title">Timeline Stats</div>
+                          <div vega spec="line" vega-data="Series" vega-renderer="'canvas'"></div>
+                        </div>
+
+                      <div class="row">
+
+                        <div class="col-xs-2 select" id="select-lecture">
+                          <div class="container">
+                            <select ng-model="compare">
+                              <option ng-repeat="pastLecture in pastLectures" ng-value="pastLecture.id"> {{pastLecture.name}}</option>
+                            </select>
+                            <br id="spacer">
+                            <div>
+                              <button class="btn btn-compare" ng-click="compareTimeSeries(compare)">Compare</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-2 select select-toggle" ng-repeat="lec in compareLectures">
+                          <div class="container">
+                            <div class="lecture-name">{{lec.lectureName}}</div>
+                      			<button style="color: #{{color[lec.data.great.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.great)" class="btn btn-default btn-circle-sm">
+                              <span class="glyphicon glyph-sm glyphicon-thumbs-up"></span>
+                            </button>
+                            <button style="color: #{{color[lec.data.confused.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.confused)" class="btn btn-default btn-circle-sm">
+                            	<span class="glyphicon glyph-sm glyphicon-question-sign"></span>
+                            </button>
+                            <button style="color: #{{color[lec.data.example.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.example)" class="btn btn-default btn-circle-sm">
+                            	<span class="glyphicon glyph-md glyphicon-edit"></span>
+                            </button>
+                            <button style="color: #{{color[lec.data.see.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.see)" class="btn btn-default btn-circle-sm">
+                            	<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
+                            </button>
+                            <button style="color: #{{color[lec.data.hear.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.hear)" class="btn btn-default btn-circle-sm">
+      				                <span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
+                            </button>
+                            <button style="color: #{{color[lec.data.bbreak.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.bbreak)" class="btn btn-default btn-circle-sm">
+                              <span class="glyphicon glyph-sm glyphicon-pause"></span>
+                            </button>
+                            <button class="btn btn-remove" ng-click="removeLecture(lecture)">Remove</button>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
                     <div class="col-xs-4">
-                      <div class="chart-title">Lecture: {{lecture.name}} | Stats</div>
+                      <div class="chart-title">Overview Stats</div>
                       <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
                     </div>
                   </div>
-                  <div class="select">
-                    <div class="select-data">
-                      <button class="btn btn-success" ng-click="Series=great">Great</button>
-                      <button class="btn btn-success" ng-click="Series=confused">Confused</button>
-                      <button class="btn btn-success" ng-click="Series=example">Example</button>
-                      <button class="btn btn-success" ng-click="Series=see">See</button>
-                      <button class="btn btn-success" ng-click="Series=hear">Hear</button>
-                      <button class="btn btn-success" ng-click="Series=break">Break</button>
-                    </div>
-                    <!-- <div class="select-compare">
-                      <select ng-model="compare">
-                          <option ng-repeat="pastLecture in pastLectures" value="{{pastLecture.id}}"> {{pastLecture.name}}</option>
-                      </select>
-                    </div> -->
-                    <button class="btn btn-success" ng-click="compareTimeSeries(compare)">Compare</button>
                 </div>
               </div>
         </div>
