@@ -292,11 +292,11 @@
         overflow: hidden;
         border: thin solid darkGray;
         tbody {
-            background-color: white;
             overflow-y: auto;
             display: block;
             width: 100%;
             tr {
+                background-color: white;
                 width: 100%;
             }
             .tableName {
