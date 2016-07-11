@@ -1,4 +1,12 @@
-app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, lecture) {
+app.controller('SummaryCtrl', function($scope, $state, SummaryFactory, LectureFactory, lecture, AuthService) {
+
+  $scope.logout = () => {
+    return AuthService.logout().then(() => $state.go('login'))
+  }
+
+  $scope.goToLecture = function() {
+      $state.go('lecture');
+  }
 
   $scope.lecture = lecture;
   $scope.compareLectures = [];

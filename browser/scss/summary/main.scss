@@ -3,9 +3,8 @@
     .classHeader {
       text-align: center;
       height: 14%;
-      color: #015249;
+      color: #fff;
       background-color: #00a0c3;
-      // background-color: white;
       width: 100%;
     }
     .classHeaderText {
@@ -17,6 +16,7 @@
       width: 5%;
       margin-left: 2%;
       height: 70%;
+      color: #000;
     }
     .middleBox {
         padding-top: 1%;
@@ -29,7 +29,7 @@
         height: 100%;
     }
     .content {
-        background-color: #015249;
+        background-color: lightgray;
         height: 130%;
     }
     .backButton {
@@ -54,7 +54,7 @@
       .header {
         height: 10%;
         width: 100%;
-        background-color: #545454;
+        background-color: darkgray;
         color: white;
         margin-top:1%;
         margin-left: 0px;
