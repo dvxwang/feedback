@@ -12,14 +12,27 @@ var createApplication = function () {
 
     app.set('socketio', io);
 
+    var socketCount = 0;
+
     io.on('connection', function(socket) {
         var id = socket.id;
+        socketCount++;
+
+        io.emit('socketCount', socketCount);
 
         function move(question,number) {io.emit('moving', question, number);};
 
         //question queue events
         socket.on('move', move);
 
+        socket.on('disconnect', function() {
+          socketCount--;
+          io.emit('socketCount', socketCount);
+        });
+
+        socket.on('socketQuery', function() {
+          socket.emit('socketCount', socketCount);
+        });
 
         //lecture events
         socket.on('getFeedback', function() {

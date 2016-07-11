@@ -8,9 +8,9 @@
       overflow: hidden;
       align-self: center;
     }
-    #startButton2 {
-      padding-left: 1px;
-      height: 100%;
+    #socketCounter {
+      background-color: yellow;
+      color: black;
     }
     .launchRow {
         width: 144px;
@@ -119,7 +119,7 @@
         height: 32%;
         border-radius: 0 0 5px 5px;
         padding: 1% 0 1% 0;
-        border: thin solid #545454;
+        border: thin solid darkGray;
         border-top: none;
     }
     .featureBar {
@@ -140,7 +140,7 @@
     .rightHeader {
         height: 6%;
         width: 100%;
-        background-color: #545454;
+        background-color: darkGray;
         color: white;
         padding-left: 2%;
         font-family: sans-serif;
@@ -226,6 +226,7 @@
         background-color: lightgray;
         height: 85%;
         overflow: hidden;
+        padding: 0;
     }
     .classHeader {
         text-align: center;
@@ -277,11 +278,56 @@
         float: left;
     }
     .tableDiv {
-        background-color: darkGray;
-        padding: 0 10px 10px 10px;
-        border-radius: 5px;
-        .col-30 {
-            width: 30%;
+        background-color: lightGray;
+        height: 85%;
+        overflow: hidden;
+        color: black;
+    }
+    .mainTable{
+        height: 95%;
+        width: 45%;
+        float: left;
+        margin: 0 2.5% 0 2.5%; 
+        border-radius: 10px;
+        overflow: hidden;
+        border: thin solid darkGray;
+        tbody {
+            background-color: white;
+            overflow-y: auto;
+            display: block;
+            width: 100%;
+            tr {
+                width: 100%;
+            }
+            .tableName {
+                width: 30%;
+            }
+            .tableID {
+                width: 10%;
+            }
+            .tableDate {
+                width: 50%;
+            }
+            .tableBtn {
+                width: 10%;
+            }
         }
+    } 
+    .btn-info{
+        margin: 3% 0 3% 0;
+        float: right;
+    }
+    .table, tbody {
+        height: 100%;
+    }
+    .tableHeader {
+        background-color: darkGray;
+        height: 10%;
+        padding: 0 2%;
+        color: white;
+    }
+    .tableFooter {
+        background-color: lightGray;
+        height: 5%;
     }
 }

@@ -22,8 +22,8 @@ app.config(function ($stateProvider) {
         resolve: {
           curLecture: function(LectureFactory, $stateParams) {
             return LectureFactory.getById($stateParams.lectureId)
+          }
         }
-      }
     });
 });
 
