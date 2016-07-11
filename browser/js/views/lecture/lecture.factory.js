@@ -7,6 +7,7 @@ app.factory('LectureFactory', function ($http) {
 	obj.setStart = setStart;
 	obj.setEnd = setEnd;
 	obj.getById = getById;
+	obj.deleteLecture = deleteLecture;
 
 	// function declarations
 	function create(lectureName) {
@@ -48,6 +49,10 @@ app.factory('LectureFactory', function ($http) {
 		.then(function(lecture) {
 			return lecture.data
 		})
+	}
+
+	function deleteLecture(lectureId) {
+		return $http.delete('api/lecture/'+lectureId)
 	}
 
 	return obj;
