@@ -1,69 +1,127 @@
 #summary {
     height: 100%;
-    .content {
-        background-color: #015249;
-        height: 130%;
-    }
     .classHeader {
-        font-size: 42px;
-        text-align: center;
-        padding: 2% 0 0 0;
-        color: white;
+      text-align: center;
+      height: 14%;
+      color: #fff;
+      background-color: #00a0c3;
+      width: 100%;
     }
-    .classInstructor {
-        font-size: 24px;
-        text-align: center;
-        padding: 1% 0 1% 0;
-        color: white;
+    .classHeaderText {
+        font-size: 64px;
     }
-    .video {
-        width: 90%;
-        height: 35%;
-        background-color: white;
-        margin: 0% 5% 2% 5%;
+    img {
+      padding-top: 2%;
+      float: left;
+      width: 5%;
+      margin-left: 2%;
+      height: 70%;
+      color: #000;
     }
-    .video iframe{
-        width: 100%;
+    .middleBox {
+        padding-top: 1%;
+        width: 72%;
+        float: left;
+    }
+    .backButtonSpace {
+        width: 7%;
+        float: left;
         height: 100%;
     }
-    .chart {
-        width: 90%;
-        height: 40%;
-        background-color: white;
-        margin: 0% 5% 2% 5%;
+    .content {
+        background-color: lightgray;
+        height: 130%;
     }
-    .questionQueue {
-        height: 33%;
-        width: 43%;
-        background-color: white;
+    .backButton {
+        padding-top: 2%;
+        width: 7%;
         float: left;
-        margin: 0 0 0 5%;
-        overflow-y: auto;
-    }
-    .pollQueue {
-        width: 43%;
-        height: 33%;
-        background-color: white;
-        margin: 2% 0 0 52%;
-    }
-    .chart-title {
-      font-family: sans-serif, Arial;
-      font-style: oblique;
-    }
-    .select {
-      width: 100%;
-      display: inline-block;
-      .select-data {
-        display: inline-block;
-        width: 70%;
-        height: 30px;
-        margin: 2%;
-        padding: 2%;
-        font-size: 8px;
-        justify-content: center;
-        button {
-          width: 11%;
+        height: 100%;
+        cursor: pointer;
+
+        .mdsize {
+            font-size: 48px;
         }
+    }
+
+    .chart {
+      width: 90%;
+      height: 60%;
+      margin-top: 2%;
+      background-color: white;
+      margin: 0% 5% 2% 5%;
+      border-radius: 6px;
+      .header {
+        height: 10%;
+        width: 100%;
+        background-color: darkgray;
+        color: white;
+        margin-top:1%;
+        margin-left: 0px;
+        font-family: sans-serif;
+        font-size: 125%;
+        border-radius: 5px 5px 0 0;
+        .chart-title {
+          font-family: sans-serif, Arial;
+          font-style: oblique;
+          font-size: 1.5vw;
+          padding-top:1px;
+          margin-top: 0.5vw;
+          margin-bottom: 2vw;
+          margin-right: 1.5vw;
+          margin-left: 1.5vw;
+        }
+      }
+      .select-toggle {
+        margin-right: 5%;
+      }
+      .select {
+        width: 20%;
+        height:100%;
+        margin:0;
+        margin-right: 3%;
+        padding:0;
+        display: block;
+        .btn-default {
+          margin: 0;
+          padding: 0;
+          height: 15%;
+          width: 30%;
+        }
+        .btn-compare {
+          background-color: #00a0c3;
+        }
+        .btn-remove {
+          background-color: #00a0c3;
+
+        }
+        .container {
+          margin:0;
+          padding: 0;
+          width:100%;
+          .remove {
+            margin-left: 0%;
+            margin-top: 0.5vw;
+          }
+          .lecture-name {
+            font-family: sans-serif, Arial;
+            font-style: oblique;
+            // font-color: #;
+            color: #000;
+          }
+        }
+        select {
+          width: 70%;
+          margin-bottom: 5%;
+          margin-left: 1%;
+        }
+      }
+      #select-lecture {
+        margin-top: 4%;
+        margin-left: 5%;
+      }
+      .time-series {
+        margin-left: 0%;
       }
     }
 }

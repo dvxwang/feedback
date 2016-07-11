@@ -44,6 +44,10 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         $state.go('login');
     }
 
+    //Shows active poll
+
+    $scope.nopoll
+
     //Sets up time series chart
     function instructorChart() {
         
