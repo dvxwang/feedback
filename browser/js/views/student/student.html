@@ -12,12 +12,17 @@
                         <div class="classInstructor">{{curLecture.lecturer}}</div>
                     </div>
 
-                    <div ng-if="!curLecture.startTime"class="classHeader">Welcome to {{curLecture.name}} Lecture</div>
+                    <div ng-if="!curLecture.startTime || curlecture.endTime" class="classHeader">Welcome to {{curLecture.name}} Lecture</div>
 
                     <div ng-if='!curLecture.startTime' class='noClass'>
                         The lecture has not begun
                     </div>
-                    <div ng-if='curLecture.startTime' class='activeClass'>
+                    
+                    <div ng-if='curLecture.endTime' class='noClass'>
+                        The lecture has ended
+                    </div>
+
+                    <div ng-if='curLecture.startTime && !curLecture.endTime' class='activeClass'>
                         <div class="primaryButtonRow">
                             <feedbackstudent></feedbackstudent>
                         </div>

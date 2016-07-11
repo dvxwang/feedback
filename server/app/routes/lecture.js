@@ -52,7 +52,7 @@ router.put('/:lectureId', function(req, res, next) {
   var io = req.app.get('socketio');
   req.lecture.update(req.body)
   .then(function(updatedLecture) {
-    if (req.body.startTime) {
+    if (req.body.startTime && !req.body.endTime) {
       io.emit('startLecture', updatedLecture);
     }
     else if (req.body.endTime) {
