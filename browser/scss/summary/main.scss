@@ -50,6 +50,9 @@
       font-family: sans-serif, Arial;
       font-style: oblique;
     }
+    .selectors {
+      // width: 70%;
+    }
     .select {
       width: 11%;
       height:100%;
@@ -57,6 +60,6 @@
       margin: 1%;
     }
     .compare {
-      float: right;
+      float: left;
     }
 }
