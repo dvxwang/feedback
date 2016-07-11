@@ -39,6 +39,7 @@
     font-size: 25px;
     line-height: 1.65;
     border-radius: 60px;
+    background-color: darkGray;
   }
 
   .btn-circle-sm .tooltiptext {
@@ -69,5 +70,8 @@
   .badge:empty {
     visibility: hidden;
     display: inline-block;
+  }
+  .mainBtn {
+    background-color: white;
   }
 }

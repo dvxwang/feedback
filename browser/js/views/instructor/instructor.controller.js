@@ -4,18 +4,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     //Requests permission for Chrome notifications
     if ("Notification" in window) Notification.requestPermission();
 
-    //Renders Google Hangouts button
-    gapi.hangout.render('startButton2', {
-        'render': 'createhangout',
-        'hangout_type': 'onair',
-        'initial_apps': [
-            { 'app_id' : 'effortless-city-135523',
-              'start_data' : 'dQw4w9WgXcQ',
-              'app_type' : 'ROOM_APP' }
-        ],
-        'widget_size': 72
-    });
-
     //Activates page once lecture starts
     function initLecture(updatedLecture) {
         $scope.curLecture = updatedLecture;
@@ -155,6 +143,11 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
 
     //Listens for start/end/chart events
     socket.on('startLecture', initLecture);
+    socket.on('socketCount', function(socketCount){
+        $scope.socketCount = socketCount;
+        $scope.$evalAsync();
+    });
+    socket.emit('socketQuery');
     socket.on('endLecture', function(lecture) {$state.go('lecture'); });
 
     initLecture(curLecture);

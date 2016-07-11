@@ -2,22 +2,9 @@
     height: 100%;
     .content {
         background-color: white;
-        margin-right: 5%;
-        margin-left: 5%;
+        width: 100%;
         height: 100%;
         overflow: hidden;
-    }
-    .classHeader {
-        font-size: 42px;
-        text-align: center;
-        padding: 2% 0 0 0;
-        color: #015249;
-    }
-    .classInstructor {
-        font-size: 24px;
-        text-align: center;
-        padding: 0 0 2% 0;
-        color: #015249;
     }
     .noClass {
         color: white;
@@ -38,16 +25,81 @@
     }
     .questionQueue {
         height: 65%;
-        background-color: white;
-        margin: 0 5% 5% 5%;
+        margin: 0 15% 5% 15%;
         border-radius: 10px;
-        border: medium solid #015249;
+        border: medium solid #00a0c3;
+        overflow: hidden;
     }
     #studentBody {
         width: 100%;
         height: 100%;
     }
+    .spacer {
+        height: 5%;
+        width: 100%;
+    }
+    .container {
+        color: black;
+        height: 85%;
+        overflow: hidden;
+    }
+    .classHeader {
+        text-align: center;
+        color: white;
+        height: 13%;
+        background-color: #00a0c3;
+        width: 100%;
 
+        img {
+            padding-top: 2%;
+            float: left;
+            width: 5%;
+            margin-left: 2%;
+            height: 70%;
+        }
+
+        .middleBox {
+            padding-top: 2%;
+            width: 72%;
+            float: left;
+        }
+
+        .classHeaderText {
+            font-size: 42px;
+        }
+        .backButtonSpace {
+            width: 7%;
+            float: left;
+            height: 100%;
+        }
+
+        .backButton {
+            padding-top: 2%;
+            width: 7%;
+            float: left;
+            height: 100%;
+            cursor: pointer;
+
+            .mdsize {
+                font-size: 48px;
+            }
+        }
+        .backButton:hover {
+            background-color: #00b9b9;
+        }
+    }
+    color: white;
+    h3 {
+        float: left;
+    }
+    .tableDiv {
+        background-color: darkGray;
+        padding: 0 10px 10px 10px;
+        border-radius: 5px;
+        .col-30 {
+            width: 30%;
+        }
+    }
 }
 
 .rating {
