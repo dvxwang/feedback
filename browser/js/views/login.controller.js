@@ -1,4 +1,5 @@
 app.controller('LoginCtrl', function ($scope, $state, AuthService) {
+    AuthService.getLoggedInUser().then((user) => { if (user) $state.go('lecture') }); 
 
     $scope.login = {};
     $scope.error = null;

@@ -1,16 +1,24 @@
-<div class="container" id="lectures">
-  <button id='logoutButton' class='btn btn-danger' type="submit" ng-click='logout()'>Log out</button>
-  <h1>Welcome, {{ user.first_name }}!</h1>
+<div id="lectures">
+  <div class="classHeader">
+    <img src="./images/send-symbol.png">
+    <div class='backButtonSpace'></div> 
+    <div class='middleBox'>
+        <div class="classHeaderText">Welcome, {{user.first_name}}!</div>
+    </div>
+    <div class='backButtonSpace'></div> 
+    <div class='backButton' ng-click="logout()"><i class="material-icons mdsize">exit_to_app</i></div>
+  </div>  
+  <div class="spacer"></div>
   <div class="container">
     <div class='tableDiv'>
       <table class="table" id="new-lecture">
         <h3>Pending Lectures</h3>
         <tr ng-repeat='lecture in activelecturelist'>
-          <td>Lecture: {{ lecture.name }}</td>
+          <td class="col-30">Lecture: {{ lecture.name }}</td>
           <td>ID: {{ lecture.id }}</td>
           <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
-          <td>Student Link: http://localhost:1337/student/{{lecture.id}}</td>
-          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="deleteLecture(lecture.id)"></i></td>
         </tr>
       </table>
       <button class='btn btn-info' type="submit" ng-click="createLectureModal()">Add New Lecture</button>
@@ -20,10 +28,11 @@
       <table class="table" id="old-lecture">
         <h3>Past Lectures</h3>
         <tr ng-repeat='lecture in pastlecturelist'>
-          <td>Lecture: {{ lecture.name }}</td>
+          <td class="col-30">Lecture: {{ lecture.name }}</td>
           <td>ID: {{ lecture.id }}</td>
           <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
-          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="deleteLecture(lecture.id)"></i></td>
         </tr>
       </table>
     </div>
