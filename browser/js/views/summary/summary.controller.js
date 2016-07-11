@@ -60,15 +60,21 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
   })
 
   $scope.compareTimeSeries = function(compare) {
-    let baseTime = 0;
-    LectureFactory.getById($scope.lecture.id)
+    console.log("compare", compare)
+    let baseTime;
+
+    return LectureFactory.getById(compare)
     .then((lecture)=> {
       baseTime = lecture.startTime;
-    });
-
-    return SummaryFactory.returnFeedBackJSON(compare)
+      console.log("baseTime", baseTime)
+    })
+    .then(()=>{
+      return SummaryFactory.returnFeedBackJSON(compare)
+    })
     .then((feedback) => {
+      console.log("inside summary")
       return feedback.map(function(el) {
+        console.log("time of feedback", el.time)
         return {"time": el.time-baseTime, "category":el.category}
       })
     })
@@ -91,6 +97,8 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
   function timeSeries(feedback) {
 
     let max = feedback[feedback.length-1].time;
+
+    console.log("inside func timeSeries", feedback)
 
     let grouped = {
       "great" : {},
@@ -137,6 +145,13 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
     return timeSeries;
   }
 
+  $scope.removeLecture = function(lecture) {
+    $scope.compareLectures.splice($scope.compareLectures.map(
+      function(lecture) {
+        return lecture.lectureId;
+    }).indexOf(lecture.id),1)
+  }
+
   $scope.toggleTimeSeries = function(data) {
 
     let markObj = {
@@ -178,7 +193,10 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
       let max_y = 0;
       let index;
 
+      console.log("input", input)
+
       $scope.line.data.forEach(function(type, i) {
+        console.log("hello")
         if (type.values[type.values.length-1].y > max_y || type.values.length > max_x) {
           max_x = type.values.length;
           max_y = type.values[type.values.length-1].y;
@@ -229,8 +247,8 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
       }
     ],
     "axes": [
-      {"type": "x", "scale": "x"},
-      {"type": "y", "scale": "y"}
+      {"type": "x", "scale": "x", "title":"Time (mins)"},
+      {"type": "y", "scale": "y", "title":"Count"}
     ],
     "marks": [
       {

@@ -16,36 +16,37 @@
                 <div class="chart">
                   <div class="row">
                     <div class="col-xs-8">
-                      <div class="chart-title">Lecture: {{lecture.name}} - Timeline Stats</div>
+                      <div class="chart-title">{{lecture.name}} - Timeline Stats</div>
                       <div vega spec="line" vega-data="Series" vega-renderer="'canvas'"></div>
                     </div>
                     <div class="col-xs-4">
-                      <div class="chart-title">Lecture: {{lecture.name}} - Overview Stats</div>
+                      <div class="chart-title">{{lecture.name}} - Overview Stats</div>
                       <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-2 select" ng-repeat="lecture in compareLectures">
-                			<button type="button" ng-click="toggleTimeSeries(lecture.data.great)" class="btn btn-default btn-circle-sm">
+                    <div class="col-xs-2 select" ng-repeat="lec in compareLectures">
+
+                			<button type="button" ng-click="toggleTimeSeries(lec.data.great)" class="btn btn-default btn-circle-sm">
                         <span class="glyphicon glyph-sm glyphicon-thumbs-up"></span>
                       </button>
-                      <button type="button" ng-click="toggleTimeSeries(lecture.data.confused)" class="btn btn-default btn-circle-sm">
+                      <button type="button" ng-click="toggleTimeSeries(lec.data.confused)" class="btn btn-default btn-circle-sm">
                       	<span class="glyphicon glyph-sm glyphicon-question-sign"></span>
                       </button>
-                      <button type="button" ng-click="toggleTimeSeries(lecture.data.example)" class="btn btn-default btn-circle-sm">
+                      <button type="button" ng-click="toggleTimeSeries(lec.data.example)" class="btn btn-default btn-circle-sm">
                       	<span class="glyphicon glyph-md glyphicon-edit"></span>
                       </button>
-                      <button type="button" ng-click="toggleTimeSeries(lecture.data.see)" class="btn btn-default btn-circle-sm">
+                      <button type="button" ng-click="toggleTimeSeries(lec.data.see)" class="btn btn-default btn-circle-sm">
                       	<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
                       </button>
-                      <button type="button" ng-click="toggleTimeSeries(lecture.data.hear)" class="btn btn-default btn-circle-sm">
+                      <button type="button" ng-click="toggleTimeSeries(lec.data.hear)" class="btn btn-default btn-circle-sm">
 				                <span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
                       </button>
-                      <button type="button" ng-click="toggleTimeSeries(lecture.data.bbreak)" class="btn btn-default btn-circle-sm">
+                      <button type="button" ng-click="toggleTimeSeries(lec.data.bbreak)" class="btn btn-default btn-circle-sm">
                         <span class="glyphicon glyph-sm glyphicon-pause"></span>
                       </button>
 
-                      <div>Remove</div>
+                      <button class="btn remove" ng-click="removeLecture(lecture)">Remove</button>
                     </div>
                     <div class="compare col-xs-2">
                       <br>
