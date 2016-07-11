@@ -1,7 +1,14 @@
 html, body, #main{
     height: 100%;
     margin: 0;
-    background-color: #015249;
+    // background-color: #015249;
+    background: url("./images/paper_planes.jpg") no-repeat center center fixed;
+}
+#student-login {
+  background-color: #015249;
+}
+#instructor-login {
+  background-color: #015249;
 }
 .loginBox {
     width: 40%;

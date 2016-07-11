@@ -302,7 +302,7 @@ app.controller('SummaryCtrl', function($scope, SummaryFactory, LectureFactory, l
   $scope.bar = {
     "width": 400,
     "height": 200,
-    "padding": {"top": 10, "left": 30, "bottom": 20, "right": 10},
+    "padding": {"top": 20, "left": 30, "bottom": 20, "right": 10},
 
     "data": [
       {

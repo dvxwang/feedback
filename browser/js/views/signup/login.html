@@ -1,9 +1,14 @@
+
 <div class='loginBox' ng-controller='LoginCtrl'>
+  <div class="container" id="student-login">
     <div class='loginHeader'>Log into a Lecture</div>
     <input class='lectureInput' ng-model='lectureRoom' ng-keyup="$event.keyCode == 13 ? lectureView(lectureRoom) : null" placeholder="Lecture ID">
+  </div>
+  <div class="container" id="instructor-login">
     <div class='loginHeader'>Admin Login</div>
     <input type='text' ng-model='login.email' placeholder="email">
     <input type='password' ng-model='login.password' ng-keyup="$event.keyCode == 13 ? sendLogin(login) : null" placeholder="password">
     <div class='Button btn btn-success' ng-click='sendLogin(login)'>Submit</div>
     <span class='signupLink'><a ui-sref='signup'>Sign up for an account</a></span>
+  </div>
 </div>

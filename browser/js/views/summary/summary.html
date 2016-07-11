@@ -9,63 +9,55 @@
                 <div class="classHeader">{{lecture.name}}</div>
                 <div class="classInstructor">{{lecture.lecturer}}</div>
 
-                <div class="video">
-                    <iframe src="https://www.youtube.com/embed/pBI6rqRP3RA" frameborder="0" allowfullscreen></iframe>
-                </div>
-
                 <div class="chart">
-                  <div class="row">
-                    <div class="col-xs-8">
-                      <div class="chart-title">{{lecture.name}} - Timeline Stats</div>
-                      <div vega spec="line" vega-data="Series" vega-renderer="'canvas'"></div>
-                    </div>
-                    <div class="col-xs-4">
-                      <div class="chart-title">{{lecture.name}} - Overview Stats</div>
-                      <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
-                    </div>
-                  </div>
-                  <div class="container selectors">
-                    <div class="row">
-                      <div class="compare col-xs-2">
-                        <br>
-                        <div>Select a Lecture to Compare</div>
-                        <select ng-model="compare">
-                          <option ng-repeat="pastLecture in pastLectures" ng-value="pastLecture.id"> {{pastLecture.name}}</option>
-                        </select>
-                        <div>
-                          <button class="btn btn-compare" ng-click="compareTimeSeries(compare)">Compare</button>
+                  <div class="row header">
+                    <div class="times-series col-xs-8">
+                        <div class="time-series-chart">
+                          <div class="chart-title">Timeline Stats</div>
+                          <div vega spec="line" vega-data="Series" vega-renderer="'canvas'"></div>
                         </div>
-                      </div>
-                      <div class="col-xs-2 select" ng-repeat="lec in compareLectures">
-                        <div>{{lec.lectureName}}</div>
-                  			<button
-                          style="color: #{{color[lec.data.great.name]}}"
-                          type="button"
-                          ng-click="toggleTimeSeries(lec.data.great)"
-                          class="btn btn-default btn-circle-sm">
-                          <span class="glyphicon glyph-sm glyphicon-thumbs-up"></span>
-                        </button>
-                        <button style="color: #{{color[lec.data.confused.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.confused)" class="btn btn-default btn-circle-sm">
-                        	<span class="glyphicon glyph-sm glyphicon-question-sign"></span>
-                        </button>
-                        <button style="color: #{{color[lec.data.example.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.example)" class="btn btn-default btn-circle-sm">
-                        	<span class="glyphicon glyph-md glyphicon-edit"></span>
-                        </button>
-                        <button style="color: #{{color[lec.data.see.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.see)" class="btn btn-default btn-circle-sm">
-                        	<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
-                        </button>
-                        <button style="color: #{{color[lec.data.hear.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.hear)" class="btn btn-default btn-circle-sm">
-  				                <span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
-                        </button>
-                        <button style="color: #{{color[lec.data.bbreak.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.bbreak)" class="btn btn-default btn-circle-sm">
-                          <span class="glyphicon glyph-sm glyphicon-pause"></span>
-                        </button>
 
-                        <button class="btn remove" ng-click="removeLecture(lecture)">Remove</button>
+                      <div class="row">
+
+                        <div class="col-xs-2 select" id="select-lecture">
+                          <select ng-model="compare">
+                            <option ng-repeat="pastLecture in pastLectures" ng-value="pastLecture.id"> {{pastLecture.name}}</option>
+                          </select>
+                          <div>
+                            <button class="btn btn-compare" ng-click="compareTimeSeries(compare)">Compare</button>
+                          </div>
+                        </div>
+
+                        <div class="col-xs-2 select" ng-repeat="lec in compareLectures">
+                          <div>{{lec.lectureName}}</div>
+                    			<button style="color: #{{color[lec.data.great.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.great)" class="btn btn-default btn-circle-sm">
+                            <span class="glyphicon glyph-sm glyphicon-thumbs-up"></span>
+                          </button>
+                          <button style="color: #{{color[lec.data.confused.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.confused)" class="btn btn-default btn-circle-sm">
+                          	<span class="glyphicon glyph-sm glyphicon-question-sign"></span>
+                          </button>
+                          <button style="color: #{{color[lec.data.example.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.example)" class="btn btn-default btn-circle-sm">
+                          	<span class="glyphicon glyph-md glyphicon-edit"></span>
+                          </button>
+                          <button style="color: #{{color[lec.data.see.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.see)" class="btn btn-default btn-circle-sm">
+                          	<span class="glyphicon glyph-sm glyphicon-eye-close"></span>
+                          </button>
+                          <button style="color: #{{color[lec.data.hear.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.hear)" class="btn btn-default btn-circle-sm">
+    				                <span class="glyphicon glyph-sm glyphicon-bullhorn"></span>
+                          </button>
+                          <button style="color: #{{color[lec.data.bbreak.name]}}" type="button" ng-click="toggleTimeSeries(lec.data.bbreak)" class="btn btn-default btn-circle-sm">
+                            <span class="glyphicon glyph-sm glyphicon-pause"></span>
+                          </button>
+                          <button class="btn remove" ng-click="removeLecture(lecture)">Remove</button>
+                        </div>
+
                       </div>
                     </div>
+                      <div class="col-xs-4">
+                        <div class="chart-title">Overview Stats</div>
+                        <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
+                      </div>
                   </div>
-              </div>
         </div>
       </div>
     </body>
