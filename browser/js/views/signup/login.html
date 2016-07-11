@@ -21,7 +21,10 @@
 			</div>
 			<div class="rightBody">
 		    	<div class='loginHeader'>Go to Lecture</div>
-		    	<input class='lectureInput' ng-model='lectureRoom' ng-keyup="$event.keyCode == 13 ? lectureView(lectureRoom) : null" placeholder="Lecture ID">
+		    	<div class='lectureEnter'>
+		    		<input class='lectureInput' ng-model='lectureRoom' ng-keyup="$event.keyCode == 13 ? lectureView(lectureRoom) : null" placeholder="Lecture ID">
+		    		<div class='lectureBtn Button btn btn-success' ng-click='lectureView(lectureRoom)'><i class="material-icons">play_arrow</i></div>
+		    	</div>
 			</div>
 		</div>
 	</div>	
