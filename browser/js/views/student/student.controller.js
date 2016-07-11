@@ -1,15 +1,16 @@
-app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture, $uibModalStack) {
+app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLecture, $state, $uibModalStack) {
 
   $scope.curLecture = curLecture;
   
   socket.on('startLecture', function(lecture) {
-    $scope.curLecture = lecture;
+    $state.reload();
+    // $scope.curLecture = lecture;
     $scope.$evalAsync();
   })
 
   socket.on('endLecture', function() {
+    $state.reload();
     showSurveyModal();
-    $scope.curLecture = undefined;
   })
 
   function showSurveyModal() {
