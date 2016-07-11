@@ -17,7 +17,8 @@
           <td class="col-30">Lecture: {{ lecture.name }}</td>
           <td>ID: {{ lecture.id }}</td>
           <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
-          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-success glyphicon glyphicon-play" ng-click="lectureView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="deleteLecture(lecture.id)"></i></td>
         </tr>
       </table>
       <button class='btn btn-info' type="submit" ng-click="createLectureModal()">Add New Lecture</button>
@@ -30,7 +31,8 @@
           <td class="col-30">Lecture: {{ lecture.name }}</td>
           <td>ID: {{ lecture.id }}</td>
           <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
-          <td><i ng-if='true' class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
+          <td><i class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="deleteLecture(lecture.id)"></i></td>
         </tr>
       </table>
     </div>

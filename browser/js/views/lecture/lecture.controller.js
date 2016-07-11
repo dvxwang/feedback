@@ -6,7 +6,7 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
 
   getLectures();
 
-  socket.on('lectureAdded', getLectures);
+  socket.on('lectureChange', getLectures);
 
   function getLectures() {
     LectureFactory.getInstructorLectures()
@@ -23,6 +23,8 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
   $scope.summaryView = function(lecture) {
     $state.go('summary', {'lectureId':lecture.id});
   }
+
+  $scope.deleteLecture = LectureFactory.deleteLecture;
 
   $scope.createLectureModal = function() {
 

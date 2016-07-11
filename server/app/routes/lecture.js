@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
   Lecture.findAll()
   .then(function(result){
       res.json(result);
-  });
+  }).catch(next);
 });
 
 router.get('/instructor', function (req, res, next) {
@@ -25,7 +25,7 @@ router.get('/instructor', function (req, res, next) {
     }
   }).then(function(lectures) {
     res.json(lectures)
-  })
+  }).catch(next);
 })
 
 router.get('/current', function (req, res, next) {
@@ -42,10 +42,10 @@ router.post('/', function(req, res, next) {
   Lecture.create(req.body)
   .then(function(result){
       var io = req.app.get('socketio');    
-      io.emit('lectureAdded');
+      io.emit('lectureChange');
       req.session.lecture = result;
       res.json(result);
-  });
+  }).catch(next);
 });
 
 router.put('/:lectureId', function(req, res, next) {
@@ -59,7 +59,16 @@ router.put('/:lectureId', function(req, res, next) {
       io.emit('endLecture', updatedLecture);
     }
     res.status(201).json(updatedLecture)
-  });
+  }).catch(next);
+});
+
+router.delete('/:lectureId', function (req, res, next) {
+  req.lecture.destroy()
+  .then(() => {
+    var io = req.app.get('socketio');
+    io.emit('lectureChange');
+    res.sendStatus(204);
+  }).catch(next);
 });
 
 module.exports = router;
