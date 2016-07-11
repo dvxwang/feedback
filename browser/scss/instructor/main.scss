@@ -210,15 +210,65 @@
 }
 
 #lectures {
-    color: white;
-    h1 {
-        text-align: center;
+    height:100%;
+    .spacer {
+        height: 2%;
+        width: 100%;
+        background-color: lightgray;
     }
+    .container {
+        background-color: lightgray;
+        height: 85%;
+        overflow: hidden;
+    }
+    .classHeader {
+        text-align: center;
+        color: white;
+        height: 13%;
+        background-color: #015249;
+        width: 100%;
+
+        img {
+            padding-top: 2%;
+            float: left;
+            width: 5%;
+            margin-left: 2%;
+            height: 70%;
+        }
+
+        .middleBox {
+            padding-top: 2%;
+            width: 72%;
+            float: left;
+        }
+
+        .classHeaderText {
+            font-size: 42px;
+        }
+        .backButtonSpace {
+            width: 7%;
+            float: left;
+            height: 100%;
+        }
+
+        .backButton {
+            padding-top: 2%;
+            width: 7%;
+            float: left;
+            height: 100%;
+            cursor: pointer;
+
+            .mdsize {
+                font-size: 48px;
+            }
+        }
+        .backButton:hover {
+            background-color: green;
+        }
+    }
+    color: white;
     h3 {
         float: left;
-    }
-    #logoutButton {
-        float: right;
     }
     .tableDiv {
         background-color: darkGray;
