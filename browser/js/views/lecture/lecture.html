@@ -35,11 +35,11 @@
       <div class='tableDiv'>
         <table class="table" id="old-lecture">
           <tr ng-repeat='lecture in pastlecturelist'>
-            <td class="col-30">Lecture: {{ lecture.name }}</td>
-            <td>ID: {{ lecture.id }}</td>
-            <td>Date: {{ lecture.createdAt | date:'medium'}}</td>
-            <td><i class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
-            <td><i class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="deleteLecture(lecture.id)"></i></td>
+            <td class='tableName'>Lecture: {{ lecture.name }}</td>
+            <td class='tableID'>ID: {{ lecture.id }}</td>
+            <td class='tableDate'>Date: {{ lecture.createdAt | date:'medium'}}</td>
+            <td class='tableBtn'><i class="btn btn-xs round btn-success glyphicon glyphicon-equalizer" ng-click="summaryView(lecture)"></i></td>
+            <td class='tableBtn'><i class="btn btn-xs round btn-danger glyphicon glyphicon-remove" ng-click="deleteLecture(lecture.id)"></i></td>
           </tr>
         </table>
       </div>

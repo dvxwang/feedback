@@ -33,13 +33,11 @@
             </div>
 
             <div class="spacer"></div>
-            <div ng-show="!nopoll">
-                <div class="rightHeader">
-                    <span>Current Poll</span>
-                </div>
-                <div class="activePoll">
-                  <active-poll></active-poll>
-                </div>
+            <div class="rightHeader" ng-show="!nopoll">
+                <span>Current Poll</span>
+            </div>
+            <div class="activePoll" ng-show="!nopoll">
+              <active-poll></active-poll>
             </div>
             <div class="spacer"></div>
             <div class="rightHeader">

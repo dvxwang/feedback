@@ -1,8 +1,25 @@
-<div class='loginBox'>
-    <div class='loginHeader'>Create an Account</div>
-    <input type='text' ng-model='signup.first_name' placeholder="first name">
-    <input type='text' ng-model='signup.last_name' placeholder="last name">
-    <input type='text' ng-model='signup.email' placeholder="email">
-    <input type='password' ng-model='signup.password'  ng-keyup="$event.keyCode == 13 ? createUser(signup) : null" placeholder="password">
-    <div class='Button btn btn-success' ng-click='createUser(signup)'>Submit</div>
+<div id='homepage'>
+	<div class="classHeader">
+	    <img src="./images/send-symbol.png">
+	    <div class='backButtonSpace'></div>
+	    <div class='middleBox'>
+	        <div class="classHeaderText">Feedstack</div>
+	    </div>
+	    <div class='backButtonSpace'></div>
+	    <div class='backButtonSpace'></div>
+	</div>
+	<div class="bodySlide">
+		<div class='loginBox' ng-controller='LoginCtrl'>
+			<div class="spacer"></div>
+			<div class="leftBody" id='signupBody'>
+			    <div class='loginHeader'>Create an Account</div>
+			    <input type='text' ng-model='signup.first_name' placeholder="first name">
+			    <input type='text' ng-model='signup.last_name' placeholder="last name">
+			    <input type='text' ng-model='signup.email' placeholder="email">
+			    <input type='password' ng-model='signup.password'  ng-keyup="$event.keyCode == 13 ? createUser(signup) : null" placeholder="password">
+			    <div class='Button btn btn-success' id='signupBtn' ng-click='createUser(signup)'>Submit</div>
+			</div>
+		</div>
+	</div>
+	<div class="footerSlide"></div>
 </div>
