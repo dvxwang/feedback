@@ -6,7 +6,7 @@
         <div id="summary">
             <div class="content">
               <div class="classHeader">
-                  <img src="./images/send-symbol.png">
+                  <img src="./images/send-symbol-white.png">
                   <div class='backButtonSpace'></div>
                   <div class='middleBox'>
                       <div class="classHeaderText">{{lecture.name}}</div>
@@ -21,7 +21,7 @@
                     <div class="times-series col-xs-8">
                         <div class="time-series-chart">
                           <div class="chart-title">Timeline Stats</div>
-                          <div vega spec="line" vega-data="Series" vega-renderer="'canvas'"></div>
+                          <div vega spec="line" vega-data="Series" vega-renderer="renderer"></div>
                         </div>
 
                       <div class="row">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-xs-4">
                       <div class="chart-title">Overview Stats</div>
-                      <div vega spec="bar" vega-data="columns" vega-renderer="'canvas'"></div>
+                      <div vega spec="bar" vega-data="columns" vega-renderer="renderer"></div>
                     </div>
                   </div>
                 </div>
