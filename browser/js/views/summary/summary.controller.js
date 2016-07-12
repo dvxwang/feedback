@@ -360,8 +360,8 @@ app.controller('SummaryCtrl', function($scope, $state, SummaryFactory, LectureFa
             "y": {"scale": "yscale", "field": "amount"},
             "y2": {"scale": "yscale", "value":0}
           },
-          "update": { "fill": {"value": "steelblue"} },
-          "hover": { "fill": {"value": "red"} }
+          "update": { "fill": {"value": "#00a0c3"} },
+          "hover": { "fill": {"value": "#31bbc3"} }
         }
       },
       {
