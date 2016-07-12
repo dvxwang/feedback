@@ -9,14 +9,14 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
         $scope.curLecture = updatedLecture;
         if ($scope.curLecture.startTime) {
             instructorChart();
-            $(".start").html("Stop");
-            $(".start").css('background-color', 'red');
+            $("#startButton").html("Stop");
+            $("#startButton").css('background-color', 'red');
         }
     }
 
     //Starts/ends lecture for all members
     $scope.startLecture = function() {
-      if ($(".start").html()=='Begin') {
+      if ($("#startButton").html()=='Begin') {
         return LectureFactory.setStart($scope.curLecture);
       } else {
         return LectureFactory.setEnd($scope.curLecture);

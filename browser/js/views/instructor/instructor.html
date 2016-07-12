@@ -1,72 +1,65 @@
-<!doctype html>
-<html>
-    <head>
-    </head>
-    <body>
-        <div id='instructor'>
-            <div class="content">
+<div id='instructor'>
+    <div class="content">
 
-                <div class="classHeader">
-                    <img src="./images/send-symbol-white.png">
-                    <div class='backButtonSpace'></div> 
-                    <div class='middleBox'>
-                        <div class="classHeaderText">{{curLecture.name}}</div>
-                        <div class="launchRow">
-                            <div class="launch-panel">
-                                <div class="start googleButton" id="socketCounter">Count: {{socketCount}}</div>
-                                <div class="start googleButton" ng-click="startLecture()">Begin</div>
-                            </div>
-                        </div>
+        <div class="classHeader">
+            <img src="./images/send-symbol-white.png">
+            <div class='backButtonSpace'></div> 
+            <div class='middleBox'>
+                <div class="classHeaderText">{{curLecture.name}}</div>
+                <div class="launchRow">
+                    <div class="launch-panel">
+                        <div class="start googleButton" id="socketCounter">Count: {{socketCount}}</div>
+                        <div id="startButton" class="start googleButton" ng-click="startLecture()">Begin</div>
                     </div>
-
-                    <div class='backButton' ng-click="goToLecture()"><i class="material-icons mdsize">home</i></div>
-                    <div class='backButton' ng-click="logOut()"><i class="material-icons mdsize">exit_to_app</i></div>
-                </div>  
-                <div class="spacer"></div>
-
-                <div class="leftSection">
-                    <div class="rightHeader">
-                            Live Feedback
-                        </div>
-                    <div class="feedbackSection">
-                        <div class="chart">
-                            <div id='chartCode'></div>
-                        </div>
-                        <div class="primaryButtonRow">
-                            <feedbackinstructor admin="true"></feedbackinstructor>
-                        </div>
-                    </div>
-
-                    <div class="spacer"></div>
-                    <div ng-show="!nopoll">
-                        <div class="rightHeader">
-                            <span>Current Poll</span>
-                        </div>
-                        <div class="activePoll">
-                          <active-poll></active-poll>
-                        </div>
-                    </div>
-                    <div class="spacer"></div>
-                    <div class="rightHeader">
-                        <span>Polls</span>
-                        <button ng-controller="CreatePoll" class="btn btn-success" ng-click="showModal()">Add a Poll</button>
-                    </div>
-                    <div class="pollQueue">
-                        <poll></poll>
-                    </div>
-                </div>       
-
-                <div class="rightSection">
-                    <div class="rightHeader">
-                        Questions
-                    </div>
-                    <div class="questionQueue">
-                        <question admin="true"></question>
-                    </div>
-                </div>            
-            
+                </div>
             </div>
-            <div class="spacerBottom"></div>
-        </div>
-    </body>
-</html>
+
+            <div class='backButton' ng-click="goToLecture()"><i class="material-icons mdsize">home</i></div>
+            <div class='backButton' ng-click="logOut()"><i class="material-icons mdsize">exit_to_app</i></div>
+        </div>  
+        <div class="spacer"></div>
+
+        <div class="leftSection">
+            <div class="rightHeader">
+                    Live Feedback
+                </div>
+            <div class="feedbackSection">
+                <div class="chart">
+                    <div id='chartCode'></div>
+                </div>
+                <div class="primaryButtonRow">
+                    <feedbackinstructor admin="true"></feedbackinstructor>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+            <div ng-show="!nopoll">
+                <div class="rightHeader">
+                    <span>Current Poll</span>
+                </div>
+                <div class="activePoll">
+                  <active-poll></active-poll>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="rightHeader">
+                <span>Polls</span>
+                <button ng-controller="CreatePoll" class="btn btn-success" ng-click="showModal()">Add a Poll</button>
+            </div>
+            <div class="pollQueue">
+                <poll></poll>
+            </div>
+        </div>       
+
+        <div class="rightSection">
+            <div class="rightHeader">
+                Questions
+            </div>
+            <div class="questionQueue">
+                <question admin="true"></question>
+            </div>
+        </div>            
+    
+    </div>
+    <div class="spacerBottom"></div>
+</div>
