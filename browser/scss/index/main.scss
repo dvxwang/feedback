@@ -65,7 +65,7 @@ html, body, #main{
             url(images/plane2.jpg) 50% 0 no-repeat fixed;
         background-size: cover;
         .spacer{
-            height: 30%;
+            height: 25%;
             widtj: 100%;
         }
         .leftBody {
@@ -129,4 +129,14 @@ html, body, #main{
         height: 5%;
         background-color: white;
     }
+    #signupBody {
+        border: none;
+        margin-left: 25%;
+    }
+    #signupBtn {
+        margin-left: 35%;
+        margin-right: 35%;
+        width: 30%;
+    }
 }
+
