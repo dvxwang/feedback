@@ -3,14 +3,14 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
   $scope.curLecture = curLecture;
   
   socket.on('startLecture', function(lecture) {
-    $state.reload();
-    // $scope.curLecture = lecture;
+    $scope.curLecture = lecture;
     $scope.$evalAsync();
   })
 
-  socket.on('endLecture', function() {
-    $state.reload();
+  socket.on('endLecture', function(lecture) {
     showSurveyModal();
+    $scope.curLecture = lecture;
+    socket.disconnect();
   })
 
   function showSurveyModal() {

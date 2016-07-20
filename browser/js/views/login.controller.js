@@ -9,6 +9,7 @@ app.controller('LoginCtrl', function ($scope, $state, AuthService) {
 	}
 
     $scope.sendLogin = function (loginInfo) {
+        loginInfo.email = loginInfo.email.toLowerCase();
         AuthService.login(loginInfo).then(function () {
             $state.go('lecture');
         }).catch(function () {
