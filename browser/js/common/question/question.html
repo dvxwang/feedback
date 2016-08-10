@@ -10,7 +10,10 @@
   <div id="qqueue">
     <table class="table" ng-repeat='question in questions'>
         <tr>
-        	<td ng-if='admin'>
+          <td class="col-5">
+            <i ng-class="question.answer ? 'glyphicon-check' : 'glyphicon-unchecked'" class="btn btn-xs round btn-info glyphicon"></i>
+          </td>
+          <td ng-if='admin'>
             <i class="glyphicon glyphicon-arrow-up" ng-click='move(question, -1)'></i><br>
             <i class="glyphicon glyphicon-arrow-down" ng-click='move(question, 1)'></i>
           </td>

@@ -17,6 +17,18 @@
 	.col-75 {
 		width: 75%;
 	}
+	.col-5 {
+		width: 5%;
+	}
+	.glyphicon-check {
+		background-color: green;
+		border: thin solid green;
+	}
+	.glyphicon-unchecked {
+		background-color: white;
+		color: white;
+		border: thin solid gray;
+	}
 	.wordWrap {
 		font-size: 18px;
 		-ms-word-break: break-all;
