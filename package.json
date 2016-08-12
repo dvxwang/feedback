@@ -4,6 +4,7 @@
   "description": "Realtime feedback for instructors",
   "main": "start.js",
   "scripts": {
+    "prestart": "gulp"
     "start": "nodemon --watch server -e js,html server/start.js"
   },
   "author": "David Wang",
