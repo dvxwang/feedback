@@ -33,7 +33,7 @@
           </td>
         </tr>
         <tr ng-show='question.showResponse'>
-          <td colspan="2"><textarea ng-model='question.answer' class='form-control' placeholder="Answer..." ng-disabled="!admin"></textarea></td>
+          <td colspan="5"><textarea ng-model='question.answer' class='form-control' placeholder="Answer..." ng-disabled="!admin"></textarea></td>
           <td colspan="3"><button class="btn btn-info" ng-click="saveResponse(question)" ng-show="admin">Save</button></td>
         </tr>
     </table>
