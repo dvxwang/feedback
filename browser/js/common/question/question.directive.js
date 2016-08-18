@@ -40,7 +40,9 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             
             function emitMove(question, n) { socket.emit('move', question, n) };
             
-            function deleteQuestion(question) { return QuestionFactory.delete(question) };
+            function deleteQuestion(question) {
+                return QuestionFactory.delete(question) 
+            };
 
             function saveResponse(question) {
                 question.showResponse = false;
@@ -71,28 +73,36 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             function rerender() { scope.$evalAsync() };
             
             function renderMoveQuestion(question, n) {
-                var index = findIndex(question);
-                if (index+n > -1 && index+n < scope.questions.length) {
-                    scope.questions.splice(index, 1);
-                    scope.questions.splice(index+n, 0, question);
+                if (question.lectureId === scope.lecture.id) {
+                    var index = findIndex(question);
+                    if (index+n > -1 && index+n < scope.questions.length) {
+                        scope.questions.splice(index, 1);
+                        scope.questions.splice(index+n, 0, question);
+                    }
                 }
                 rerender();
             };
 
             function renderVote(question) {
-                var index = findIndex(question);
-                scope.questions[index].upvotes = question.upvotes;
+                if (question.lectureId === scope.lecture.id) {
+                    var index = findIndex(question);
+                    scope.questions[index].upvotes = question.upvotes;
+                }
                 rerender();
             }
 
             function renderDeleteQuestion(question) {
-                var index = findIndex(question);
-                scope.questions.splice(index, 1);
+                if (question.lectureId === scope.lecture.id) {
+                    scope.questions.splice(index, 1);
+                    var index = findIndex(question);
+                }
                 rerender();
             }
 
             function renderAddQuestion(question) {
-                scope.questions.unshift(question);
+                if (question.lectureId === scope.lecture.id) {
+                    scope.questions.unshift(question);
+                }
                 if (scope.admin) {
                     var newNotification = new Notification("New Question", {body: question.text, tag: "question"});
                     setTimeout(newNotification.close.bind(newNotification), 2000);
@@ -101,8 +111,10 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
             }
 
             function renderQuestionAnswer(question) {
-                var index = findIndex(question);
-                scope.questions[index].answer = question.answer;
+                if (question.lectureId === scope.lecture.id) {
+                    var index = findIndex(question);
+                    scope.questions[index].answer = question.answer;
+                }
                 rerender();
             }
 
