@@ -79,43 +79,43 @@ app.directive('question', function($state, QuestionFactory, LectureFactory) {
                         scope.questions.splice(index, 1);
                         scope.questions.splice(index+n, 0, question);
                     }
+                    rerender();
                 }
-                rerender();
             };
 
             function renderVote(question) {
                 if (question.lectureId === scope.lecture.id) {
                     var index = findIndex(question);
                     scope.questions[index].upvotes = question.upvotes;
+                    rerender();
                 }
-                rerender();
             }
 
             function renderDeleteQuestion(question) {
                 if (question.lectureId === scope.lecture.id) {
                     scope.questions.splice(index, 1);
                     var index = findIndex(question);
+                    rerender();
                 }
-                rerender();
             }
 
             function renderAddQuestion(question) {
                 if (question.lectureId === scope.lecture.id) {
                     scope.questions.unshift(question);
+                    if (scope.admin) {
+                        var newNotification = new Notification("New Question", {body: question.text, tag: "question"});
+                        setTimeout(newNotification.close.bind(newNotification), 2000);
+                    }
+                    rerender();
                 }
-                if (scope.admin) {
-                    var newNotification = new Notification("New Question", {body: question.text, tag: "question"});
-                    setTimeout(newNotification.close.bind(newNotification), 2000);
-                }
-                rerender();
             }
 
             function renderQuestionAnswer(question) {
                 if (question.lectureId === scope.lecture.id) {
                     var index = findIndex(question);
                     scope.questions[index].answer = question.answer;
+                    rerender();
                 }
-                rerender();
             }
 
         }
