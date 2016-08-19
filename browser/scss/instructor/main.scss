@@ -18,6 +18,8 @@
         margin-right:auto;
         border-radius: 1px;
         margin-bottom: 1%;
+        height: 40%;
+        overflow: hidden;
     }
     .googleButton {
         width: 72px;
@@ -48,6 +50,7 @@
         height: 13%;
         background-color: #00a0c3;
         width: 100%;
+        overflow: hidden;
 
         img {
             padding-top: 2%;
@@ -58,14 +61,16 @@
         }
 
         .middleBox {
-            padding-top: 0.5%;
             width: 72%;
             float: left;
-
+            height: 100%;
+            overflow: hidden;
         }
 
         .classHeaderText {
             font-size: 42px;
+            height: 60%;
+            overflow: hidden;
         }
         .backButtonSpace {
             width: 7%;
@@ -315,7 +320,7 @@
         }
     } 
     .btn-info{
-        margin: 3% 0 3% 0;
+        margin: 2% 0;
         float: right;
     }
     .table, tbody {
