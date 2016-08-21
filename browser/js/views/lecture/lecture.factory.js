@@ -36,7 +36,7 @@ app.factory('LectureFactory', function ($http) {
 	}
 
 	function getInstructorLectures() {
-		return $http.get('api/lecture/instructor')
+		return $http.get('api/lecture')
 		.then(function(lectures) {
 			cachedList.active = lectures.data.filter((lecture) => lecture.endTime === null);
 			cachedList.past = lectures.data.filter((lecture) => lecture.endTime !== null);
