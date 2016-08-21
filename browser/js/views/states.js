@@ -53,13 +53,14 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.config(function ($stateProvider) {
-    $stateProvider.state('signup', {
-        url: '/signup',
-        templateUrl: 'js/views/signup/signup.html',
-        controller: 'SignupCtrl'
-    });
-});
+//Uncomment to enable user signup
+// app.config(function ($stateProvider) {
+//     $stateProvider.state('signup', {
+//         url: '/signup',
+//         templateUrl: 'js/views/signup/signup.html',
+//         controller: 'SignupCtrl'
+//     });
+// });
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('/', '/login');
