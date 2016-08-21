@@ -24,13 +24,14 @@ router.get('/:userId', function (req, res, next) {
   res.json(req.user);
 })
 
-router.post('/', function (req, res, next) {
-  User.create(req.body)
-  .then((newUser) => {
-    req.user = newUser;
-    res.json(req.user);
-  }).catch(next)
-})
+//Uncomment to allow user creation
+// router.post('/', function (req, res, next) {
+//   User.create(req.body)
+//   .then((newUser) => {
+//     req.user = newUser;
+//     res.json(req.user);
+//   }).catch(next)
+// })
 
 router.put('/:userId', function (req, res, next) {
   req.user.update(req.body)
