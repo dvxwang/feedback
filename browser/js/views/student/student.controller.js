@@ -3,14 +3,18 @@ app.controller('StudentCtrl', function($scope, LectureFactory, $uibModal, curLec
   $scope.curLecture = curLecture;
   
   socket.on('startLecture', function(lecture) {
-    $scope.curLecture = lecture;
-    $scope.$evalAsync();
+    if ($scope.curLecture.id === lecture.id) {
+      $scope.curLecture = lecture;
+      $scope.$evalAsync();
+    }
   })
 
   socket.on('endLecture', function(lecture) {
-    showSurveyModal();
-    $scope.curLecture = lecture;
-    socket.disconnect();
+    if ($scope.curLecture.id === lecture.id) {
+      showSurveyModal();
+      $scope.curLecture = lecture;
+      socket.disconnect();
+    }
   })
 
   function showSurveyModal() {

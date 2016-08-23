@@ -6,6 +6,7 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
 
     //Activates page once lecture starts
     function initLecture(updatedLecture) {
+        console.log("init lecture ran");
         $scope.curLecture = updatedLecture;
         if ($scope.curLecture.startTime) {
             instructorChart();
@@ -142,13 +143,21 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
     }
 
     //Listens for start/end/chart events
-    socket.on('startLecture', initLecture);
+    socket.on('startLecture', function(lecture){
+        if ($scope.curLecture.id === lecture.id) {
+            initLecture(lecture);
+        }
+    });
     socket.on('socketCount', function(socketCount){
         $scope.socketCount = socketCount;
         $scope.$evalAsync();
     });
     socket.emit('socketQuery');
-    socket.on('endLecture', function(lecture) {$state.go('lecture'); });
+    socket.on('endLecture', function(lecture) {
+        if ($scope.curLecture.id === lecture.id) {
+            $state.go('lecture'); 
+        }
+    });
 
     initLecture(curLecture);
 });
