@@ -6,7 +6,6 @@ app.controller('InstructorCtrl', function ($scope, $log, $state, LectureFactory,
 
     //Activates page once lecture starts
     function initLecture(updatedLecture) {
-        console.log("init lecture ran");
         $scope.curLecture = updatedLecture;
         if ($scope.curLecture.startTime) {
             instructorChart();
