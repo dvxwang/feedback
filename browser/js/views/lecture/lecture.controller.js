@@ -47,12 +47,18 @@ function CreateLeactureInstance($scope, $uibModalInstance, $uibModal, LectureFac
 
   $scope.submitLecture = function() {
 
-    LectureFactory.create($scope.lectureName).then(function(lecture) {
-      $scope.createdLecture = lecture;
-    })
-    .then(function(){
-        $uibModalInstance.close();
-    })
+    if ($scope.lectureEmail) {
+      LectureFactory.create({
+        name: $scope.lectureName,
+        lecturer: $scope.lectureEmail
+      })
+      .then(function(lecture) {
+        $scope.createdLecture = lecture;
+      })
+      .then(function(){
+          $uibModalInstance.close();
+      })
+    }
   };
 
   $scope.cancel = function () {

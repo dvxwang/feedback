@@ -10,8 +10,8 @@ app.factory('LectureFactory', function ($http) {
 	obj.deleteLecture = deleteLecture;
 
 	// function declarations
-	function create(lectureName) {
-		return $http.post('api/lecture', { name: lectureName })
+	function create(lecture) {
+		return $http.post('api/lecture', lecture)
 		.then(function(lecture) {
 			cachedList.active.push(lecture.data);
 			return lecture.data;

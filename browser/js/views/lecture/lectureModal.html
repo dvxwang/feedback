@@ -3,7 +3,17 @@
     <h1>Create Lecture</h1>
   </div>
   <div class="modal-body">
-    <input class="mainQuestion form-control" type="text" ng-model='lectureName' ng-keyup="$event.keyCode == 13 ? submitLecture() : null" placeholder='Lecture Title'>
+    <input class="mainQuestion form-control" type="text" ng-model='lectureName' placeholder='Lecture Title'>
+    <select id='lectureEmail' ng-model='lectureEmail'>
+      <option value="" selected>Please select an instructor</option>
+      <option value="gabriel@fullstackacademy.com">Gabe Lebec</option>
+      <option value="omri@fullstackacademy.com">Omri Bernstein</option>
+      <option value="joe@fullstackacademy.com">Joe Alves</option>
+      <option value="kate@fullstackacademy.com">Kate Humphrey</option>
+      <option value="ben.cohen@fullstackacademy.com">Ben Cohen</option>
+      <option value="emily@gracehopper.com">Emily Intersimone</option>
+      <option value="dvxwang@gmail.com">David Wang</option>
+    </select>
   </div>
   <div class="modal-footer">
       <button class="btn btn-success" ng-click='submitLecture()'>Submit</button>
