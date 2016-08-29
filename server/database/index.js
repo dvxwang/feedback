@@ -1,8 +1,8 @@
 'use strict';
 var path = require('path');
 var Sequelize = require('sequelize');
-// var db = new Sequelize('postgres://jtuxjinnpujvvm:JOwMtgEcyIW10wcmbk_MH5rCv-@ec2-54-243-236-70.compute-1.amazonaws.com:5432/d49m83jk4opgof');
-var db = new Sequelize('postgres://localhost:5432/feedback');
+var db = new Sequelize('postgres://jtuxjinnpujvvm:JOwMtgEcyIW10wcmbk_MH5rCv-@ec2-54-243-236-70.compute-1.amazonaws.com:5432/d49m83jk4opgof');
+// var db = new Sequelize('postgres://localhost:5432/feedback');
 
 require('./models/lecture')(db);
 require('./models/question')(db);
