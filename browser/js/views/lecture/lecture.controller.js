@@ -29,30 +29,32 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
   $scope.createLectureModal = function() {
 
       $uibModal.open({
-      backdrop: true,
-      backdropClick: true,
-      transclude: true,
-      dialogFade: false,
-      keyboard: true,
-      templateUrl : 'js/views/lecture/lectureModal.html',
-      controller : CreateLeactureInstance,
-      resolve: {}
+        backdrop: true,
+        backdropClick: true,
+        transclude: true,
+        dialogFade: false,
+        keyboard: true,
+        templateUrl : 'js/views/lecture/lectureModal.html',
+        controller : CreateLectureInstance,
+        resolve: {}
       })
 
     }
 
 });
 
-function CreateLeactureInstance($scope, $uibModalInstance, $uibModal, LectureFactory) {
+function CreateLectureInstance($scope, $uibModalInstance, $uibModal, LectureFactory) {
+
+  $scope.instructorEmails = LectureFactory.instructorEmails;
 
   $scope.submitLecture = function() {
-
-    LectureFactory.create($scope.lectureName).then(function(lecture) {
-      $scope.createdLecture = lecture;
-    })
-    .then(function(){
+    if ($scope.lecture.lecturer) {
+      LectureFactory.create($scope.lecture)
+      .then(function(lecture) {
+        $scope.createdLecture = lecture;
         $uibModalInstance.close();
-    })
+      });
+    }
   };
 
   $scope.cancel = function () {

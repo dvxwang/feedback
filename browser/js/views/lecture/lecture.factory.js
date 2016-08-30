@@ -8,10 +8,19 @@ app.factory('LectureFactory', function ($http) {
 	obj.setEnd = setEnd;
 	obj.getById = getById;
 	obj.deleteLecture = deleteLecture;
+	obj.instructorEmails = {
+		'Gabe Lebec': "gabriel@fullstackacademy.com",
+		'Omri Bernstein': "omri@fullstackacademy.com",
+		'Joe Alves': "joe@fullstackacademy.com",
+		'Kate Humphrey': "kate@fullstackacademy.com",
+		'Ben Cohen': "ben.cohen@fullstackacademy.com",
+		'Emily Intersimone': "emily@gracehopper.com",
+		'David Wang': "dvxwang@gmail.com"
+	};
 
 	// function declarations
-	function create(lectureName) {
-		return $http.post('api/lecture', { name: lectureName })
+	function create(lecture) {
+		return $http.post('api/lecture', lecture)
 		.then(function(lecture) {
 			cachedList.active.push(lecture.data);
 			return lecture.data;
