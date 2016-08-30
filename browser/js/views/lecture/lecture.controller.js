@@ -28,7 +28,6 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
 
   $scope.createLectureModal = function() {
 
-      console.log("emails: ", LectureFactory.instructorEmails);
       $uibModal.open({
         backdrop: true,
         backdropClick: true,
@@ -37,11 +36,7 @@ app.controller('LectureController', function ($scope, $state, LectureFactory, $u
         keyboard: true,
         templateUrl : 'js/views/lecture/lectureModal.html',
         controller : CreateLectureInstance,
-        resolve: {
-          instructorEmails: function(){
-            return LectureFactory.instructorEmails;
-          }
-        }
+        resolve: {}
       })
 
     }
@@ -53,7 +48,6 @@ function CreateLectureInstance($scope, $uibModalInstance, $uibModal, LectureFact
   $scope.instructorEmails = LectureFactory.instructorEmails;
 
   $scope.submitLecture = function() {
-    console.log("check: ", LectureFactory.instructorEmails);
     if ($scope.lecture.lecturer) {
       LectureFactory.create($scope.lecture)
       .then(function(lecture) {
