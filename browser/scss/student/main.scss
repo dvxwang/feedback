@@ -66,10 +66,13 @@
             padding-top: 2%;
             width: 72%;
             float: left;
+            height: 100%;
         }
 
         .classHeaderText {
             font-size: 42px;
+            height: 100%;
+            overflow: auto;
         }
         .backButtonSpace {
             width: 7%;
