@@ -15,6 +15,9 @@ app.factory('LectureFactory', function ($http) {
 		'Kate Humphrey': "kate@fullstackacademy.com",
 		'Ben Cohen': "ben.cohen@fullstackacademy.com",
 		'Emily Intersimone': "emily@gracehopper.com",
+		'Dan Sohval': "daniel.sohval@fullstackacademy.com",
+		'Ashi Mysore': "ashi@gracehopper.com",
+		'Geoff Bass': "geoff.bass@fullstackacademy.com",g
 		'David Wang': "dvxwang@gmail.com"
 	};
 
